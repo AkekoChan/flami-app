@@ -59,7 +59,7 @@ cd client
 npm run dev
 ```
 
-L'application sera accessible à l'adresse http://localhost:3000 dans votre navigateur.
+L'application sera accessible à l'adresse http://localhost:5173 dans votre navigateur.
 
 ## Comment Installer MongoDB
 
