@@ -29,7 +29,7 @@ cd server
 npm install
 ```
 
-Créez un fichier `.env` dans le dossier `backend` et ajoutez les variables d'environnement suivantes :
+Créez un fichier `.env` dans le dossier `server` et ajoutez les variables d'environnement suivantes :
 
 ```env
 PORT=3001
