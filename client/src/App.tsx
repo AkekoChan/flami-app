@@ -18,6 +18,8 @@ const App = () => {
 
   return (
     <div>
+      <h1>User page</h1>
+
       <ul>
         {users.length === 0
           ? "No users found"
