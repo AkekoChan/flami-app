@@ -29,7 +29,7 @@ cd server
 npm install
 ```
 
-Créez un fichier `.env` dans le dossier `backend` et ajoutez les variables d'environnement suivantes :
+Créez un fichier `.env` dans le dossier `server` et ajoutez les variables d'environnement suivantes :
 
 ```env
 PORT=3001
@@ -59,7 +59,7 @@ cd client
 npm run dev
 ```
 
-L'application sera accessible à l'adresse http://localhost:3000 dans votre navigateur.
+L'application sera accessible à l'adresse http://localhost:5173 dans votre navigateur.
 
 ## Comment Installer MongoDB
 
