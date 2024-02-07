@@ -19,7 +19,7 @@ Assurez-vous que vous avez MongoDB installé localement ou configurez une instan
 
 ```bash
 git clone https://github.com/votre-utilisateur/flami-app.git
-cd flami-app.git
+cd flami-app
 ```
 
 ### 3. Configuration du Backend
