@@ -1,6 +1,6 @@
-# Kind Kindle - Jeu sur la Flamme des JO 2024
+# Flami - Jeu sur la Flamme des JO 2024
 
-Bienvenue dans Kind Kindle, un jeu en ligne éducatif et ludique basé sur les Jeux Olympiques 2024.
+Bienvenue dans Flami, un jeu en ligne éducatif et ludique basé sur la flamme des Jeux Olympiques 2024.
 
 ## Technologies Utilisées
 
@@ -18,8 +18,8 @@ Assurez-vous que vous avez MongoDB installé localement ou configurez une instan
 ### 2. Cloner le Repository
 
 ```bash
-git clone https://github.com/votre-utilisateur/kind-kindle-app.git
-cd kind-kindle-app.git
+git clone https://github.com/votre-utilisateur/flami-app.git
+cd flami-app.git
 ```
 
 ### 3. Configuration du Backend
