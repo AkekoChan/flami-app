@@ -1,11 +1,11 @@
 import Router from "express";
 import user from "../controllers/user.controller.js";
+import flami from "../controllers/flami.controller.js";
 
 const router = Router();
 
-router.get("/profile", user.getProfile);
+router.get("/flami", flami.getFlami);
 router.get("/badges", user.getBadges);
-router.get("/account", user.getAccount);
-router.put("/account", user.updateAccount);
+router.get("/profile", user.getProfile);
 
 export default router;
