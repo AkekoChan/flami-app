@@ -33,7 +33,7 @@ Créez un fichier `.env` dans le dossier `server` et ajoutez les variables d'env
 
 ```env
 PORT=3001
-MONGODB_URI=your_mongodb_uri_here
+MONGO_URI=your_mongodb_uri_here
 ```
 
 ### 4. Configuration du Frontend
@@ -63,4 +63,4 @@ L'application sera accessible à l'adresse http://localhost:5173 dans votre navi
 
 ## Comment Installer MongoDB
 
-Suivez les instructions sur le site officiel de MongoDB pour installer la base de données : [MongoDB Installation Guide](https://www.mongodb.com/docs/manual/installation/)
+Suivez les instructions sur cette vidéo pour installer MongoDB : [MongoDB Installation Guide](https://www.youtube.com/watch?v=gB6WLkSrtJk)
