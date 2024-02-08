@@ -19,7 +19,7 @@ app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/my/flami", flamiRoutes);
 app.use("/api/my", userRoutes);
-app.use("/api/:name", usersRoutes);
+app.use("/api/user/:name", usersRoutes);
 app.use("/api", miscRoutes);
 
 app.listen(process.env.PORT, () => {
