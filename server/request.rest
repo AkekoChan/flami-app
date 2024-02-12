@@ -1,12 +1,20 @@
-GET http://localhost:3001/api/users
+GET http://localhost:3001/api/my/profile
 
 ###
 
-POST http://localhost:3001/api/users/add
+POST http://localhost:3001/api/auth/signin
 Content-Type: application/json
 
 {
   "name": "Maxence",
   "email": "maxence@gmail.com",
-  "password": "5D*t4:6am"
+  "password": "mdptest",
+  "age": 16,
+  "flami_id": 0,
+  "badges": [],
+  "metadata": {
+    "favorite_sport": "Basketball",
+    "origin": "Internet",
+    "intent": "Other"
+  }
 }
