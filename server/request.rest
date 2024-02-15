@@ -1,8 +1,25 @@
-GET http://localhost:3001/api/my/profile
+PATCH http://localhost:3001/api/my/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MjEzMjkyOTg1LCJpYXQiOjE3MDgwMDM2OTJ9.4daC7ULgknhNQWW_PBKvcYQoE0gBcHBMyMF0Mm2bdf4
+Content-Type: application/json
+
+{
+  "name": "Maxence",
+  "password": "mdptest"
+}
 
 ###
 
-POST http://localhost:3001/api/auth/signin
+GET http://localhost:3001/api/my/badges
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MjEzMjkyOTg1LCJpYXQiOjE3MDgwMDM2OTJ9.4daC7ULgknhNQWW_PBKvcYQoE0gBcHBMyMF0Mm2bdf4
+
+###
+
+GET http://localhost:3001/api/my/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MjEzMjkyOTg1LCJpYXQiOjE3MDgwMDM2OTJ9.4daC7ULgknhNQWW_PBKvcYQoE0gBcHBMyMF0Mm2bdf4
+
+###
+
+POST http://localhost:3001/api/auth/signup
 Content-Type: application/json
 
 {
@@ -10,11 +27,21 @@ Content-Type: application/json
   "email": "maxence@gmail.com",
   "password": "mdptest",
   "age": 16,
-  "flami_id": 0,
+  "flami": 0,
   "badges": [],
   "metadata": {
     "favorite_sport": "Basketball",
     "origin": "Internet",
     "intent": "Other"
   }
+}
+
+###
+
+POST http://localhost:3001/api/auth/signin
+Content-Type: application/json
+
+{
+  "email": "maxence@gmail.com",
+  "password": "mdptest"
 }

@@ -24,9 +24,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 13
   },
-  flami_id: {
+  flami: {
     type: Number,
-    required: true
+    required: true,
+    ref: 'Flami'
   },
   badges: {
     type: Array,

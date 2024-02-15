@@ -14,4 +14,3 @@ const flamiController = {
 };
 
 export default flamiController;
-  
