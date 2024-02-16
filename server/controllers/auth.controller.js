@@ -9,7 +9,7 @@ const authController = {
     let new_user = new userModel(userdata);
     try {
       await new_user.save();
-      let token = auth.encode({ email: new_user.email, password: new_user.password });
+      let token = auth.encode({ email: new_user.email });
       return res.status(201).json({
         message: `Inscription finalisé. Bienvenue ${new_user.name} !`,
         data: { jwt: token }
