@@ -1,5 +1,5 @@
 PATCH http://localhost:3001/api/my/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MzA0NTA2NzA0LCJpYXQiOjE3MDgwOTQ5MDZ9.wKKKoYSn7cziNwa8ixJtfyoAj-2XbfXSJe1Z2JBxQKg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
 Content-Type: application/json
 
 {
@@ -10,13 +10,12 @@ Content-Type: application/json
 ###
 
 GET http://localhost:3001/api/my/badges
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MzA0NTA2NzA0LCJpYXQiOjE3MDgwOTQ5MDZ9.wKKKoYSn7cziNwa8ixJtfyoAj-2XbfXSJe1Z2JBxQKg
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
 
 ###
 
 GET http://localhost:3001/api/my/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2VAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmEkMTEkZUNpYXUvRmFSZnZlOVBiUDk4SW4uT2JtcTlOVVZYMzVWNHpMbTVkTlMxN0NMN1BmLkloTUsiLCJleHBpcmF0aW9uIjoxNzA5MzA0NTA2NzA0LCJpYXQiOjE3MDgwOTQ5MDZ9.wKKKoYSn7cziNwa8ixJtfyoAj-2XbfXSJe1Z2JBxQKg
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
 ###
 
 POST http://localhost:3001/api/auth/signup
@@ -34,7 +33,7 @@ Content-Type: application/json
     "origin": "Internet",
     "intent": "Other"
   },
-  "otp": "613381"
+  "otp": "917636"
 }
 
 ###

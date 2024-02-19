@@ -1,28 +1,33 @@
 import bcrypt from "bcryptjs";
 import auth from "../helpers/authMiddleware.js";
+import OTPModel from "../models/otp.model.js";
 import userModel from "../models/user.model.js";
 
 const authController = {
   signup: async (req, res) => {
     let userdata = req.body;
+
+    const otpResponse = await OTPModel.find({ email: userdata.email })
+      .sort({ createdAt: -1 })
+      .limit(1);
+
+    if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
+      return res.status(400).json({
+        success: false,
+        message: "Le code n'est pas correct.",
+      });
+    }
+
     userdata.password = bcrypt.hashSync(
       userdata.password,
       bcrypt.genSaltSync(11)
     );
+
     let new_user = new userModel(userdata);
+
     try {
       await new_user.save();
       let token = auth.encode({ email: new_user.email });
-
-      const response = await OTPModel.find({ email: new_user.email })
-        .sort({ createdAt: -1 })
-        .limit(1);
-      if (response.length === 0 || otp !== response[0].otp) {
-        return res.status(400).json({
-          success: false,
-          message: "The OTP is not valid",
-        });
-      }
 
       return res.status(201).json({
         message: `Inscription finalisé. Bienvenue ${new_user.name} !`,
