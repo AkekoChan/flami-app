@@ -64,7 +64,7 @@ const authController = {
 
       const isValid = bcrypt.compareSync(userdata.password, user.password);
       if (isValid) {
-        let token = auth.encode({ email: user.email, password: user.password });
+        let token = auth.encode({ email: user.email });
         return res
           .status(200)
           .json({ message: "Authentification réussie.", data: { jwt: token } });
