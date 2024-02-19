@@ -1,14 +1,14 @@
 import cors from "cors";
-import express from "express";
 import dotenv from "dotenv";
+import express from "express";
 
 import "./config/db.js";
+import auth from "./helpers/authMiddleware.js";
 import authRoutes from "./routes/auth.routes.js";
-import userRoutes from "./routes/user.routes.js";
-import usersRoutes from "./routes/users.routes.js";
 import flamiRoutes from "./routes/flami.routes.js";
 import miscRoutes from "./routes/misc.routes.js";
-import auth from "./helpers/authMiddleware.js";
+import userRoutes from "./routes/user.routes.js";
+import usersRoutes from "./routes/users.routes.js";
 
 dotenv.config();
 
