@@ -7,7 +7,6 @@ export const mailSender = async (email, subject, message) => {
   try {
     let transporter = nodemailer.createTransport({
       host: process.env.MAIL_HOST,
-      // secure: true,
       auth: {
         user: process.env.MAIL_USER,
         pass: process.env.MAIL_PASS,
@@ -19,7 +18,6 @@ export const mailSender = async (email, subject, message) => {
       subject: subject,
       html: message,
     });
-    console.log("Email info: ", info);
     return info;
   } catch (error) {
     console.log(error.message);

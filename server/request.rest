@@ -33,7 +33,7 @@ Content-Type: application/json
     "origin": "Internet",
     "intent": "Other"
   },
-  "otp": "917636"
+  "otp": "215152"
 }
 
 ###
@@ -43,7 +43,7 @@ Content-Type: application/json
 
 {
   "email": "artapp.theo@gmail.com",
-  "password": "mdptest"
+  "password": "1234"
 }
 
 ###
@@ -53,4 +53,22 @@ Content-Type: application/json
 
 {
   "email": "artapp.theo@gmail.com"
+}
+
+###
+
+POST http://localhost:3001/api/auth/forget-password
+Content-Type: application/json
+
+{
+  "email": "artapp.theo@gmail.com"
+}
+
+####
+
+POST http://localhost:3001/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQzYzkyZjEzMTJhNDY3YzMzMTcyMTYiLCJpYXQiOjE3MDgzODQ2OTgsImV4cCI6MTcwODM4NTI5OH0.W-92lXMFsRU3LI4hWR8snENw2E8jaDgyzFl-2H9VXfY
+Content-Type: application/json
+
+{
+  "password": "1234"
 }

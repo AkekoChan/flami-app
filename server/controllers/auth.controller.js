@@ -13,7 +13,6 @@ const authController = {
 
     if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
       return res.status(400).json({
-        success: false,
         message: "Le code n'est pas correct.",
       });
     }

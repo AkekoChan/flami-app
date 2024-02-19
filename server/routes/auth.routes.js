@@ -1,5 +1,6 @@
 import Router from "express";
 import authController from "../controllers/auth.controller.js";
+import forgetPasswordController from "../controllers/forgetPassword.controller.js";
 import otpController from "../controllers/otp.controller.js";
 
 const router = Router();
@@ -7,5 +8,7 @@ const router = Router();
 router.post("/signin", authController.signin);
 router.post("/signup", authController.signup);
 router.post("/send-otp", otpController.setOTP);
+router.post("/forget-password", forgetPasswordController.forgetPassword);
+router.post("/reset-password/:token", forgetPasswordController.resetPassword);
 
 export default router;
