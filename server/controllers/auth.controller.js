@@ -13,7 +13,7 @@ const authController = {
 
     if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
       return res.status(400).json({
-        message: "Le code n'est pas correct.",
+        message: "Le code de validation n'est pas correct.",
       });
     }
 
@@ -55,6 +55,17 @@ const authController = {
   },
   signin: async (req, res) => {
     let userdata = req.body;
+
+    const otpResponse = await OTPModel.find({ email: userdata.email })
+      .sort({ createdAt: -1 })
+      .limit(1);
+
+    if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
+      return res.status(400).json({
+        message: "Le code de validation n'est pas correct.",
+      });
+    }
+
     try {
       let user = await userModel.findByEmail(userdata.email);
 

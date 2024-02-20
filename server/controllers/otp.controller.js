@@ -1,19 +1,18 @@
 import otpGenerator from "otp-generator";
 import OTP from "../models/otp.model.js";
-import User from "../models/user.model.js";
 
 const optController = {
   setOTP: async (req, res) => {
     try {
       const { email } = req.body;
 
-      const checkUserPresent = await User.findOne({ email });
+      // const checkUserPresent = await User.findOne({ email });
 
-      if (checkUserPresent) {
-        return res.status(401).json({
-          message: `L'utilisateur existe déja.`,
-        });
-      }
+      // if (checkUserPresent) {
+      //   return res.status(401).json({
+      //     message: `L'utilisateur existe déja.`,
+      //   });
+      // }
 
       const otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,

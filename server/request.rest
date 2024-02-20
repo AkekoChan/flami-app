@@ -43,7 +43,8 @@ Content-Type: application/json
 
 {
   "email": "artapp.theo@gmail.com",
-  "password": "1234"
+  "password": "1234",
+  "otp": "925034"
 }
 
 ###
