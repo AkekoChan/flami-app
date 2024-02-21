@@ -28,10 +28,12 @@ const authController = {
       await new_user.save();
       let token = auth.encode({ email: new_user.email });
 
-      return res.status(201).json({
-        message: `Inscription finalisé. Bienvenue ${new_user.name} !`,
-        data: { jwt: token },
-      });
+      return res
+        .status(201)
+        .cookie("jwt", token, { httpOnly: false })
+        .json({
+          message: `Inscription finalisé. Bienvenue ${new_user.name} !`,
+        });
     } catch (error) {
       if (error.keyValue && error.keyValue.email) {
         return res.status(409).json({
@@ -60,6 +62,8 @@ const authController = {
       .sort({ createdAt: -1 })
       .limit(1);
 
+    console.log(otpResponse.length);
+
     if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
       return res.status(400).json({
         message: "Le code de validation n'est pas correct.",
@@ -82,7 +86,8 @@ const authController = {
         let token = auth.encode({ email: user.email });
         return res
           .status(200)
-          .json({ message: "Authentification réussie.", data: { jwt: token } });
+          .cookie("jwt", token, { httpOnly: false })
+          .json({ message: "Authentification réussie." });
       } else {
         return res
           .status(401)
