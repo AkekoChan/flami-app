@@ -1,4 +1,7 @@
-import { AuthContext } from "./authContext";
+import { useCallback, useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
+// import authService from "../../services/auth";
+import { AuthContext, AuthContextType } from "./authContext";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -7,14 +10,27 @@ interface AuthContextProviderInterface {
 export const AuthContextProvider = ({
   children,
 }: AuthContextProviderInterface) => {
-  const contextValues = {};
+  const [cookies, removeCookie] = useCookies(["jwt"]);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 
-  const login = async () => {};
+  const signin = useCallback(() => {});
 
-  const logout = async () => {};
+  const signout = async () => {};
+
+  const signup = async () => {};
+
+  const verifyTokenValidity = useCallback(() => {});
+
+  useEffect(() => {});
+
+  const authContextValue: AuthContextType = {
+    signin,
+    signout,
+    signup,
+  };
 
   return (
-    <AuthContext.Provider value={contextValues}>
+    <AuthContext.Provider value={authContextValue}>
       {children}
     </AuthContext.Provider>
   );

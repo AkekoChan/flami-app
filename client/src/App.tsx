@@ -1,8 +1,14 @@
+import { Outlet } from "react-router";
+import Navigation from "./components/navigation/Navigation";
+
 const App = () => {
   return (
-    <div>
-      <h1>Flami</h1>
-    </div>
+    <main className="main-layout">
+      <div className="outlet-section">
+        <Outlet></Outlet>
+      </div>
+      <Navigation />
+    </main>
   );
 };
 

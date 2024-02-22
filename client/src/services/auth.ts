@@ -1,4 +1,4 @@
-import APIHandler from "../handler";
+import APIHandler from "../utils/api/api-handler";
 
 const authService = {
   sendOTP: async (email: string) => {
