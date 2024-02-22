@@ -5,7 +5,6 @@ const router = Router();
 
 router.get("/profile", userController.getProfile);
 router.get("/badges", userController.getBadges);
-// router.get("/account", userController.getAccount);
 router.patch("/account", userController.updateAccount);
 
 export default router;

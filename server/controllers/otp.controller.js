@@ -6,14 +6,6 @@ const optController = {
     try {
       const { email } = req.body;
 
-      // const checkUserPresent = await User.findOne({ email });
-
-      // if (checkUserPresent) {
-      //   return res.status(401).json({
-      //     message: `L'utilisateur existe déja.`,
-      //   });
-      // }
-
       const otp = otpGenerator.generate(6, {
         upperCaseAlphabets: false,
         lowerCaseAlphabets: false,
@@ -31,9 +23,9 @@ const optController = {
       await OTP.create(otpPayload);
 
       res.status(200).json({
-        message: `OTP Sent Successfully`,
-        otp,
+        message: `OTP envoyé.`,
       });
+
     } catch (error) {
       console.log(error.message);
       return res.status(500).json({ error: error.message });

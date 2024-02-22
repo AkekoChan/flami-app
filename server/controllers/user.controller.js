@@ -29,7 +29,7 @@ const userController = {
 
         await userModel.updateOne({_id: userdata._id}, patchdata);
 
-        let token = auth.encode({ email: patchdata.email ?? userdata.email, password: patchdata.password ?? userdata.password });
+        let token = auth.encode({ email: patchdata.email ?? userdata.email });
         return res.status(200).json({ message: "Informations de compte misent à jour.", data: {
             jwt: token
         }});

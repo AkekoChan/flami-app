@@ -26,12 +26,10 @@ const userSchema = new mongoose.Schema({
   },
   flami: {
     type: Number,
-    required: true,
     ref: 'Flami'
   },
   badges: {
     type: Array,
-    required: true
   },
   metadata: [{
     favorite_sport: {

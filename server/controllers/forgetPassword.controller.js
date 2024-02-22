@@ -1,7 +1,8 @@
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { mailSender } from "../helpers/mailSender.js";
+import { mailSender } from "../mail/mailSender.js";
 import userModel from "../models/user.model.js";
+import templateForgotPassword from "../mail/templateForgotPassword.mjs";
 
 const forgetPasswordController = {
   forgetPassword: async (req, res) => {
@@ -24,12 +25,8 @@ const forgetPasswordController = {
 
       const info = await mailSender(
         user[0].email,
-        "Reset Password",
-        `<h1>Reset Your Password</h1>
-        <p>Click on the following link to reset your password:</p>
-        <a href="http://localhost:5173/reset-password/${token}">http://localhost:5173/reset-password/${token}</a>
-        <p>The link will expire in 10 minutes.</p>
-        <p>If you didn't request a password reset, please ignore this email.</p>`
+        "Mot de passe oublié ? - Flami vient à votre aide ! 🔥",
+        templateForgotPassword(`${res.domain}/reset-password/${token}`)
       );
 
       if (!info) {

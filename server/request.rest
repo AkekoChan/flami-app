@@ -1,39 +1,38 @@
 PATCH http://localhost:3001/api/my/account
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2UuZ3ZyQGdtYWlsLmNvbSIsImlhdCI6MTcwODYzNzkzMSwiZXhwIjoxNzA5ODQ3NTMxfQ.vPoHeKkEF7Outp3-BgE3TrcDbEfPvkCfTsBFxGJ68oU
 Content-Type: application/json
 
 {
   "name": "Maxence",
-  "password": "mdptest"
+  "password": "0123"
 }
 
 ###
 
 GET http://localhost:3001/api/my/badges
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2UuZ3ZyQGdtYWlsLmNvbSIsImlhdCI6MTcwODYzNzkzMSwiZXhwIjoxNzA5ODQ3NTMxfQ.vPoHeKkEF7Outp3-BgE3TrcDbEfPvkCfTsBFxGJ68oU
 
 ###
 
 GET http://localhost:3001/api/my/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydGFwcC50aGVvQGdtYWlsLmNvbSIsImlhdCI6MTcwODM2Nzc1OCwiZXhwIjoxNzA5NTc3MzU4fQ.iN1ZMMADNGGy7HtUrR5ZE3GrU2nhD07LYnyU3AtxN_E
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1heGVuY2UuZ3ZyQGdtYWlsLmNvbSIsImlhdCI6MTcwODYzNzkzMSwiZXhwIjoxNzA5ODQ3NTMxfQ.vPoHeKkEF7Outp3-BgE3TrcDbEfPvkCfTsBFxGJ68oU
+
 ###
 
 POST http://localhost:3001/api/auth/signup
 Content-Type: application/json
 
 {
-  "name": "Théo",
-  "email": "artapp.theo@gmail.com",
-  "password": "mdptest",
-  "age": 16,
-  "flami": 0,
-  "badges": [],
+  "name": "Maxence",
+  "email": "maxence.gvr@gmail.com",
+  "password": "1234",
+  "age": 20,
   "metadata": {
     "favorite_sport": "Basketball",
     "origin": "Internet",
     "intent": "Other"
   },
-  "otp": "354993"
+  "otp": "570777"
 }
 
 ###
@@ -42,9 +41,9 @@ POST http://localhost:3001/api/auth/signin
 Content-Type: application/json
 
 {
-  "email": "artapp.theo@gmail.com",
-  "password": "1234",
-  "otp": "925034"
+  "email": "maxence.gvr@gmail.com",
+  "password": "0123",
+  "otp": "286014"
 }
 
 ###
@@ -53,7 +52,7 @@ POST http://localhost:3001/api/auth/send-otp
 Content-Type: application/json
 
 {
-  "email": "artapp.theo@gmail.com"
+  "email": "maxence.gvr@gmail.com"
 }
 
 ###
@@ -62,12 +61,12 @@ POST http://localhost:3001/api/auth/forget-password
 Content-Type: application/json
 
 {
-  "email": "artapp.theo@gmail.com"
+  "email": "maxence.gvr@gmail.com"
 }
 
 ####
 
-POST http://localhost:3001/api/auth/reset-password/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NWQzYzkyZjEzMTJhNDY3YzMzMTcyMTYiLCJpYXQiOjE3MDgzODQ2OTgsImV4cCI6MTcwODM4NTI5OH0.W-92lXMFsRU3LI4hWR8snENw2E8jaDgyzFl-2H9VXfY
+POST http://localhost:3001/api/auth/reset-password/
 Content-Type: application/json
 
 {
