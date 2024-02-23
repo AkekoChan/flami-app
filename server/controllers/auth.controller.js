@@ -58,6 +58,14 @@ const authController = {
   signin: async (req, res) => {
     let userdata = req.body;
 
+    const user = await userModel.findByEmail(req.body.email);
+
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "Ce compte n'existe pas.", error: 404 });
+    }
+
     const otpResponse = await OTPModel.find({ email: userdata.email })
       .sort({ createdAt: -1 })
       .limit(1);

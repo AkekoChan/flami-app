@@ -22,7 +22,7 @@ const sendVerificationEmail = async (email, otp) => {
   try {
     await mailSender(
       email,
-      "Code de confirmation pour Flami 🔥",
+      "Code de confirmation pour Flami",
       templateOTP(otp)
     );
   } catch (error) {

@@ -25,7 +25,7 @@ const forgetPasswordController = {
 
       const info = await mailSender(
         user[0].email,
-        "Mot de passe oublié ? - Flami vient à votre aide ! 🔥",
+        "Mot de passe oublié ? - Flami vient à votre aide !",
         templateForgotPassword(`${res.domain}/reset-password/${token}`)
       );
 
