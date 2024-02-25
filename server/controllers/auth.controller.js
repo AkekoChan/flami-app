@@ -1,21 +1,20 @@
 import bcrypt from "bcryptjs";
 import auth from "../helpers/authMiddleware.js";
-import OTPModel from "../models/otp.model.js";
 import userModel from "../models/user.model.js";
 
 const authController = {
   signup: async (req, res) => {
     let userdata = req.body;
 
-    const otpResponse = await OTPModel.find({ email: userdata.email })
-      .sort({ createdAt: -1 })
-      .limit(1);
+    // const otpResponse = await OTPModel.find({ email: userdata.email })
+    //   .sort({ createdAt: -1 })
+    //   .limit(1);
 
-    if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
-      return res.status(400).json({
-        message: "Le code de validation n'est pas correct.",
-      });
-    }
+    // if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
+    //   return res.status(400).json({
+    //     message: "Le code de validation n'est pas correct.",
+    //   });
+    // }
 
     userdata.password = bcrypt.hashSync(
       userdata.password,
@@ -66,17 +65,15 @@ const authController = {
         .json({ message: "Ce compte n'existe pas.", error: 404 });
     }
 
-    const otpResponse = await OTPModel.find({ email: userdata.email })
-      .sort({ createdAt: -1 })
-      .limit(1);
+    // const otpResponse = await OTPModel.find({ email: userdata.email })
+    //   .sort({ createdAt: -1 })
+    //   .limit(1);
 
-    console.log(otpResponse.length);
-
-    if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
-      return res.status(400).json({
-        message: "Le code de validation n'est pas correct.",
-      });
-    }
+    // if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
+    //   return res.status(400).json({
+    //     message: "Le code de validation n'est pas correct.",
+    //   });
+    // }
 
     try {
       let user = await userModel.findByEmail(userdata.email);

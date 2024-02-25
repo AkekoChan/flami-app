@@ -8,7 +8,7 @@ const router = Router();
 router.post("/signin", authController.signin);
 router.post("/signup", authController.signup);
 
-router.post("/send-otp", otpController.setOTP);
+router.post("/send-otp", otpController.sendOTP);
 router.post("/forget-password", forgetPasswordController.forgetPassword);
 router.post("/reset-password/:token", forgetPasswordController.resetPassword);
 
