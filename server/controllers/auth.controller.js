@@ -31,7 +31,7 @@ const authController = {
         .status(201)
         .cookie("jwt", token, { httpOnly: false })
         .json({
-          message: `Inscription finalisé. Bienvenue ${new_user.name} !`,
+          message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
         });
     } catch (error) {
       if (error.keyValue && error.keyValue.email) {

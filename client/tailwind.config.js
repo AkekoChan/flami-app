@@ -74,6 +74,15 @@ export default {
     fontFamily: {
       roboto: ["Roboto", "sans-serif"],
     },
+
+    boxShadow: {
+      primary: "0px 6px 0px #ffbd1b",
+      secondary: "0px 6px 0px #989898",
+      none: "none",
+    },
+    borderWidth: {
+      3: "3px",
+    },
   },
   plugins: [],
 };
