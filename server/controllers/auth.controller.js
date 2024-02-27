@@ -40,7 +40,7 @@ const authController = {
 
       return res
         .status(201)
-        .cookie("jwt", token, { httpOnly: false })
+        // .cookie("jwt", token, { httpOnly: false })
         .json({
           message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
         });
@@ -68,16 +68,6 @@ const authController = {
   signin: async (req, res) => {
     let userdata = req.body;
 
-    // const otpResponse = await OTPModel.find({ email: userdata.email })
-    //   .sort({ createdAt: -1 })
-    //   .limit(1);
-
-    // if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
-    //   return res.status(400).json({
-    //     message: "Le code de validation n'est pas correct.",
-    //   });
-    // }
-
     try {
       let user = await userModel.findByEmail(userdata.email);
 
@@ -94,7 +84,7 @@ const authController = {
         let token = auth.encode({ email: user.email });
         return res
           .status(200)
-          .cookie("jwt", token, { httpOnly: false })
+          // .cookie("jwt", token, { httpOnly: false })
           .json({ message: "Authentification réussie." });
       } else {
         return res
