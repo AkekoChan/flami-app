@@ -16,6 +16,17 @@ const authController = {
     //   });
     // }
 
+    if(!userdata.email || !String(userdata.email).toLowerCase().match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )) {
+      return res
+      .status(401)
+      .json({
+        message: `E-mail invalide.`,
+        error: 401
+      });
+    }
+
     userdata.password = bcrypt.hashSync(
       userdata.password,
       bcrypt.genSaltSync(11)
@@ -57,14 +68,6 @@ const authController = {
   signin: async (req, res) => {
     let userdata = req.body;
 
-    const user = await userModel.findByEmail(req.body.email);
-
-    if (!user) {
-      return res
-        .status(404)
-        .json({ message: "Ce compte n'existe pas.", error: 404 });
-    }
-
     // const otpResponse = await OTPModel.find({ email: userdata.email })
     //   .sort({ createdAt: -1 })
     //   .limit(1);
@@ -81,12 +84,12 @@ const authController = {
       if (!user[0]) {
         return res
           .status(404)
-          .json({ message: "Ce compte n'existe pas.", error: 404 });
+          .json({ message: "E-mail ou mot de passe incorrect.", error: 404 });
       }
 
       user = user[0];
-
       const isValid = bcrypt.compareSync(userdata.password, user.password);
+
       if (isValid) {
         let token = auth.encode({ email: user.email });
         return res
@@ -96,7 +99,7 @@ const authController = {
       } else {
         return res
           .status(401)
-          .json({ message: "Mot de passe incorrect.", error: 401 });
+          .json({ message: "E-mail ou mot de passe incorrect.", error: 401 });
       }
     } catch (error) {
       return res.status(404).json({ message: error.message, error: 404 });
