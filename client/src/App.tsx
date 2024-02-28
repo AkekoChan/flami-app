@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import AuthLayout from "./pages/AuthLayout";
 import RootLayout from "./pages/RootLayout";
+import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import SigninPage from "./pages/auth/SigninPage";
 import SignupPage from "./pages/auth/SignupPage";
@@ -18,7 +19,11 @@ const App = () => {
           <Route index element={<WelcomePage />} />
           <Route path="/sign-in" element={<SigninPage />} />
           <Route path="/sign-up" element={<SignupPage />} />
-          <Route path="/reset-password" element={<ResetPasswordPage />} />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPasswordPage />}
+          />
+          <Route path="/forget-password" element={<ForgetPasswordPage />} />
         </Route>
 
         {/* private routes */}

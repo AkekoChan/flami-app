@@ -5,6 +5,11 @@ import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Button, LinkComponent } from "../ui";
 
+interface FormValues {
+  email: string;
+  password: string;
+}
+
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
@@ -21,19 +26,19 @@ const SigninForm = () => {
           .required("Le mot de passe est obligatoire.")
           .trim(),
       })}
-      onSubmit={(values) => {
+      onSubmit={(values: FormValues) => {
         console.log(values);
       }}
     >
       {({ errors, touched }) => (
         <Form className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
-            <div>
+            <div className="flex flex-col gap-2">
               <Field
                 type="email"
                 name="email"
                 placeholder="E-mail"
-                className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none mb-2 ${
+                className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                   errors.email && touched.email
                     ? "border-mandy-500"
                     : "border-alabaster-400"
@@ -45,13 +50,13 @@ const SigninForm = () => {
                 </p>
               )}
             </div>
-            <div>
+            <div className="flex flex-col gap-2">
               <div className="relative">
                 <Field
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Mot de passe"
-                  className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none mb-2 ${
+                  className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                     errors.password && touched.password
                       ? "border-mandy-500"
                       : "border-alabaster-400"
@@ -60,13 +65,13 @@ const SigninForm = () => {
                 {!showPassword ? (
                   <EyeSlashIcon
                     onClick={() => setShowPassword(true)}
-                    className="absolute right-4 top-1/3 -translate-y-1/4 inline-block text-2xl text-alabaster-400"
+                    className="absolute right-4 top-2/4 -translate-y-2/4 inline-block text-2xl text-alabaster-400 cursor-pointer"
                     component="span"
                   />
                 ) : (
                   <EyeIcon
                     onClick={() => setShowPassword(false)}
-                    className="absolute right-4 top-1/3 -translate-y-1/4 inline-block text-2xl text-alabaster-400"
+                    className="absolute right-4 top-2/4 -translate-y-2/4 inline-block text-2xl text-alabaster-400 cursor-pointer"
                     component="span"
                   />
                 )}
@@ -88,7 +93,7 @@ const SigninForm = () => {
             <p className="text-center">
               Tu as oublié ton mot de passe ?{" "}
               <Link
-                to="/reset-password"
+                to="/forget-password"
                 className="text-tree-poppy-500 underline underline-offset-4"
               >
                 Réinitialise le ici !
