@@ -2,7 +2,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import * as Yup from "yup";
-import { Button } from "../ui";
+import { Button } from "../../ui";
 
 interface FormValues {
   password: string;
@@ -50,7 +50,8 @@ const ResetPasswordForm = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Mot de passe"
-                  className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
+                  autoComplete="off"
+                  className={`w-100 bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                     errors.password && touched.password
                       ? "border-mandy-500"
                       : "border-alabaster-400"
@@ -82,7 +83,8 @@ const ResetPasswordForm = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   name="confirmPassword"
                   placeholder="Confirmation mot de passe"
-                  className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
+                  autoComplete="off"
+                  className={`w-100 bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                     errors.confirmPassword && touched.confirmPassword
                       ? "border-mandy-500"
                       : "border-alabaster-400"

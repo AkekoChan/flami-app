@@ -1,9 +1,9 @@
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { Button, LinkComponent } from "../ui";
+import { Button, LinkComponent } from "../../ui";
 
 interface FormValues {
   email: string;
@@ -26,8 +26,11 @@ const SigninForm = () => {
           .required("Le mot de passe est obligatoire.")
           .trim(),
       })}
-      onSubmit={(values: FormValues) => {
+      onSubmit={(values: FormValues, actions: FormikHelpers<FormValues>) => {
         console.log(values);
+        actions.setSubmitting(false);
+        actions.resetForm();
+        // actions.setFieldError("email", "Le format de l'e-mail est incorrect.");
       }}
     >
       {({ errors, touched }) => (
@@ -38,7 +41,8 @@ const SigninForm = () => {
                 type="email"
                 name="email"
                 placeholder="E-mail"
-                className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
+                autoComplete="off"
+                className={`w-100 bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                   errors.email && touched.email
                     ? "border-mandy-500"
                     : "border-alabaster-400"
@@ -56,7 +60,8 @@ const SigninForm = () => {
                   type={showPassword ? "text" : "password"}
                   name="password"
                   placeholder="Mot de passe"
-                  className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
+                  autoComplete="off"
+                  className={`w-100 bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                     errors.password && touched.password
                       ? "border-mandy-500"
                       : "border-alabaster-400"

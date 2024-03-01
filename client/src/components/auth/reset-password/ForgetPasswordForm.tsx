@@ -1,6 +1,6 @@
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import { Button } from "../ui";
+import { Button } from "../../ui";
 
 interface FormValues {
   email: string;
@@ -33,7 +33,8 @@ const ForgetPasswordForm = () => {
               type="email"
               name="email"
               placeholder="E-mail"
-              className={`w-full bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
+              autoComplete="off"
+              className={`w-100 bg-alabaster-600 border-3 rounded-xl p-4 placeholder:text-alabaster-50 focus:border-tree-poppy-500 outline-none ${
                 errors.email && touched.email
                   ? "border-mandy-500"
                   : "border-alabaster-400"
