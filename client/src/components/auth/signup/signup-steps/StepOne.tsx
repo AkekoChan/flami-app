@@ -37,7 +37,7 @@ const StepOne = ({
   };
 
   const handlePrevPage = () => {
-    navigate("/");
+    navigate("/", { replace: true });
   };
 
   const handleSubmit = () => {
@@ -64,6 +64,15 @@ const StepOne = ({
           <ArrowLeftIcon
             className="text-3xl text-alabaster-50 cursor-pointer px-2 py-1 hover:bg-alabaster-300/20 rounded-xl ease-out duration-100"
             component="span"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e: React.KeyboardEvent) => {
+              if (e.key === "Enter") {
+                handlePrevPage();
+              }
+            }}
+            aria-label="Retour"
+            aria-hidden="false"
             onClick={handlePrevPage}
           />
           <div className="w-100 bg-alabaster-300 rounded-xl h-4">
@@ -72,7 +81,7 @@ const StepOne = ({
               animate={{ width: animDir === "next" ? "25%" : "25%" }}
               className="bg-tree-poppy-500 h-4 rounded-xl relative"
             >
-              <div className="bg-alabaster-300 h-1.5 rounded-xl w-90 absolute top-1 left-1/2 -translate-x-1/2 bg-tree-poppy-400 "></div>
+              <div className="h-1.5 rounded-xl w-90 absolute top-1 left-1/2 -translate-x-1/2 bg-tree-poppy-400 "></div>
             </motion.div>
           </div>
         </div>
@@ -86,6 +95,14 @@ const StepOne = ({
                 <li key={index}>
                   <div
                     onClick={() => handleChoiceClick(index)}
+                    role="button"
+                    tabIndex={0}
+                    aria-selected={clickedIndex === index ? "true" : "false"}
+                    onKeyDown={(e: React.KeyboardEvent) => {
+                      if (e.key === "Enter") {
+                        handleChoiceClick(index);
+                      }
+                    }}
                     className={`flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500  ${
                       index === clickedIndex ? "border-tree-poppy-500" : ""
                     } ${

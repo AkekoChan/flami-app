@@ -32,20 +32,34 @@ const OtpForm = () => {
     setOtp(value);
   };
 
-  console.log(formik.errors);
   return (
     <form onSubmit={formik.handleSubmit}>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <OtpInput value={otp} valueLength={6} onChange={onChange} />
+          <OtpInput
+            value={otp}
+            valueLength={6}
+            onChange={onChange}
+            aria-required="true"
+            aria-invalid={formik.errors.otp ? "true" : "false"}
+            aria-describedby="otp-error"
+          />
 
           {formik.errors.otp && (
-            <div className="text-mandy-500 font-bold text-sm">
+            <div
+              className="text-mandy-500 font-bold text-sm"
+              id="otp-error"
+              aria-live="assertive"
+            >
               {formik.errors.otp}
             </div>
           )}
         </div>
-        <Button variant="primary" type="submit">
+        <Button
+          variant="primary"
+          type="submit"
+          disabled={!(formik.isValid && formik.dirty)}
+        >
           Valider
         </Button>
       </div>

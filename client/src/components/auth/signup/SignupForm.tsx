@@ -9,7 +9,7 @@ export interface UserSignupInterface {
   name: string;
   password: string;
   confirmPassword?: string;
-  age: number;
+  age: string;
   metadata: {
     favorite_sport: string;
     origin: string;
@@ -23,7 +23,7 @@ const SignupForm = () => {
     name: "",
     password: "",
     confirmPassword: "",
-    age: 0,
+    age: "",
     metadata: {
       favorite_sport: "",
       origin: "",

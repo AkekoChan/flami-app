@@ -59,6 +59,15 @@ const StepTwo = ({
           <ArrowLeftIcon
             className="text-3xl text-alabaster-50 cursor-pointer px-2 py-1 hover:bg-alabaster-300/20 rounded-xl ease-out duration-100"
             component="span"
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e: React.KeyboardEvent) => {
+              if (e.key === "Enter") {
+                prevStep(data);
+              }
+            }}
+            aria-label="Retour"
+            aria-hidden="false"
             onClick={() => prevStep(data)}
           />
           <div className="w-100 bg-alabaster-300 rounded-xl h-4">
@@ -81,6 +90,14 @@ const StepTwo = ({
                 <li key={index}>
                   <div
                     onClick={() => handleChoiceClick(index)}
+                    role="button"
+                    tabIndex={0}
+                    onKeyDown={(e: React.KeyboardEvent) => {
+                      if (e.key === "Enter") {
+                        handleChoiceClick(index);
+                      }
+                    }}
+                    aria-selected={clickedIndex === index ? "true" : "false"}
                     className={`flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press font-bold uppercase active:border-tree-poppy-500 ${
                       index === clickedIndex ? "border-tree-poppy-500" : ""
                     } ${
