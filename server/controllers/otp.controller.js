@@ -41,7 +41,7 @@ const otpController = {
     try {
       const { email, otp } = req.body;
 
-      const otpRecord = await otpModel.findOne({ email, otp });
+      const otpRecord = await otpModel.findOneAndDelete({ email, otp });
       if (!otpRecord) {
         return res
           .status(400)
@@ -56,7 +56,7 @@ const otpController = {
         });
       }
 
-      await otpRecord.remove();
+      const existingUser = await userModel.findOneAndUpdate({ email }, { isVerified: true });
 
       res.status(200).json({ message: "Le code de vérification est valide." });
     } catch (error) {
