@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { useCookies } from "react-cookie";
 // import authService from "../../services/auth";
 import { AuthContext, AuthContextType } from "./authContext";
 
@@ -10,9 +9,9 @@ interface AuthContextProviderInterface {
 export const AuthContextProvider = ({
   children,
 }: AuthContextProviderInterface) => {
-  const [cookies, removeCookie] = useCookies(["jwt"]);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-
+  const [currentUser, setCurrentUser] = useState<string | null>(
+    JSON.parse(localStorage.getItem("user") || "null")
+  );
   const signin = useCallback(() => {});
 
   const signout = async () => {};
@@ -21,12 +20,15 @@ export const AuthContextProvider = ({
 
   const verifyTokenValidity = useCallback(() => {});
 
-  useEffect(() => {});
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  });
 
   const authContextValue: AuthContextType = {
     signin,
     signout,
     signup,
+    currentUser,
   };
 
   return (
