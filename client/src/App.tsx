@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router";
+import { Route, RouterProvider, Routes } from "react-router";
 import AuthLayout from "./pages/AuthLayout";
 import RootLayout from "./pages/RootLayout";
 import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
@@ -10,34 +10,62 @@ import WelcomePage from "./pages/auth/WelcomePage";
 import FlamiPage from "./pages/flami/FlamiPage";
 import MapPage from "./pages/map/MapPage";
 import ProfilePage from "./pages/profile/ProfilePage";
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./utils/ProtectedRoute";
 
 const App = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <ProtectedRoute>
+          <RootLayout />
+        </ProtectedRoute>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <FlamiPage />,
+        },
+        {
+          path: "/map",
+          element: <MapPage />,
+        },
+        {
+          path: "/profile",
+          element: <ProfilePage />,
+        },
+      ],
+    },
+    {
+      path: "/welcome",
+      element: <WelcomePage />,
+    },
+    {
+      path: "/sign-in",
+      element: <SigninPage />,
+    },
+    {
+      path: "/sign-up",
+      element: <SignupPage />,
+    },
+    {
+      path: "/reset-password/:token",
+      element: <ResetPasswordPage />,
+    },
+    {
+      path: "/forget-password",
+      element: <ForgetPasswordPage />,
+    },
+    {
+      path: "/otp",
+      element: <OtpPage />,
+    },
+  ]);
+
   return (
     <main className="p-8 h-dvh font-roboto max-w-lg mx-auto">
-      <Routes>
-        {/* public routes */}
-        <Route element={<AuthLayout />}>
-          <Route index element={<WelcomePage />} />
-          <Route path="/sign-in" element={<SigninPage />} />
-          <Route path="/sign-up" element={<SignupPage />} />
-          <Route
-            path="/reset-password/:token"
-            element={<ResetPasswordPage />}
-          />
-          <Route path="/forget-password" element={<ForgetPasswordPage />} />
-          <Route path="/otp" element={<OtpPage />} />
-        </Route>
-
-        {/* private routes */}
-        <Route element={<RootLayout />}>
-          <Route index element={<FlamiPage />} />
-          <Route path="/map" element={<MapPage />} />
-          <Route path="profile" element={<ProfilePage />} />
-        </Route>
-
-        {/* catch all */}
-        <Route path="*" element={<div>Not Found</div>} />
-      </Routes>
+      <RouterProvider router={router} />
     </main>
   );
 };
