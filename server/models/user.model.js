@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import flamiModel from "./flami.model.js";
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -30,7 +31,7 @@ const userSchema = new mongoose.Schema({
   },
   flami: {
     type: Number,
-    ref: 'Flami'
+    ref: flamiModel
   },
   badges: {
     type: Array,
@@ -56,6 +57,13 @@ const userSchema = new mongoose.Schema({
       return this.findOne({ email: new RegExp(email, 'i') });
     }
   }
+});
+
+userSchema.pre('save', async function () {
+  let flami = await flamiModel.create({
+
+  });
+  this.flami = flami._id;
 });
 
 export default mongoose.model("User", userSchema);

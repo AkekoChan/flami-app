@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const currentUser = false;
+  const currentUser = true;
   if (!currentUser) {
     return <Navigate to="/welcome" />;
   }
