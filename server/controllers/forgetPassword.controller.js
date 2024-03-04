@@ -15,13 +15,13 @@ const forgetPasswordController = {
           .json({ message: "Ce compte n'existe pas.", error: 404 });
       }
 
-      console.log(user._id);
+      // console.log(user._id);
 
       const token = jwt.sign({ email: user.email }, process.env.PRIVATE, {
         expiresIn: "10m",
       });
 
-      console.log(token);
+      // console.log(token);
 
       const info = await mailSender(
         user.email,
