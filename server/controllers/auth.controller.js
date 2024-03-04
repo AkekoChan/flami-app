@@ -3,18 +3,20 @@ import auth from "../helpers/authMiddleware.js";
 import userModel from "../models/user.model.js";
 
 const authController = {
+  token: async (req, res) => {
+    let userdata = req.body;
+    let token = auth.encode({ email: userdata.email });
+
+    return res
+      .status(201)
+      .json({
+        data: {
+          token: token
+        },
+      });
+  },
   signup: async (req, res) => {
     let userdata = req.body;
-
-    // const otpResponse = await OTPModel.find({ email: userdata.email })
-    //   .sort({ createdAt: -1 })
-    //   .limit(1);
-
-    // if (otpResponse.length === 0 || userdata.otp !== otpResponse[0].otp) {
-    //   return res.status(400).json({
-    //     message: "Le code de validation n'est pas correct.",
-    //   });
-    // }
 
     if(!userdata.email || !String(userdata.email).toLowerCase().match(
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
@@ -23,6 +25,15 @@ const authController = {
       .status(401)
       .json({
         message: `E-mail invalide.`,
+        error: 401
+      });
+    }
+
+    if(!userdata.password || !String(userdata.password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
+      return res
+      .status(401)
+      .json({
+        message: "Le mot de passe doit contenir 8 caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
         error: 401
       });
     }
@@ -40,9 +51,11 @@ const authController = {
 
       return res
         .status(201)
-        // .cookie("jwt", token, { httpOnly: false })
         .json({
           message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
+          data: {
+            token: token
+          },
         });
     } catch (error) {
       if (error.keyValue && error.keyValue.email) {
@@ -71,21 +84,29 @@ const authController = {
     try {
       let user = await userModel.findByEmail(userdata.email);
 
-      if (!user[0]) {
+      if (!user) {
         return res
           .status(404)
           .json({ message: "E-mail ou mot de passe incorrect.", error: 404 });
       }
 
-      user = user[0];
+      if (!user.isVerified) {
+        return res
+        .status(403)
+        .json({ message: "OTP not verified.", error: 403 });
+      }
+
       const isValid = bcrypt.compareSync(userdata.password, user.password);
 
       if (isValid) {
         let token = auth.encode({ email: user.email });
+        req.brute.reset(); // reset brute counter
         return res
           .status(200)
-          // .cookie("jwt", token, { httpOnly: false })
-          .json({ message: "Authentification réussie." });
+          .json({ message: "Authentification réussie.",
+            data: {
+              token: token
+            } });
       } else {
         return res
           .status(401)
