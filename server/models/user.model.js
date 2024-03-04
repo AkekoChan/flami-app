@@ -11,6 +11,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  isVerified: {
+    type: Boolean,
+    default: false
+  },
   password: {
     type: String,
     required: true
@@ -49,7 +53,7 @@ const userSchema = new mongoose.Schema({
 { 
   statics: {
     findByEmail (email) {
-      return this.find({ email: new RegExp(email, 'i') });
+      return this.findOne({ email: new RegExp(email, 'i') });
     }
   }
 });
