@@ -11,7 +11,7 @@ export const AuthContextProvider = ({
   children,
 }: AuthContextProviderInterface) => {
   const [cookies, removeCookie] = useCookies(["jwt"]);
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(true);
 
   const signin = useCallback(() => {});
 

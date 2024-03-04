@@ -1,4 +1,5 @@
 const API_URL = "http://localhost:3001/api";
+const API_MAP =  "https://maksance.alwaysdata.net/jo2024/";
 
 const APIHandler = {
   get: async (url: string, token: string) => {
@@ -51,6 +52,18 @@ const APIHandler = {
       console.error(error);
     }
   },
+  getMap: async (url: string) => {
+    const options = {
+      method: "GET",
+    };
+    try {
+      const response = await fetch(`${API_MAP}${url}`, options);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 
 export default APIHandler;
