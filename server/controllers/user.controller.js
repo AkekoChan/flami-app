@@ -22,14 +22,17 @@ const userController = {
     },
     updateAccount: async (req, res) => {
         let userdata = res.locals.user;
-        let patchdata = req.body;
+        const { password, name, email } = req.body;
 
-        // Re-encode password
-        if(patchdata.password) patchdata.password = bcrypt.hashSync(patchdata.password, bcrypt.genSaltSync(11));
+        let patch = {};
 
-        await userModel.updateOne({_id: userdata._id}, patchdata);
+        if(password && String(password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
+        if(name) patch.name = name;
+        if(email) patch.email = email;
 
-        let token = auth.encode({ email: patchdata.email ?? userdata.email });
+        await userModel.updateOne({_id: userdata._id}, patch);
+
+        let token = auth.encode({ email: email ?? userdata.email });
         return res.status(200).json({ message: "Informations de compte misent à jour.", data: {
             jwt: token
         }});

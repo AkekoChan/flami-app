@@ -29,6 +29,7 @@ const sendVerificationEmail = async (email, otp) => {
     throw error;
   }
 };
+
 otpSchema.pre("save", async function (next) {
   if (this.isNew) {
     await sendVerificationEmail(this.email, this.otp);

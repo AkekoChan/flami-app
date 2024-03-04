@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js";
 
 const auth = {
   encode: (data) => {
-    return jwt.sign(data, process.env.PRIVATE, { expiresIn: 1209600 });
+    return jwt.sign(data, process.env.PRIVATE, { expiresIn: 60 * 60 * 12 });
   },
   require: async (req, res, next) => {
     try {
@@ -21,13 +21,22 @@ const auth = {
 
       let user = await userModel.findByEmail(userdata.email);
       
-      if (!user[0])
+      if (!user) {
         throw {
           code: 404,
           message:
             "Echec d'authentification, l'utilisateur du jeton n'existe pas.",
         };
-      res.locals.user = user[0];
+      }
+
+      if (!user.isVerified) {
+        throw {
+          code: 403,
+          message: "OTP not verified",
+        };
+      }
+
+      res.locals.user = user;
       return next();
     } catch (error) {
       return res
