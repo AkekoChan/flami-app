@@ -63,7 +63,7 @@ const MapPage = () => {
       </MapContainer>
     </div>
 
-    </>
+    </section>
   )
 
 
