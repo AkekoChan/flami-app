@@ -15,16 +15,16 @@ const forgetPasswordController = {
           .json({ message: "Ce compte n'existe pas.", error: 404 });
       }
 
-      console.log(user[0]._id);
+      console.log(user._id);
 
-      const token = jwt.sign({ email: user[0].email }, process.env.PRIVATE, {
+      const token = jwt.sign({ email: user.email }, process.env.PRIVATE, {
         expiresIn: "10m",
       });
 
       console.log(token);
 
       const info = await mailSender(
-        user[0].email,
+        user.email,
         "Mot de passe oublié ? - Flami vient à votre aide !",
         templateForgotPassword(`${res.domain}/reset-password/${token}`)
       );
