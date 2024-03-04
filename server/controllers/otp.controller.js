@@ -8,7 +8,7 @@ const otpController = {
       const { email } = req.body;
 
       const existingUser = await userModel.findOne({ email });
-      console.log(existingUser);
+      // console.log(existingUser);
       if (!existingUser) {
         return res.status(404).json({ message: "Ce compte n'existe pas." });
       }
@@ -57,8 +57,11 @@ const otpController = {
       }
 
       const existingUser = await userModel.findOneAndUpdate({ email }, { isVerified: true });
+      let token = auth.encode({ email: email });
 
-      res.status(200).json({ message: "Le code de vérification est valide." });
+      res.status(200).json({ message: "Le code de vérification est valide.", data: {
+        token: token
+      }});
     } catch (error) {
       console.error(error.message);
       res.status(500).json({ error: error.message });
