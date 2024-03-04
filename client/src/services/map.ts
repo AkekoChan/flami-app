@@ -1,9 +1,17 @@
-import APIHandler from "../utils/api/api-handler";
+import APIMapHandler from "../utils/api/map-api-handler";
 
-const mapServices = {
+const mapService = {
     getMapInfo: async () => {
         try {
-            const response = await APIHandler.getMap("");
+            const response = await APIMapHandler.getMap("");
+            return response;
+          } catch (error) {
+            console.error(error);
+          }
+    },
+    getCurrentStep: async () => {
+        try {
+            const response = await APIMapHandler.getMap("/where");
             return response;
           } catch (error) {
             console.error(error);
@@ -11,4 +19,4 @@ const mapServices = {
     },
 };
 
-export default mapServices;
+export default mapService;

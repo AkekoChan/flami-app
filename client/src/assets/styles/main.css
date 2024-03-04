@@ -55,3 +55,25 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* main {
+  min-height: 100dvh !important;
+} */
+
+section {
+  height: 100dvh !important;
+}
+
+.cluster-icon {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: orange;
+  /* background-image: url(./img/fire.png); */
+  transform: translate(-25%,-25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
