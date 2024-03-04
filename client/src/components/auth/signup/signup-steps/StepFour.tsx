@@ -1,11 +1,11 @@
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowLeftIcon, EyeIcon, EyeSlashIcon } from "react-line-awesome";
-import { useNavigate } from "react-router";
 import * as Yup from "yup";
 import { Button, Reveal } from "../../../ui";
-import { UserSignupInterface } from "../SignupForm";
+import { SignupBody } from "../../../../interfaces/api-body/signup-body";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const lastStepValidationSchema = Yup.object().shape({
   name: Yup.string().required("Le nom est obligatoire.").trim(),
@@ -37,36 +37,37 @@ const StepFour = ({
   data,
   animDir,
 }: {
-  nextStep: (newData: UserSignupInterface, final?: boolean) => void;
-  prevStep: (newData: UserSignupInterface) => void;
-  data: UserSignupInterface;
+  nextStep: (newData: SignupBody, final?: boolean) => void;
+  prevStep: (newData: SignupBody) => void;
+  data: SignupBody;
   animDir: "next" | "prev";
 }) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (
-    values: UserSignupInterface,
-    actions: FormikHelpers<UserSignupInterface>
-  ) => {
-    const { confirmPassword, ...userData } = values;
-
-    nextStep(userData, true);
-
-    navigate("/otp");
-    actions.setSubmitting(false);
-  };
+  const auth = useAuth();
 
   return (
     <Formik
       initialValues={{ ...data, confirmPassword: "" }}
       validationSchema={lastStepValidationSchema}
-      onSubmit={(values, actions: FormikHelpers<UserSignupInterface>) =>
-        handleSubmit(values, actions)
-      }
+      onSubmit={(values, actions) => {
+        const { name, email, password, age, metadata } = values;
+
+        const SignupBody: SignupBody = {
+          name,
+          email,
+          password,
+          age,
+          metadata,
+        };
+
+        nextStep(SignupBody, true);
+
+        auth.signup(SignupBody);
+        actions.setSubmitting(false);
+      }}
     >
       {({ errors, touched, isValid, dirty }) => (
         <Form className="flex flex-col gap-8">

@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "react-line-awesome";
 import { Button, Reveal } from "../../../ui";
-import { UserSignupInterface } from "../SignupForm";
+import { SignupBody } from "../../../../interfaces/api-body/signup-body";
 
 const choices = {
   fav_sport: [
@@ -24,9 +24,9 @@ const StepThree = ({
   data,
   animDir,
 }: {
-  nextStep: (newData: UserSignupInterface, final?: boolean) => void;
-  prevStep: (newData: UserSignupInterface) => void;
-  data: UserSignupInterface;
+  nextStep: (newData: SignupBody, final?: boolean) => void;
+  prevStep: (newData: SignupBody) => void;
+  data: SignupBody;
   animDir: "next" | "prev";
 }) => {
   const [clickedIndex, setClickedIndex] = useState<number>(-1);

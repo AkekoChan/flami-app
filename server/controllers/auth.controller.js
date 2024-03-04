@@ -7,34 +7,39 @@ const authController = {
     let userdata = req.body;
     let token = auth.encode({ email: userdata.email });
 
-    return res
-      .status(201)
-      .json({
-        data: {
-          token: token
-        },
-      });
+    return res.status(201).json({
+      data: {
+        token: token,
+      },
+    });
   },
   signup: async (req, res) => {
     let userdata = req.body;
 
-    if(!userdata.email || !String(userdata.email).toLowerCase().match(
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    )) {
-      return res
-      .status(401)
-      .json({
+    if (
+      !userdata.email ||
+      !String(userdata.email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
+    ) {
+      return res.status(401).json({
         message: `E-mail invalide.`,
-        error: 401
+        error: 401,
       });
     }
 
-    if(!userdata.password || !String(userdata.password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) {
-      return res
-      .status(401)
-      .json({
-        message: "Le mot de passe doit contenir 8 caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
-        error: 401
+    if (
+      !userdata.password ||
+      !String(userdata.password).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )
+    ) {
+      return res.status(401).json({
+        message:
+          "Le mot de passe doit contenir 8 caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
+        error: 401,
       });
     }
 
@@ -49,14 +54,12 @@ const authController = {
       await new_user.save();
       let token = auth.encode({ email: new_user.email });
 
-      return res
-        .status(201)
-        .json({
-          message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
-          data: {
-            token: token
-          },
-        });
+      return res.status(201).json({
+        message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
+        data: {
+          token: token,
+        },
+      });
     } catch (error) {
       if (error.keyValue && error.keyValue.email) {
         return res.status(409).json({
@@ -92,8 +95,8 @@ const authController = {
 
       if (!user.isVerified) {
         return res
-        .status(403)
-        .json({ message: "OTP not verified.", error: 403 });
+          .status(403)
+          .json({ message: "OTP not verified.", error: 403 });
       }
 
       const isValid = bcrypt.compareSync(userdata.password, user.password);
@@ -101,12 +104,12 @@ const authController = {
       if (isValid) {
         let token = auth.encode({ email: user.email });
         req.brute.reset(); // reset brute counter
-        return res
-          .status(200)
-          .json({ message: "Authentification réussie.",
-            data: {
-              token: token
-            } });
+        return res.status(200).json({
+          message: "Authentification réussie.",
+          data: {
+            token: token,
+          },
+        });
       } else {
         return res
           .status(401)

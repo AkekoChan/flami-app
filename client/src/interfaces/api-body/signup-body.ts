@@ -1,15 +1,12 @@
-interface UserInterface {
-  _id: string;
+export interface SignupBody {
   name: string;
   email: string;
   password: string;
-  age: number;
-  date: Date;
+  confirmPassword?: string;
+  age: string;
   metadata: {
     favorite_sport: string;
     origin: string;
     intent: string;
   };
 }
-
-export default UserInterface;

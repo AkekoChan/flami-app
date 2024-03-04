@@ -3,26 +3,13 @@ import StepFour from "./signup-steps/StepFour";
 import StepOne from "./signup-steps/StepOne";
 import StepThree from "./signup-steps/StepThree";
 import StepTwo from "./signup-steps/StepTwo";
-
-export interface UserSignupInterface {
-  email: string;
-  name: string;
-  password: string;
-  confirmPassword?: string;
-  age: string;
-  metadata: {
-    favorite_sport: string;
-    origin: string;
-    intent: string;
-  };
-}
+import { SignupBody } from "../../../interfaces/api-body/signup-body";
 
 const SignupForm = () => {
-  const [data, setData] = useState<UserSignupInterface>({
+  const [data, setData] = useState<SignupBody>({
     email: "",
     name: "",
     password: "",
-    confirmPassword: "",
     age: "",
     metadata: {
       favorite_sport: "",
@@ -36,11 +23,11 @@ const SignupForm = () => {
     "next"
   );
 
-  const sendRequest = (formData: UserSignupInterface) => {
+  const sendRequest = (formData: SignupBody) => {
     console.log("Form Submitted", formData);
   };
 
-  const handleNextStep = (newData: UserSignupInterface, final = false) => {
+  const handleNextStep = (newData: SignupBody, final = false) => {
     setData((prev) => ({ ...prev, ...newData }));
     setAnimationDirection("next");
 
@@ -51,7 +38,7 @@ const SignupForm = () => {
     setCurrentStep((prev) => prev + 1);
   };
 
-  const handlePrevStep = (newData: UserSignupInterface) => {
+  const handlePrevStep = (newData: SignupBody) => {
     setData((prev) => ({ ...prev, ...newData }));
     setAnimationDirection("prev");
     setCurrentStep((prev) => prev - 1);

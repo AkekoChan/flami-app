@@ -1,69 +1,40 @@
-const API_URL = "http://localhost:3001/api";
-const API_MAP =  "https://maksance.alwaysdata.net/jo2024/";
+import { url } from "../constants";
+import { ApiResponse } from "../../interfaces/api-response/api-response";
+import { ErrorResponse } from "../../interfaces/api-response/error-response";
+import toast from "react-hot-toast";
 
-const APIHandler = {
-  get: async (url: string, token: string) => {
-    const options = {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    try {
-      const response = await fetch(`${API_URL}${url}`, options);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  post: async (url: string, data: string = "", token?: string) => {
-    const options = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    };
-    try {
-      const response = await fetch(`${API_URL}${url}`, options);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  patch: async (url: string, data: string = "", token: string) => {
-    const options = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(data),
-    };
-    try {
-      const response = await fetch(`${API_URL}${url}`, options);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
-  },
-  getMap: async (url: string) => {
-    const options = {
-      method: "GET",
-    };
-    try {
-      const response = await fetch(`${API_MAP}${url}`, options);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
+type HTTPMethod = "get" | "post" | "patch";
+
+export const APIHandler = <T>(
+  endpoint: string,
+  token: string | null,
+  method: HTTPMethod = "get",
+  body: unknown = undefined
+): Promise<ApiResponse<T>> => {
+  const headers = new Headers();
+  headers.append("Content-Type", "application/json");
+  if (token) {
+    headers.append("Authorization", `Bearer ${token}`);
   }
+  const options: RequestInit = {
+    method,
+    headers,
+  };
+  if (body) {
+    options.body = JSON.stringify(body);
+  }
+  return new Promise((resolve) => {
+    fetch(`${url}${endpoint}`, options).then((res) => {
+      if (res.ok) {
+        return res.json().then((data) => {
+          resolve(data);
+        });
+      } else {
+        res.json().then((data: ErrorResponse) => {
+          toast.error(data.message);
+          throw new Error(data.message);
+        });
+      }
+    });
+  });
 };
-
-export default APIHandler;
