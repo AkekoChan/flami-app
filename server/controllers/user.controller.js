@@ -24,8 +24,12 @@ const userController = {
         let userdata = res.locals.user;
         let patchdata = req.body;
 
+        let patch = {};
+
         // Re-encode password
-        if(patchdata.password) patchdata.password = bcrypt.hashSync(patchdata.password, bcrypt.genSaltSync(11));
+        if(patchdata.password && String(patchdata.password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/)) patch.password = bcrypt.hashSync(patchdata.password, bcrypt.genSaltSync(11));
+        if(patchdata.name) patch.name = patchdata.name;
+        if(patchdata.email) patch.email = patchdata.email;
 
         await userModel.updateOne({_id: userdata._id}, patchdata);
 
