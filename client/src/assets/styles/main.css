@@ -56,11 +56,7 @@
   font-display: swap;
 }
 
-/* main {
-  min-height: 100dvh !important;
-} */
-
-section {
+.map-page {
   height: 100dvh !important;
 }
 
@@ -69,8 +65,8 @@ section {
   width: 3rem;
   border-radius: 50%;
   background-color: orange;
-  /* background-image: url(./img/fire.png); */
-  transform: translate(-25%,-25%);
+  background-image: url(./img/fire.png);
+  transform: translate(-25%, -25%);
   display: flex;
   align-items: center;
   justify-content: center;

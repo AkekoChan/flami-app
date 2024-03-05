@@ -12,7 +12,7 @@ interface AuthContextProviderInterface {
 export const AuthContextProvider = ({
   children,
 }: AuthContextProviderInterface) => {
-  const [currentUser, setCurrentUser] = useState<string | null>(
+  const [token, setToken] = useState<string | null>(
     JSON.parse(localStorage.getItem("user") || "null")
   );
 
@@ -23,29 +23,26 @@ export const AuthContextProvider = ({
   const signout = async () => {};
 
   const signup = async (body: SignupBody) => {
-    APIHandler<RegisterResponse>(
-      "/auth/signup",
-      currentUser,
-      "post",
-      body
-    ).then((response) => {
-      navigate("/otp");
+    APIHandler<RegisterResponse>("/auth/signup", token, "post", body).then(
+      (response) => {
+        navigate("/otp");
 
-      console.log(response);
-    });
+        console.log(response);
+      }
+    );
   };
 
   const verifyTokenValidity = useCallback(() => {});
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
+    localStorage.setItem("user", JSON.stringify(token));
   });
 
   const authContextValue: AuthContextType = {
     signin,
     signout,
     signup,
-    currentUser,
+    token,
   };
 
   return (

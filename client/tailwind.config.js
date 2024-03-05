@@ -70,29 +70,25 @@ export default {
           950: "#292929",
         },
       },
-    },
-    fontFamily: {
-      roboto: ["Roboto", "sans-serif"],
-    },
+      fontFamily: {
+        roboto: ["Roboto", "sans-serif"],
+      },
 
-    boxShadow: {
-      primary: "0px 6px 0px #ffbd1b",
-      secondary: "0px 6px 0px #989898",
-      none: "none",
-      "tree-poppy-500": "0px 6px 0px #ff9900",
-      "tree-poppy-500-press": "0px 2px 0px #ff9900",
+      boxShadow: {
+        primary: "0px 6px 0px #ffbd1b",
+        secondary: "0px 6px 0px #989898",
+        none: "none",
+        "tree-poppy-500": "0px 6px 0px #ff9900",
+        "tree-poppy-500-press": "0px 2px 0px #ff9900",
+      },
+      borderWidth: {
+        3: "3px",
+      },
+      width: {
+        100: "100%",
+        90: "90%",
+      },
     },
-    borderWidth: {
-      3: "3px",
-    },
-    width: {
-      100: "100%",
-      90: "90%",
-    },
-    height: {
-      100: "100%",
-      50: "50%",
-    }
   },
   plugins: [],
 };

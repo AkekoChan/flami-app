@@ -2,8 +2,8 @@ import React from "react";
 import { Navigate } from "react-router";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const currentUser = true;
-  if (!currentUser) {
+  const token = true;
+  if (!token) {
     return <Navigate to="/welcome" />;
   }
   return children;

@@ -1,4 +1,4 @@
-import { Outlet, Route, RouterProvider, Routes } from "react-router";
+import { Route, Routes } from "react-router";
 import RootLayout from "./pages/RootLayout";
 import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
 import OtpPage from "./pages/auth/OtpPage";
@@ -9,9 +9,8 @@ import WelcomePage from "./pages/auth/WelcomePage";
 import FlamiPage from "./pages/flami/FlamiPage";
 import MapPage from "./pages/map/MapPage";
 import ProfilePage from "./pages/profile/ProfilePage";
-import { createBrowserRouter } from "react-router-dom";
 import ProtectedRoute from "./utils/protected-route/ProtectedRoute";
-import { AuthContextProvider } from "./context/authContextProvider";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
@@ -36,6 +35,7 @@ const App = () => {
         <Route path="/forget-password" element={<ForgetPasswordPage />} />
         <Route path="/otp" element={<OtpPage />} />
       </Routes>
+      <Toaster position="top-center" reverseOrder={false} />
     </main>
   );
 };
