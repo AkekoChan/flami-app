@@ -33,6 +33,7 @@ const SignupForm = () => {
 
     if (final) {
       sendRequest(newData);
+      return;
     }
 
     setCurrentStep((prev) => prev + 1);

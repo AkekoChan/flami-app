@@ -23,7 +23,7 @@ export const APIHandler = <T>(
   if (body) {
     options.body = JSON.stringify(body);
   }
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     fetch(`${url}${endpoint}`, options).then((res) => {
       if (res.ok) {
         return res.json().then((data) => {
@@ -31,8 +31,9 @@ export const APIHandler = <T>(
         });
       } else {
         res.json().then((data: ErrorResponse) => {
+          reject(data);
           toast.error(data.message);
-          throw new Error(data.message);
+          // throw new Error(data.message);
         });
       }
     });
