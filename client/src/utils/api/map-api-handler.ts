@@ -1,4 +1,4 @@
-const API_MAP =  "https://maksance.alwaysdata.net/jo2024/";
+const API_MAP =  "https://maksance.alwaysdata.net/api-jo2024/";
 
 const APIMapHandler = {
     getMap: async (url: string) => {
