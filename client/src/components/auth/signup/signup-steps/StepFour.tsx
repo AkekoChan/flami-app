@@ -66,6 +66,7 @@ const StepFour = ({
         nextStep(SignupBody, true);
 
         auth.signup(SignupBody);
+
         actions.setSubmitting(false);
       }}
     >

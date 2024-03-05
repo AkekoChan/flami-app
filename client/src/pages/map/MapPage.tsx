@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import mapService from "../../services/map";
 import "../../assets/styles/map.css";
 
-import { Icon, divIcon, point } from "leaflet";
+import L, { Icon, divIcon, point } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
@@ -28,8 +28,8 @@ const MapPage = () => {
     iconSize: [40, 40],
   });
 
-  const createCustomClusterIcon = (cluster: MarkerCluster ) => {
-    return new divIcon({
+  const createCustomClusterIcon = (cluster: L.MarkerCluster) => {
+    return L.divIcon({
       html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
       className: "custom-marker-cluster",
       iconSize: point(33, 33, true),

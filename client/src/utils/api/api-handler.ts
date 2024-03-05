@@ -1,4 +1,5 @@
-import { url } from "../constants";
+import { URL_API_FLAMI, URL_API_MAP } from "../constants";
+
 import { ApiResponse } from "../../interfaces/api-response/api-response";
 import { ErrorResponse } from "../../interfaces/api-response/error-response";
 import toast from "react-hot-toast";
@@ -9,9 +10,11 @@ export const APIHandler = <T>(
   endpoint: string,
   token: string | null,
   method: HTTPMethod = "get",
-  body: unknown = undefined
+  body: unknown = undefined,
+  isMap: boolean
 ): Promise<ApiResponse<T>> => {
   const headers = new Headers();
+  const url = isMap ? URL_API_MAP : URL_API_FLAMI;
   headers.append("Content-Type", "application/json");
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
@@ -23,7 +26,7 @@ export const APIHandler = <T>(
   if (body) {
     options.body = JSON.stringify(body);
   }
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     fetch(`${url}${endpoint}`, options).then((res) => {
       if (res.ok) {
         return res.json().then((data) => {
@@ -31,8 +34,9 @@ export const APIHandler = <T>(
         });
       } else {
         res.json().then((data: ErrorResponse) => {
+          reject(data);
           toast.error(data.message);
-          throw new Error(data.message);
+          // throw new Error(data.message);
         });
       }
     });
