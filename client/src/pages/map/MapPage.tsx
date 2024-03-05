@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import mapService from "../../services/map";
 import "../../assets/styles/map.css";
 
-import { Icon, divIcon, point } from "leaflet";
+import L, { Icon, divIcon, point } from "leaflet";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import "leaflet/dist/leaflet.css";
@@ -22,8 +22,8 @@ const MapPage = () => {
     iconSize: [40, 40],
   });
 
-  const createCustomClusterIcon = (cluster) => {
-    return new divIcon({
+  const createCustomClusterIcon = (cluster: L.MarkerCluster) => {
+    return L.divIcon({
       html: `<div class="cluster-icon">${cluster.getChildCount()}</div>`,
       className: "custom-marker-cluster",
       iconSize: point(33, 33, true),
@@ -34,7 +34,7 @@ const MapPage = () => {
     <div className="map-page">
       <h1>Parcours de la flamme</h1>
 
-      <div className="h-50 rounded-xl">
+      <div className="h-1/2 rounded-xl">
         <MapContainer center={[46, 2]} zoom={5} scrollWheelZoom={false}>
           <TileLayer
             attribution='&copy; <a href="https://www.stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
