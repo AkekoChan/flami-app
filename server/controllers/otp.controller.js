@@ -7,10 +7,14 @@ const otpController = {
     try {
       const { email } = req.body;
 
+      console.log(email);
+
       const existingUser = await userModel.findOne({ email });
-      // console.log(existingUser);
+
       if (!existingUser) {
-        return res.status(404).json({ message: "Ce compte n'existe pas." });
+        return res
+          .status(404)
+          .json({ message: "Ce compte n'existe pas.", error: 404 });
       }
 
       const existingOTP = await otpModel.findOne({ email });
@@ -18,6 +22,7 @@ const otpController = {
         return res.status(400).json({
           message:
             "Un OTP est déjà en cours d'utilisation. Veuillez attendre de recevoir votre code.",
+          error: 400,
         });
       }
 
@@ -30,10 +35,15 @@ const otpController = {
       const otpPayload = { email, otp };
       await otpModel.create(otpPayload);
 
-      res.status(200).json({ message: "OTP envoyé avec succès." });
+      res.status(200).json({
+        data: {
+          message: "OTP envoyé avec succès.",
+          error: 200,
+        },
+      });
     } catch (error) {
       console.error(error.message);
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message, error: 500 });
     }
   },
 
@@ -41,11 +51,13 @@ const otpController = {
     try {
       const { email, otp } = req.body;
 
+      console.log(email, otp);
       const otpRecord = await otpModel.findOneAndDelete({ email, otp });
       if (!otpRecord) {
-        return res
-          .status(400)
-          .json({ message: "Le code de vérification est incorrect." });
+        return res.status(400).json({
+          message: "Le code de vérification est incorrect.",
+          error: 400,
+        });
       }
 
       const otpExpiration = otpRecord.createdAt.getTime() + 5 * 60 * 1000;
@@ -53,18 +65,21 @@ const otpController = {
         return res.status(400).json({
           message:
             "Le code de vérification a expiré. Veuillez en demander un nouveau.",
+          error: 400,
         });
       }
 
-      const existingUser = await userModel.findOneAndUpdate({ email }, { isVerified: true });
+      await userModel.findOneAndUpdate({ email }, { isVerified: true });
       let token = auth.encode({ email: email });
 
-      res.status(200).json({ message: "Le code de vérification est valide.", data: {
-        token: token
-      }});
+      res.status(200).json({
+        data: {
+          message: "Le code de vérification est valide.",
+          token: token,
+        },
+      });
     } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ error: error.message });
+      res.status(500).json({ message: error.message, error: 500 });
     }
   },
 };

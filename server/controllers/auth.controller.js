@@ -55,8 +55,8 @@ const authController = {
       let token = auth.encode({ email: new_user.email });
 
       return res.status(201).json({
-        message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
         data: {
+          message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
           token: token,
         },
       });
@@ -96,7 +96,7 @@ const authController = {
       if (!user.isVerified) {
         return res
           .status(403)
-          .json({ message: "OTP not verified.", error: 403 });
+          .json({ message: "Code de vérification non vérifié.", error: 403 });
       }
 
       const isValid = bcrypt.compareSync(userdata.password, user.password);
@@ -105,8 +105,8 @@ const authController = {
         let token = auth.encode({ email: user.email });
         req.brute.reset(); // reset brute counter
         return res.status(200).json({
-          message: "Authentification réussie.",
           data: {
+            message: "Authentification réussie.",
             token: token,
           },
         });

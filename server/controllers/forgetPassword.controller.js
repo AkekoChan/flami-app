@@ -15,13 +15,9 @@ const forgetPasswordController = {
           .json({ message: "Ce compte n'existe pas.", error: 404 });
       }
 
-      // console.log(user._id);
-
       const token = jwt.sign({ email: user.email }, process.env.PRIVATE, {
         expiresIn: "10m",
       });
-
-      // console.log(token);
 
       const info = await mailSender(
         user.email,
@@ -30,12 +26,14 @@ const forgetPasswordController = {
       );
 
       if (!info) {
-        return res.status(500).json({ message: "Email non envoyé." });
+        return res
+          .status(500)
+          .json({ message: "Email non envoyé.", error: 500 });
       }
 
-      return res.status(200).json({ message: "Email envoyé." });
+      return res.status(200).json({ message: "Email envoyé.", error: 200 });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message, error: 500 });
     }
   },
   resetPassword: async (req, res) => {
@@ -43,19 +41,23 @@ const forgetPasswordController = {
       const decodedToken = jwt.verify(req.params.token, process.env.PRIVATE);
 
       if (!decodedToken) {
-        return res.status(401).json({ message: "Token invalide." });
+        return res.status(401).json({ message: "Token invalide.", error: 401 });
       }
 
       const user = await userModel.findOneAndUpdate(decodedToken.email, {
         password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(11)),
       });
       if (!user) {
-        return res.status(401).json({ message: "Ce compte n'existe pas." });
+        return res
+          .status(401)
+          .json({ message: "Ce compte n'existe pas.", error: 401 });
       }
 
-      return res.status(200).json({ message: "Mot de passe mis à jour." });
+      return res
+        .status(200)
+        .json({ data: { message: "Mot de passe mis à jour.", error: 200 } });
     } catch (error) {
-      return res.status(500).json({ message: error.message });
+      return res.status(500).json({ message: error.message, error: 500 });
     }
   },
 };
