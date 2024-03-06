@@ -14,7 +14,7 @@ import { Toaster } from "react-hot-toast";
 
 const App = () => {
   return (
-    <main className="p-8 h-dvh font-roboto max-w-lg mx-auto">
+    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto flex flex-col justify-center">
       <Routes>
         <Route
           path="/"

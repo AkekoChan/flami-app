@@ -103,7 +103,7 @@ const StepOne = ({
                         handleChoiceClick(index);
                       }
                     }}
-                    className={`flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500  ${
+                    className={`flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center ${
                       index === clickedIndex ? "border-tree-poppy-500" : ""
                     } ${
                       index === clickedIndex

@@ -56,10 +56,6 @@
   font-display: swap;
 }
 
-.map-page {
-  height: 100dvh !important;
-}
-
 .cluster-icon {
   height: 3rem;
   width: 3rem;
@@ -72,4 +68,8 @@
   justify-content: center;
   font-weight: 900;
   font-size: 1.2rem;
+}
+
+.leaflet-container {
+  height: 100% !important;
 }
