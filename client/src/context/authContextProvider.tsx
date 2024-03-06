@@ -3,7 +3,8 @@ import { AuthContext, AuthContextType } from "./authContext";
 import { SignupBody } from "../interfaces/api-body/signup-body";
 import { APIHandler } from "../utils/api/api-handler";
 import { RegisterResponse } from "../interfaces/api-response/register-reponse";
-import { ErrorResponse, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
+import { ErrorResponse } from "../interfaces/api-response/error-response";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -22,8 +23,8 @@ export const AuthContextProvider = ({
 
   const signout = async () => {};
 
-  const signup = async (body: SignupBody): Promise<ErrorResponse | void> => {
-    APIHandler<RegisterResponse>("/auth/signup", token, "post", body)
+  const signup = async (body: SignupBody) => {
+    APIHandler<RegisterResponse>("/auth/signup", token, "post", body, false)
       .then((response) => {
         console.log(response);
         navigate("/otp");

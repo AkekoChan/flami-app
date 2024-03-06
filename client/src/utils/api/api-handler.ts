@@ -8,14 +8,14 @@ type HTTPMethod = "get" | "post" | "patch";
 
 export const APIHandler = <T>(
   endpoint: string,
-  token: string | null,
+  isMap: boolean = false,
   method: HTTPMethod = "get",
   body: unknown = undefined,
-  isMap: boolean
+  token: string | null = null
 ): Promise<ApiResponse<T>> => {
   const headers = new Headers();
   const url = isMap ? URL_API_MAP : URL_API_FLAMI;
-  headers.append("Content-Type", "application/json");
+  headers.append("Accept", "application/json");
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
   }
@@ -26,7 +26,25 @@ export const APIHandler = <T>(
   if (body) {
     options.body = JSON.stringify(body);
   }
+
+  // const fetchData = async () => {
+  //   console.log(endpoint);
+  //   console.log(options);
+  //   try {
+  //     const response = await fetch(`${url}${endpoint}`, {
+  //       method: "get",
+  //       headers,
+  //     });
+  //     response.json().then((res) => console.log(res));
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // fetchData();
+
   return new Promise((resolve, reject) => {
+    console.log("start fetch");
     fetch(`${url}${endpoint}`, options).then((res) => {
       if (res.ok) {
         return res.json().then((data) => {
@@ -36,7 +54,6 @@ export const APIHandler = <T>(
         res.json().then((data: ErrorResponse) => {
           reject(data);
           toast.error(data.message);
-          // throw new Error(data.message);
         });
       }
     });
