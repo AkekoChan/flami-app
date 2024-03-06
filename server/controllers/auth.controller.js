@@ -16,14 +16,9 @@ const authController = {
   signup: async (req, res) => {
     let userdata = req.body;
 
-    if (
-      !userdata.email ||
-      !String(userdata.email)
-        .toLowerCase()
-        .match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)
-    ) {
+    if (!userdata.email) {
       return res.status(401).json({
-        message: `E-mail invalide.`,
+        message: `E-mail non-renseigné.`,
         error: 401,
       });
     }
