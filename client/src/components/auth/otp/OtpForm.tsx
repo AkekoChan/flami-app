@@ -2,14 +2,50 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import { Button } from "../../ui";
 import OtpInput from "./OtpInput";
+import { APIHandler } from "../../../utils/api/api-handler";
+import { RegisterResponse } from "../../../interfaces/api-response/register-reponse";
+import { OtpBody } from "../../../interfaces/api-body/otp-body";
+import { GenericResponse } from "../../../interfaces/api-response/generic-response";
+import toast from "react-hot-toast";
 
 const OtpForm = () => {
+  const handleResendOtp = () => {
+    const body = {
+      email: localStorage.getItem("email"),
+    };
+    APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
+      (res) => {
+        toast.success(res.data.message, {
+          style: {
+            background: "#3D3D3D",
+            color: "#FAFAFA",
+            borderRadius: "12px",
+          },
+        });
+      }
+    );
+  };
+
   const formik = useFormik({
     initialValues: {
       otp: "",
     },
     onSubmit: (values) => {
       console.log(values);
+
+      const body: OtpBody = {
+        email: localStorage.getItem("email"),
+        otp: values.otp,
+      };
+
+      APIHandler<RegisterResponse>(
+        "/auth/verify-otp",
+        false,
+        "post",
+        body
+      ).then((res) => {
+        console.log(res);
+      });
     },
     validate: (values) => {
       const errors: Partial<typeof values> = {};
@@ -55,13 +91,18 @@ const OtpForm = () => {
             </div>
           )}
         </div>
-        <Button
-          variant="primary"
-          type="submit"
-          disabled={!(formik.isValid && formik.dirty)}
-        >
-          Valider
-        </Button>
+        <div className="flex flex-col gap-2">
+          <Button
+            variant="primary"
+            type="submit"
+            disabled={!(formik.isValid && formik.dirty)}
+          >
+            Valider
+          </Button>
+          <Button variant="tertiary" type="button" onClick={handleResendOtp}>
+            Renvoyer code de validation
+          </Button>
+        </div>
       </div>
     </form>
   );

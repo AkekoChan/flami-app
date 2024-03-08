@@ -20,9 +20,7 @@ const authController = {
       !userdata.email ||
       !String(userdata.email)
         .toLowerCase()
-        .match(
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
+        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
     ) {
       return res.status(401).json({
         message: `E-mail invalide.`,
@@ -55,8 +53,8 @@ const authController = {
       let token = auth.encode({ email: new_user.email });
 
       return res.status(201).json({
-        message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
         data: {
+          message: `Inscription finalisée. Bienvenue ${new_user.name} !`,
           token: token,
         },
       });
@@ -96,7 +94,7 @@ const authController = {
       if (!user.isVerified) {
         return res
           .status(403)
-          .json({ message: "OTP not verified.", error: 403 });
+          .json({ message: "Code de vérification non vérifié.", error: 403 });
       }
 
       const isValid = bcrypt.compareSync(userdata.password, user.password);
@@ -105,8 +103,8 @@ const authController = {
         let token = auth.encode({ email: user.email });
         req.brute.reset(); // reset brute counter
         return res.status(200).json({
-          message: "Authentification réussie.",
           data: {
+            message: "Authentification réussie.",
             token: token,
           },
         });

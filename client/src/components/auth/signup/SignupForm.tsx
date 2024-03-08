@@ -23,16 +23,11 @@ const SignupForm = () => {
     "next"
   );
 
-  const sendRequest = (formData: SignupBody) => {
-    console.log("Form Submitted", formData);
-  };
-
   const handleNextStep = (newData: SignupBody, final = false) => {
     setData((prev) => ({ ...prev, ...newData }));
     setAnimationDirection("next");
 
     if (final) {
-      sendRequest(newData);
       return;
     }
 

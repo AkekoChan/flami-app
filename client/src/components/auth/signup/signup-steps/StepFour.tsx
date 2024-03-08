@@ -15,10 +15,9 @@ const lastStepValidationSchema = Yup.object().shape({
     .trim(),
   password: Yup.string()
     .required("Le mot de passe est obligatoire.")
-    .min(8, "Le mot de passe doit contenir 8 caractères minimum.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-      "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
+      "Le mot de passe doit contenir au moins 8 caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
     )
     .trim(),
   confirmPassword: Yup.string()
