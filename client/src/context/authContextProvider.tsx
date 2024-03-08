@@ -4,9 +4,9 @@ import { SignupBody } from "../interfaces/api-body/signup-body";
 import { APIHandler } from "../utils/api/api-handler";
 import { RegisterResponse } from "../interfaces/api-response/register-reponse";
 import { useNavigate } from "react-router";
-import { ErrorResponse } from "../interfaces/api-response/error-response";
 import { GenericResponse } from "../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
+import { User } from "../interfaces/user.interface";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -18,6 +18,7 @@ export const AuthContextProvider = ({
   const [token, setToken] = useState<string | null>(
     localStorage.getItem("token")
   );
+  const [user, setUser] = useState<Omit<User, "created_at">>();
 
   const navigate = useNavigate();
 
@@ -29,10 +30,12 @@ export const AuthContextProvider = ({
     APIHandler<RegisterResponse>("/auth/signup", false, "post", body).then(
       (res) => {
         setToken(res.data.token);
-        localStorage.setItem("token", res.data.token);
         APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
           (res) => {
-            localStorage.setItem("email", body.email);
+            setUser({
+              name: body.name,
+              email: body.email,
+            });
             toast.success(res.data.message, {
               style: {
                 background: "#3D3D3D",
@@ -55,7 +58,9 @@ export const AuthContextProvider = ({
     signin,
     signout,
     signup,
+    setToken,
     token,
+    user,
   };
 
   return (

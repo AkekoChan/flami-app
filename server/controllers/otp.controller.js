@@ -1,13 +1,12 @@
 import otpGenerator from "otp-generator";
 import otpModel from "../models/otp.model.js";
 import userModel from "../models/user.model.js";
+import auth from "../helpers/authMiddleware.js";
 
 const otpController = {
   sendOTP: async (req, res) => {
     try {
       const { email } = req.body;
-
-      console.log(email);
 
       const existingUser = await userModel.findOne({ email });
 
@@ -21,7 +20,7 @@ const otpController = {
       if (existingOTP) {
         return res.status(400).json({
           message:
-            "Un OTP est déjà en cours d'utilisation. Veuillez attendre de recevoir votre code.",
+            "Un code de vérification est déjà en cours d'utilisation. Veuillez attendre de recevoir votre code.",
           error: 400,
         });
       }
@@ -37,7 +36,7 @@ const otpController = {
 
       res.status(200).json({
         data: {
-          message: "OTP envoyé avec succès.",
+          message: "Un code de vérification a été envoyé avec succès.",
           error: 200,
         },
       });

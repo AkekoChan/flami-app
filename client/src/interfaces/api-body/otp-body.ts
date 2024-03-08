@@ -1,4 +1,4 @@
 export interface OtpBody {
-  email: string | null;
+  email: string | undefined;
   otp: string;
 }
