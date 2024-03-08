@@ -15,7 +15,9 @@ export const APIHandler = <T>(
 ): Promise<ApiResponse<T>> => {
   const headers = new Headers();
   const url = isMap ? URL_API_MAP : URL_API_FLAMI;
-  headers.append("Accept", "application/json");
+  // if(isMap) {
+  //   headers.append("Authorization", `Bearer ${URL_API_KEY}`);
+  // }
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
   }

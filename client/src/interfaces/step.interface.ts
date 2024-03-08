@@ -4,7 +4,7 @@ export interface Step {
   date: string;
   timestamp: number;
   territoire: string;
-  numero_departement: string;
+  departement: string;
   ville: string;
   plan: string | null;
   geolocalisation: {
@@ -15,4 +15,6 @@ export interface Step {
     x: number;
     y: number;
   };
+  population: number;
+  code_postal: "04100";
 }
