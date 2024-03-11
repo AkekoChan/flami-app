@@ -42,7 +42,7 @@ const otpController = {
       });
     } catch (error) {
       console.error(error.message);
-      res.status(500).json({ message: error.message, error: 500 });
+      res.status(500).json({ message: "Une erreur s'est produite.", error: 500 });
     }
   },
 
@@ -78,7 +78,7 @@ const otpController = {
         },
       });
     } catch (error) {
-      res.status(500).json({ message: error.message, error: 500 });
+      res.status(500).json({ message: "Une erreur s'est produite.", error: 500 });
     }
   },
 };

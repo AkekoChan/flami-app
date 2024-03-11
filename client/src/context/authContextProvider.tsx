@@ -52,8 +52,7 @@ export const AuthContextProvider = ({
 
   const signup = async (body: SignupBody) => {
     APIHandler<AuthResponse>("/auth/signup", false, "post", body).then(
-      (res) => {
-        setToken(res.data.token);
+      () => {
         navigate("/otp");
         APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
           (res) => {
@@ -69,8 +68,8 @@ export const AuthContextProvider = ({
               },
             });
           }
-        );
-      }
+          );
+        }
     );
   };
 
@@ -80,6 +79,7 @@ export const AuthContextProvider = ({
     signup,
     token,
     user,
+    setToken
   };
 
   return (

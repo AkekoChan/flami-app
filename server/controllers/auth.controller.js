@@ -77,7 +77,8 @@ const authController = {
           error: 409,
         });
       } else {
-        return res.status(409).json({ message: error.message, error: 409 });
+        console.error(error);
+        return res.status(409).json({ message: "Une erreur s'est produite.", error: 409 });
       }
     }
   },
@@ -116,7 +117,7 @@ const authController = {
           .json({ message: "E-mail ou mot de passe incorrect.", error: 401 });
       }
     } catch (error) {
-      return res.status(404).json({ message: error.message, error: 404 });
+      return res.status(404).json({ message: "Une erreur s'est produite.", error: 404 });
     }
   },
 };

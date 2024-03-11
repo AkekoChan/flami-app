@@ -44,7 +44,6 @@ const OtpForm = () => {
 
       APIHandler<AuthResponse>("/auth/verify-otp", false, "post", body).then(
         (res) => {
-          localStorage.setItem("token", res.data.token);
           toast.success(res.data.message, {
             style: {
               background: "#3D3D3D",
@@ -52,6 +51,8 @@ const OtpForm = () => {
               borderRadius: "12px",
             },
           });
+          auth.setToken(res.data.token);
+          localStorage.setItem("token", res.data.token);
           navigate("/");
         }
       );

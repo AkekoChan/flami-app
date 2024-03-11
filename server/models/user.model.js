@@ -29,14 +29,16 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 13
   },
-  flami: {
-    type: Number,
-    ref: flamiModel
+  flami_id: {
+    type: mongoose.Types.ObjectId
+  },
+  friend_flami_id: {
+    type: mongoose.Types.ObjectId
   },
   badges: {
     type: Array,
   },
-  metadata: [{
+  metadata: {
     favorite_sport: {
       type: String,
       required: true
@@ -49,8 +51,8 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true
     }
-  }]
-}, 
+  }
+},
 { 
   statics: {
     findByEmail (email) {
@@ -59,11 +61,15 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-userSchema.pre('save', async function () {
+userSchema.post('validate', async function () {
+  if(await this.constructor.findByEmail(this.email)) return;
+  let sports = { "Sport de combat": 0, "Sport de course": 1, "Sport aquatique": 2, "Sport collectif": 3, "Sport de plage": 4, "Sport de force": 5 }
   let flami = await flamiModel.create({
-
+    name: `Flami de ${this.name}`,
+    owner: this._id,
+    cosmetics: sports[this.metadata.favorite_sport] ? [sports[this.metadata.favorite_sport]] : []
   });
-  this.flami = flami._id;
+  this.flami_id = flami._id;
 });
 
 export default mongoose.model("User", userSchema);

@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Gants de boxe",
+        "description": "Des gants de boxe d'une grande qualité, donné aux utilisateurs aimant le sport de combat.",
+        "url": "",
+        "place": 2
+    },
+    {
+        "name": "Turbo-Chaussures",
+        "description": "Des baskets qui courts vite, donné aux utilisateurs aimant le sport de course.",
+        "url": "",
+        "place": 4
+    },
+    {
+        "name": "Bonnet de bain et lunettes de plongé",
+        "description": "Quelle allure ! Donné aux utilisateurs aimant le sport aquatique.",
+        "url": "",
+        "place": 1
+    },
+    {
+        "name": "Ballon de basket-ball",
+        "description": "Un ballon de basket-ball bien gonflé, donné aux utilisateurs aimant le sport collectif.",
+        "url": "",
+        "place": 3
+    },
+    {
+        "name": "Ballon de volley-ball",
+        "description": "Un ballon de volley-ball bien gonflé, donné aux utilisateurs aimant le sport de plage.",
+        "url": "",
+        "place": 3
+    },
+    {
+        "name": "Altère pesant son poids",
+        "description": "Une altère d'au moins 200kg, donné aux utilisateurs aimant le sport de force.",
+        "url": "",
+        "place": 3
+    }
+]
