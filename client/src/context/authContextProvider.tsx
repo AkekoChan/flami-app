@@ -39,7 +39,15 @@ export const AuthContextProvider = ({
           });
           navigate("/");
         }
-      );
+      ).catch((data: any) => {
+        if(data.error === 403) {
+          navigate("/otp");
+          setUser({
+            name: undefined,
+            email: body.email
+          });
+        }
+      });
     },
     [navigate]
   );
