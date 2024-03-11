@@ -15,7 +15,7 @@ import ErrorPage from "./pages/error/ErrorPage";
 
 const App = () => {
   return (
-    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid">
+    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid mb-24">
       <Routes>
         <Route path="/" element={<ProtectedRoute />}>
           <Route index element={<FlamiPage />} />
