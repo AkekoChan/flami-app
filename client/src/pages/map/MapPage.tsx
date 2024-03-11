@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { APIHandler } from "../../utils/api/api-handler";
 import { Step } from "../../interfaces/step.interface";
@@ -23,30 +23,22 @@ const MapPage = () => {
   };
 
   const handleNextStep = (step: number) => {
-    APIHandler<Step>(`/etape/${step}`, true)
-      .then((res) => {
-        setNextFlameLocation(res.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    APIHandler<Step>(`/etape/${step}`, true).then((res) => {
+      setNextFlameLocation(res.data);
+    });
   };
 
-  const handleCurrentStep = () => {
-    APIHandler<Step>(`/etape/actuelle`, true)
-      .then((res) => {
-        setCurrentFlameLocation(res.data);
-        handleNextStep(res.data.etape_numero);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+  const handleCurrentStep = useCallback(() => {
+    APIHandler<Step>(`/etape/actuelle`, true).then((res) => {
+      setCurrentFlameLocation(res.data);
+      handleNextStep(res.data.etape_numero);
+    });
+  }, []);
 
   useEffect(() => {
     handleSteps();
     handleCurrentStep();
-  }, []);
+  }, [handleCurrentStep]);
 
   steps.forEach((step) => {
     polylinePath.push([

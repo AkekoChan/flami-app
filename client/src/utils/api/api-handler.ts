@@ -1,9 +1,11 @@
-import { URL_API_FLAMI, URL_API_MAP } from "../constants";
 import { ApiResponse } from "../../interfaces/api-response/api-response";
 import { ErrorResponse } from "../../interfaces/api-response/error-response";
 import toast from "react-hot-toast";
 
 type HTTPMethod = "get" | "post" | "patch";
+
+const apiURLFlami = "http://localhost:3001/api";
+const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
 
 export const APIHandler = <T>(
   endpoint: string,
@@ -13,7 +15,7 @@ export const APIHandler = <T>(
   token: string | null = null
 ): Promise<ApiResponse<T>> => {
   const headers = new Headers();
-  const url = isMap ? URL_API_MAP : URL_API_FLAMI;
+  const url = isMap ? apiURLMap : apiURLFlami;
   if (method === "post") {
     headers.append("Content-Type", "application/json");
   }
@@ -37,7 +39,7 @@ export const APIHandler = <T>(
       } else {
         res.json().then((data: ErrorResponse) => {
           reject(data);
-          toast.error(data.message, {
+          toast.error(data.message || data.erreur, {
             style: {
               background: "#3D3D3D",
               color: "#FAFAFA",
