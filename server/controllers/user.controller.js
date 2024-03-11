@@ -9,18 +9,16 @@ const userController = {
       data: {
         name: userdata.name,
         email: userdata.email,
+        badges: userdata.badges.map(),
         created_at: new Date(userdata.date).toDateString(),
       },
     });
   },
-  // getAccount: (req, res) => {
-
-  // },
   getBadges: (req, res) => {
     let userdata = res.locals.user;
     return res.status(200).json({
       data: {
-        badges: userdata.badges,
+        badges: userdata.badges.map(),
       },
     });
   },
