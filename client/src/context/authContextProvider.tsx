@@ -82,6 +82,8 @@ export const AuthContextProvider = ({
       })
       .catch((data: ErrorResponse) => {
         if (data.error) {
+          setToken(null);
+          localStorage.clear();
           navigate("/sign-in");
         }
       });
