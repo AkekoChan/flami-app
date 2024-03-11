@@ -12,7 +12,7 @@ const userController = {
       data: {
         name: userdata.name,
         email: userdata.email,
-        badges: userdata.badges.map(id => json[id] ?? json[0]),
+        badges: userdata.badges.slice(Math.max(0, userdata.badges.length - 3)).map(id => json[id] ?? json[0]),
         created_at: new Date(userdata.date).toDateString(),
       },
     });
