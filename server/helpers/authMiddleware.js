@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js";
 
 const auth = {
   encode: (data) => {
-    return jwt.sign(data, process.env.PRIVATE, { expiresIn: 60 * 5 });
+    return jwt.sign(data, process.env.PRIVATE, { expiresIn: 60 * 60 * 5 });
   },
   require: async (req, res, next) => {
     try {
