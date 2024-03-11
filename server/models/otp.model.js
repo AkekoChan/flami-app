@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import { mailSender } from "../mail/mailSender.js";
-import templateOTP from "../mail/templateOTP.mjs";
+import { readFile } from "fs/promises";
 
 const otpSchema = new mongoose.Schema({
   email: {
@@ -20,12 +20,14 @@ const otpSchema = new mongoose.Schema({
 
 const sendVerificationEmail = async (email, otp) => {
   try {
+    let content = await readFile('./mail/otp-base.html', { encoding: "utf8" });
     await mailSender(
       email,
       "Code de confirmation pour Flami",
-      templateOTP(otp)
+      content.replace("${otp}", otp)
     );
   } catch (error) {
+    console.error(error);
     throw error;
   }
 };
