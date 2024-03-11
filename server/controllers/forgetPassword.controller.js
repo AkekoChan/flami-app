@@ -25,7 +25,7 @@ const forgetPasswordController = {
       const info = await mailSender(
         user.email,
         "Mot de passe oublié ? - Flami vient à votre aide !",
-        templateForgotPassword(`${process.env.URL_APP}/reset-password/${token}`)
+        templateForgotPassword(`${process.env.ENVIRONMENT === "dev" ? process.env.URL_APP_DEV : process.env.URL_APP_PROD}/reset-password/${token}`)
       );
 
       if (!info) {
