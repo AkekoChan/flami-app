@@ -9,7 +9,7 @@ import FlamiPage from "./pages/flami/FlamiPage";
 import MapPage from "./pages/map/MapPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./utils/routes/ProtectedRoute";
-import { Toaster, useToasterStore } from "react-hot-toast";
+import { toast, Toaster, useToasterStore } from "react-hot-toast";
 import AuthRoute from "./utils/routes/AuthRoute";
 import ErrorPage from "./pages/error/ErrorPage";
 import { useEffect } from "react";
