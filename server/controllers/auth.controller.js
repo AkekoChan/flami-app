@@ -4,7 +4,7 @@ import userModel from "../models/user.model.js";
 
 const authController = {
   token: async (req, res) => {
-    let userdata = req.body;
+    let userdata = res.locals.user;
     let token = auth.encode({ email: userdata.email });
 
     return res.status(201).json({
