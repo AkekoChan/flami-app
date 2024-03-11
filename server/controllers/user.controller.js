@@ -1,26 +1,29 @@
 import userModel from "../models/user.model.js";
 import auth from "../helpers/authMiddleware.js";
 import bcrypt from "bcryptjs";
+import { readFile } from "fs/promises";
 
 const userController = {
-  getProfile: (req, res) => {
+  getProfile: async (req, res) => {
     let userdata = res.locals.user;
+    let content = await readFile('./data/badges.json', { encoding: "utf8" });
+    let json = JSON.parse(content);
     return res.status(200).json({
       data: {
         name: userdata.name,
         email: userdata.email,
+        badges: userdata.badges.map(id => json[id] ?? json[0]),
         created_at: new Date(userdata.date).toDateString(),
       },
     });
   },
-  // getAccount: (req, res) => {
-
-  // },
-  getBadges: (req, res) => {
+  getBadges: async (req, res) => {
     let userdata = res.locals.user;
+    let content = await readFile('./data/badges.json', { encoding: "utf8" });
+    let json = JSON.parse(content);
     return res.status(200).json({
       data: {
-        badges: userdata.badges,
+        badges: userdata.badges.map(id => json[id] ?? json[0]),
       },
     });
   },
@@ -30,12 +33,7 @@ const userController = {
 
     let patch = {};
 
-    if (
-      password &&
-      String(password).match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-      )
-    )
+    if (password && String(password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/))
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
     if (name) patch.name = name;
     if (email) patch.email = email;
