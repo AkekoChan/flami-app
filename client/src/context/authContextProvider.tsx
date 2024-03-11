@@ -8,6 +8,7 @@ import { GenericResponse } from "../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
 import { User } from "../interfaces/user.interface";
 import { SigninBody } from "../interfaces/api-body/signin-body";
+import { VerifyTokenResponse } from "../interfaces/api-response/verify-token-response";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -51,26 +52,42 @@ export const AuthContextProvider = ({
   };
 
   const signup = async (body: SignupBody) => {
-    APIHandler<AuthResponse>("/auth/signup", false, "post", body).then(
-      () => {
-        navigate("/otp");
-        APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
-          (res) => {
-            setUser({
-              name: body.name,
-              email: body.email,
-            });
-            toast.success(res.data.message, {
-              style: {
-                background: "#3D3D3D",
-                color: "#FAFAFA",
-                borderRadius: "12px",
-              },
-            });
-          }
-          );
+    APIHandler<AuthResponse>("/auth/signup", false, "post", body).then(() => {
+      navigate("/otp");
+      APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
+        (res) => {
+          setUser({
+            name: body.name,
+            email: body.email,
+          });
+          toast.success(res.data.message, {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
         }
-    );
+      );
+    });
+  };
+
+  const verifyToken = (token: string | null) => {
+    APIHandler<VerifyTokenResponse>(
+      "/auth/token",
+      false,
+      "get",
+      undefined,
+      token
+    )
+      .then((res) => {
+        console.log(res);
+        setToken(res.data.token);
+        localStorage.setItem("token", res.data.token);
+      })
+      .catch((res) => {
+        console.log(res);
+      });
   };
 
   const authContextValue: AuthContextType = {
@@ -79,7 +96,8 @@ export const AuthContextProvider = ({
     signup,
     token,
     user,
-    setToken
+    setToken,
+    verifyToken,
   };
 
   return (

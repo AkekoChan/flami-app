@@ -10,6 +10,7 @@ export interface AuthContextType {
   token: string | null;
   user: Omit<User, "created_at"> | undefined;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
+  verifyToken: (token: string | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
