@@ -102,8 +102,12 @@ export const AuthContextProvider = ({
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
       })
-      .catch((res) => {
-        console.log(res);
+      .catch((data: ErrorResponse) => {
+        if (data.error) {
+          setToken(null);
+          localStorage.clear();
+          navigate("/sign-in");
+        }
       });
   };
 
