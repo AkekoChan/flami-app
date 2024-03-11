@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { User } from "../interfaces/user.interface";
 import { SigninBody } from "../interfaces/api-body/signin-body";
 import { VerifyTokenResponse } from "../interfaces/api-response/verify-token-response";
+import { ErrorResponse } from "../interfaces/api-response/error-response";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -26,8 +27,8 @@ export const AuthContextProvider = ({
 
   const signin = useCallback(
     (body: SigninBody) => {
-      APIHandler<AuthResponse>("/auth/signin", false, "post", body).then(
-        (res) => {
+      APIHandler<AuthResponse>("/auth/signin", false, "post", body)
+        .then((res) => {
           setToken(res.data.token);
           localStorage.setItem("token", res.data.token);
           toast.success(res.data.message, {
@@ -38,16 +39,16 @@ export const AuthContextProvider = ({
             },
           });
           navigate("/");
-        }
-      ).catch((data: any) => {
-        if(data.error === 403) {
-          navigate("/otp");
-          setUser({
-            name: undefined,
-            email: body.email
-          });
-        }
-      });
+        })
+        .catch((data: ErrorResponse) => {
+          if (data.error === 403) {
+            navigate("/otp");
+            setUser({
+              name: undefined,
+              email: body.email,
+            });
+          }
+        });
     },
     [navigate]
   );
@@ -60,24 +61,30 @@ export const AuthContextProvider = ({
   };
 
   const signup = async (body: SignupBody) => {
-    APIHandler<AuthResponse>("/auth/signup", false, "post", body).then(() => {
-      navigate("/otp");
-      APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
-        (res) => {
-          setUser({
-            name: body.name,
-            email: body.email,
-          });
-          toast.success(res.data.message, {
-            style: {
-              background: "#3D3D3D",
-              color: "#FAFAFA",
-              borderRadius: "12px",
-            },
-          });
+    APIHandler<AuthResponse>("/auth/signup", false, "post", body)
+      .then(() => {
+        navigate("/otp");
+        APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
+          (res) => {
+            setUser({
+              name: body.name,
+              email: body.email,
+            });
+            toast.success(res.data.message, {
+              style: {
+                background: "#3D3D3D",
+                color: "#FAFAFA",
+                borderRadius: "12px",
+              },
+            });
+          }
+        );
+      })
+      .catch((data: ErrorResponse) => {
+        if (data.error) {
+          navigate("/sign-in");
         }
-      );
-    });
+      });
   };
 
   const verifyToken = (token: string | null) => {
