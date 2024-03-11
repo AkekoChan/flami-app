@@ -16,26 +16,22 @@ const authController = {
   signup: async (req, res) => {
     let userdata = req.body;
 
-    if (
-      !userdata.email ||
+    if (!userdata.email ||
       !String(userdata.email)
         .toLowerCase()
         .match(
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        )
-    ) {
+        )) {
       return res.status(401).json({
         message: `E-mail invalide.`,
         error: 401,
       });
     }
 
-    if (
-      !userdata.password ||
+    if (!userdata.password ||
       !String(userdata.password).match(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-      )
-    ) {
+      )) {
       return res.status(401).json({
         message:
           "Le mot de passe doit contenir 8 caractères, au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial.",
