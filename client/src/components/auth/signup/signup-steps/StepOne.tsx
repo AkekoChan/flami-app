@@ -37,7 +37,7 @@ const StepOne = ({
   };
 
   const handlePrevPage = () => {
-    navigate("/", { replace: true });
+    navigate("/welcome");
   };
 
   const handleSubmit = () => {

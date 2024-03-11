@@ -98,7 +98,6 @@ export const AuthContextProvider = ({
       token
     )
       .then((res) => {
-        console.log(res);
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
       })
@@ -106,7 +105,7 @@ export const AuthContextProvider = ({
         if (data.error) {
           setToken(null);
           localStorage.clear();
-          navigate("/sign-in");
+          navigate("/welcome");
         }
       });
   };

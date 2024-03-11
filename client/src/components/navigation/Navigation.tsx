@@ -5,7 +5,6 @@ const Navigation = () => {
   const location = useLocation();
 
   const currentLocation = location.pathname.split("/")[1];
-  console.log(currentLocation);
   return (
     <div className="fixed bottom-0 left-1/2 -translate-x-1/2 bg-alabaster-900 z-50 py-4 px-8 shadow-nav rounded-t-xl max-w-lg w-full">
       <nav className="">

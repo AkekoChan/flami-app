@@ -1,14 +1,47 @@
-import { Button } from "../../components/ui";
+import { useCallback, useEffect, useState } from "react";
+import TopBar from "../../components/topbar/TopBar";
+import { Button, LinkComponent } from "../../components/ui";
 import { useAuth } from "../../hooks/useAuth";
+import { APIHandler } from "../../utils/api/api-handler";
+import { User } from "../../interfaces/user.interface";
+import { getReadableDate } from "../../utils/getReadableDate";
 
 const ProfilePage = () => {
-  const auth = useAuth();
+  const { signout, token } = useAuth();
+  const [user, setUser] = useState<User>();
+
+  const getUser = useCallback(() => {
+    APIHandler<User>("/my/profile", false, "get", undefined, token).then(
+      (res) => {
+        setUser(res.data);
+      }
+    );
+  }, [token]);
+
+  useEffect(() => {
+    getUser();
+  }, [getUser]);
 
   return (
-    <div>
-      <Button variant={"tertiary"} onClick={auth.signout}>
-        Se déconnecter
-      </Button>
+    <div className="flex flex-col gap-8">
+      <TopBar title="Mon profil" hasReturn={false} />
+      <div className="flex flex-col gap-6">
+        {user && (
+          <div className="flex flex-col gap-2">
+            <h3 className="text-3xl font-bold">{user.name}</h3>
+            <p className="text-alabaster-400">{user.email}</p>
+            <p>inscrit le {getReadableDate(user.created_at)}</p>
+          </div>
+        )}
+        <div className="flex flex-col gap-2">
+          <LinkComponent variant={"primary"} to={"/account"}>
+            Modifier mon compte
+          </LinkComponent>
+          <Button variant={"tertiary"} onClick={signout}>
+            Se déconnecter
+          </Button>
+        </div>
+      </div>
     </div>
   );
 };

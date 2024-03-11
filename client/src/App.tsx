@@ -13,6 +13,7 @@ import { toast, Toaster, useToasterStore } from "react-hot-toast";
 import AuthRoute from "./utils/routes/AuthRoute";
 import ErrorPage from "./pages/error/ErrorPage";
 import { useEffect } from "react";
+import AccountPage from "./pages/profile/AccountPage";
 
 const TOAST_LIMIT = 2;
 
@@ -33,6 +34,7 @@ const App = () => {
           <Route index element={<FlamiPage />} />
           <Route path="map" element={<MapPage />} />
           <Route path="profile" element={<ProfilePage />} />
+          <Route path="account" element={<AccountPage />} />
         </Route>
         <Route element={<AuthRoute />}>
           <Route path="/welcome" element={<WelcomePage />} />
