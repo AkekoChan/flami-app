@@ -9,11 +9,23 @@ import FlamiPage from "./pages/flami/FlamiPage";
 import MapPage from "./pages/map/MapPage";
 import ProfilePage from "./pages/profile/ProfilePage";
 import ProtectedRoute from "./utils/routes/ProtectedRoute";
-import { Toaster } from "react-hot-toast";
+import { Toaster, useToasterStore } from "react-hot-toast";
 import AuthRoute from "./utils/routes/AuthRoute";
 import ErrorPage from "./pages/error/ErrorPage";
+import { useEffect } from "react";
+
+const TOAST_LIMIT = 2;
 
 const App = () => {
+  const { toasts } = useToasterStore();
+
+  useEffect(() => {
+    toasts
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= TOAST_LIMIT)
+      .forEach((t) => toast.dismiss(t.id));
+  }, [toasts]);
+
   return (
     <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid mb-24">
       <Routes>
