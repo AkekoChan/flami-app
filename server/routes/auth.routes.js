@@ -48,19 +48,11 @@ let bruteforce = new ExpressBrute(store, {
 router.post("/signin", bruteforce.prevent, authController.signin);
 router.post("/signup", bruteforce.prevent, authController.signup);
 
-router.post("/token", auth.require, authController.token);
+router.get("/token", auth.require, authController.token);
 
 router.post("/send-otp", bruteforce.prevent, otpController.sendOTP);
 router.post("/verify-otp", bruteforce.prevent, otpController.verifyOTP);
-router.post(
-  "/forget-password",
-  bruteforce.prevent,
-  forgetPasswordController.forgetPassword
-);
-router.post(
-  "/reset-password/:token",
-  bruteforce.prevent,
-  forgetPasswordController.resetPassword
-);
+router.post("/forget-password", bruteforce.prevent, forgetPasswordController.forgetPassword);
+router.post("/reset-password/:token", bruteforce.prevent, forgetPasswordController.resetPassword);
 
 export default router;
