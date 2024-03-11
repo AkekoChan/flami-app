@@ -18,18 +18,22 @@ const flamiShema = new mongoose.Schema({
     type: Array,
     default: []
   },
+  location: {
+    lat: Number,
+    long: Number
+  },
   stats: {
     strength: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0
     },
     speed: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0
     },
     dexterity: {
-        type: Number,
-        default: 0
+      type: Number,
+      default: 0
     }
   },
   stamina: {
