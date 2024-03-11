@@ -41,7 +41,7 @@ const auth = {
     } catch (error) {
       return res
         .status(error.code ?? 401)
-        .json({ message: error.message, error: error.code ?? 401 });
+        .json({ message: "Une erreur s'est produite.", error: error.code ?? 401 });
     }
   },
 };
