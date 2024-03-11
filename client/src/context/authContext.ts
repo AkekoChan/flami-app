@@ -9,6 +9,7 @@ export interface AuthContextType {
   signout: () => void;
   token: string | null;
   user: Omit<User, "created_at"> | undefined;
+  setToken: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);

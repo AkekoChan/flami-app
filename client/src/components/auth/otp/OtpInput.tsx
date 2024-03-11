@@ -9,7 +9,7 @@ interface OtpInputProps {
 
 const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
   const valueItems = useMemo(() => {
-    const valueArray = value.split("");
+    const valueArray = value.trim().split("");
     const items: string[] = [];
 
     for (let i = 0; i < valueLength; i++) {
@@ -30,7 +30,9 @@ const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
   ) => {
     const target = event.target;
     let targetValue = target.value.trim();
+    console.log(targetValue);
     const isTargetValueDigit = RE_DIGIT.test(targetValue);
+    console.log(isTargetValueDigit);
 
     if (!isTargetValueDigit && targetValue !== "") {
       return;
@@ -42,7 +44,7 @@ const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
 
     if (targetValueLength === 1) {
       const newValue =
-        value.substring(0, index) + targetValue + value.substring(index + 1);
+        value.trim().substring(0, index) + targetValue + value.trim().substring(index + 1);
 
       onChange(newValue.replace(/\s/g, ""));
 
