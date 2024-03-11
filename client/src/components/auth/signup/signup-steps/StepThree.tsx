@@ -38,7 +38,6 @@ const StepThree = ({
   const handleSubmit = () => {
     if (clickedIndex !== null) {
       const selectedIntent = choices.intent[clickedIndex];
-      console.log(selectedIntent);
       nextStep({
         ...data,
         metadata: { ...data.metadata, intent: selectedIntent },

@@ -1,17 +1,16 @@
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import { Field, Form, Formik } from "formik";
 import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Button, LinkComponent } from "../../ui";
-
-interface FormValues {
-  email: string;
-  password: string;
-}
+import { SigninBody } from "../../../interfaces/api-body/signin-body";
+import { useAuth } from "../../../hooks/useAuth";
 
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+
+  const auth = useAuth();
 
   return (
     <Formik
@@ -22,15 +21,21 @@ const SigninForm = () => {
           .required("L'e-mail est obligatoire.")
           .trim(),
         password: Yup.string()
-          .min(8, "Le mot de passe doit faire 8 caractères minimum.")
+          .matches(
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
+          )
           .required("Le mot de passe est obligatoire.")
           .trim(),
       })}
-      onSubmit={(values: FormValues, actions: FormikHelpers<FormValues>) => {
-        console.log(values);
+      onSubmit={(values, actions) => {
+        const body: SigninBody = {
+          email: values.email,
+          password: values.password,
+        };
+
+        auth.signin(body);
         actions.setSubmitting(false);
-        actions.resetForm();
-        // actions.setFieldError("email", "Le format de l'e-mail est incorrect.");
       }}
     >
       {({ errors, touched, isValid, dirty }) => (

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button } from "../../ui";
 import OtpInput from "./OtpInput";
 import { APIHandler } from "../../../utils/api/api-handler";
-import { RegisterResponse } from "../../../interfaces/api-response/register-reponse";
+import { AuthResponse } from "../../../interfaces/api-response/auth-reponse";
 import { OtpBody } from "../../../interfaces/api-body/otp-body";
 import { GenericResponse } from "../../../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
@@ -19,7 +19,6 @@ const OtpForm = () => {
       email: auth.user?.email,
     };
 
-    console.log(body);
     APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
       (res) => {
         toast.success(res.data.message, {
@@ -43,24 +42,19 @@ const OtpForm = () => {
         otp: values.otp,
       };
 
-      console.log(body);
-
-      APIHandler<RegisterResponse>(
-        "/auth/verify-otp",
-        false,
-        "post",
-        body
-      ).then((res) => {
-        localStorage.setItem("token", res.data.token);
-        toast.success(res.data.message, {
-          style: {
-            background: "#3D3D3D",
-            color: "#FAFAFA",
-            borderRadius: "12px",
-          },
-        });
-        navigate("/");
-      });
+      APIHandler<AuthResponse>("/auth/verify-otp", false, "post", body).then(
+        (res) => {
+          localStorage.setItem("token", res.data.token);
+          toast.success(res.data.message, {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
+          navigate("/");
+        }
+      );
     },
     validate: (values) => {
       const errors: Partial<typeof values> = {};

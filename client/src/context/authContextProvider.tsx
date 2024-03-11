@@ -1,12 +1,13 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import { SignupBody } from "../interfaces/api-body/signup-body";
 import { APIHandler } from "../utils/api/api-handler";
-import { RegisterResponse } from "../interfaces/api-response/register-reponse";
+import { AuthResponse } from "../interfaces/api-response/auth-reponse";
 import { useNavigate } from "react-router";
 import { GenericResponse } from "../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
 import { User } from "../interfaces/user.interface";
+import { SigninBody } from "../interfaces/api-body/signin-body";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -22,14 +23,38 @@ export const AuthContextProvider = ({
 
   const navigate = useNavigate();
 
-  const signin = useCallback(() => {});
+  const signin = useCallback(
+    (body: SigninBody) => {
+      APIHandler<AuthResponse>("/auth/signin", false, "post", body).then(
+        (res) => {
+          setToken(res.data.token);
+          localStorage.setItem("token", res.data.token);
+          toast.success(res.data.message, {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
+          navigate("/");
+        }
+      );
+    },
+    [navigate]
+  );
 
-  const signout = async () => {};
+  const signout = () => {
+    localStorage.clear();
+    setUser(undefined);
+    setToken(null);
+    navigate("/sign-in");
+  };
 
   const signup = async (body: SignupBody) => {
-    APIHandler<RegisterResponse>("/auth/signup", false, "post", body).then(
+    APIHandler<AuthResponse>("/auth/signup", false, "post", body).then(
       (res) => {
         setToken(res.data.token);
+        navigate("/otp");
         APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
           (res) => {
             setUser({
@@ -43,22 +68,16 @@ export const AuthContextProvider = ({
                 borderRadius: "12px",
               },
             });
-            navigate("/otp");
           }
         );
       }
     );
   };
 
-  const verifyTokenValidity = useCallback(() => {});
-
-  useEffect(() => {});
-
   const authContextValue: AuthContextType = {
     signin,
     signout,
     signup,
-    setToken,
     token,
     user,
   };

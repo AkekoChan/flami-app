@@ -38,7 +38,6 @@ const StepTwo = ({
   const handleSubmit = () => {
     if (clickedIndex !== null) {
       const selectedOrigin = choices.origin[clickedIndex];
-      console.log(selectedOrigin);
       nextStep({
         ...data,
         metadata: { ...data.metadata, origin: selectedOrigin },
@@ -82,7 +81,7 @@ const StepTwo = ({
         </div>
         <Reveal className="flex flex-col gap-8">
           <h1 className="text-2xl font-bold text-center">
-            Quel est ton sport préféré ?
+            Comment nous as-tu connu ?
           </h1>
           <div className="flex flex-col gap-6">
             <ul className="flex flex-col gap-4">

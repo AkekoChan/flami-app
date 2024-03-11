@@ -78,6 +78,7 @@ export default {
         primary: "0px 6px 0px #ffbd1b",
         secondary: "0px 6px 0px #989898",
         none: "none",
+        nav: "0px -6px 0px #656565",
         "tree-poppy-500": "0px 6px 0px #ff9900",
         "tree-poppy-500-press": "0px 2px 0px #ff9900",
       },

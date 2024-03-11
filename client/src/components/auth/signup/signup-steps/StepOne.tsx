@@ -43,7 +43,6 @@ const StepOne = ({
   const handleSubmit = () => {
     if (clickedIndex !== null) {
       const selectedSport = choices.fav_sport[clickedIndex];
-      console.log(selectedSport);
       nextStep({
         ...data,
         metadata: { ...data.metadata, favorite_sport: selectedSport },

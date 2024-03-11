@@ -20,7 +20,7 @@ const auth = {
       );
 
       let user = await userModel.findByEmail(userdata.email);
-      
+
       if (!user) {
         throw {
           code: 404,
@@ -32,7 +32,7 @@ const auth = {
       if (!user.isVerified) {
         throw {
           code: 403,
-          message: "OTP not verified",
+          message: "L'utilisateur n'est pas vérifié.",
         };
       }
 
@@ -43,7 +43,7 @@ const auth = {
         .status(error.code ?? 401)
         .json({ message: error.message, error: error.code ?? 401 });
     }
-  }
+  },
 };
 
 export default auth;

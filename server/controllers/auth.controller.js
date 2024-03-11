@@ -20,7 +20,9 @@ const authController = {
       !userdata.email ||
       !String(userdata.email)
         .toLowerCase()
-        .match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        )
     ) {
       return res.status(401).json({
         message: `E-mail invalide.`,
@@ -104,7 +106,7 @@ const authController = {
         req.brute.reset(); // reset brute counter
         return res.status(200).json({
           data: {
-            message: "Authentification réussie.",
+            message: "Bienvenue sur l'application Flami !",
             token: token,
           },
         });

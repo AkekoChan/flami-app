@@ -32,8 +32,6 @@ const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
     let targetValue = target.value.trim();
     const isTargetValueDigit = RE_DIGIT.test(targetValue);
 
-    console.log(targetValue);
-
     if (!isTargetValueDigit && targetValue !== "") {
       return;
     }

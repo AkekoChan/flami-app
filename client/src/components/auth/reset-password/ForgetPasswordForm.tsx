@@ -1,6 +1,9 @@
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { Button } from "../../ui";
+import { APIHandler } from "../../../utils/api/api-handler";
+import { GenericResponse } from "../../../interfaces/api-response/generic-response";
+import toast from "react-hot-toast";
 
 interface FormValues {
   email: string;
@@ -11,7 +14,23 @@ const ForgetPasswordForm = () => {
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    console.log(values);
+    const body = {
+      email: values.email,
+    };
+    APIHandler<GenericResponse>(
+      "/auth/forget-password",
+      false,
+      "post",
+      body
+    ).then((res) => {
+      toast.success(res.data.message, {
+        style: {
+          background: "#3D3D3D",
+          color: "#FAFAFA",
+          borderRadius: "12px",
+        },
+      });
+    });
     actions.setSubmitting(false);
   };
 

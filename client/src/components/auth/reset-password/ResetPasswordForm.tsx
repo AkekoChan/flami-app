@@ -3,6 +3,13 @@ import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import * as Yup from "yup";
 import { Button } from "../../ui";
+import { useLocation } from "react-router-dom";
+import { APIHandler } from "../../../utils/api/api-handler";
+import { ResetPasswordBody } from "../../../interfaces/api-body/reset-password-body";
+import { ResetPasswordResponse } from "../../../interfaces/api-response/reset-password-response";
+import toast from "react-hot-toast";
+import { useAuth } from "../../../hooks/useAuth";
+import { SigninBody } from "../../../interfaces/api-body/signin-body";
 
 interface FormValues {
   password: string;
@@ -10,6 +17,8 @@ interface FormValues {
 }
 
 const ResetPasswordForm = () => {
+  const auth = useAuth();
+  const location = useLocation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
@@ -18,7 +27,32 @@ const ResetPasswordForm = () => {
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    console.log(values);
+    const pathnameSplit = location.pathname.split("/");
+    const token = pathnameSplit[2];
+    const resetPasswordBody: ResetPasswordBody = {
+      password: values.password,
+    };
+
+    APIHandler<ResetPasswordResponse>(
+      `/auth/reset-password/${token}`,
+      false,
+      "post",
+      resetPasswordBody
+    ).then((res) => {
+      toast.success(res.data.message, {
+        style: {
+          background: "#3D3D3D",
+          color: "#FAFAFA",
+          borderRadius: "12px",
+        },
+      });
+
+      const signinBody: SigninBody = {
+        email: res.data.email,
+        password: values.password,
+      };
+      auth.signin(signinBody);
+    });
     actions.setSubmitting(false);
   };
 
@@ -28,10 +62,9 @@ const ResetPasswordForm = () => {
       validationSchema={Yup.object().shape({
         password: Yup.string()
           .required("Le mot de passe est obligatoire.")
-          .min(8, "Le mot de passe doit contenir 8 caractères minimum.")
           .matches(
             /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-            "Le mot de passe doit contenir au moins une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
+            "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
           )
           .trim(),
         confirmPassword: Yup.string()
