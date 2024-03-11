@@ -27,6 +27,8 @@ const validationSchema = Yup.object().shape({
 });
 const UpdateForm = () => {
   const { token } = useAuth();
+
+  console.log(token);
   const [user, setUser] = useState<User>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -46,9 +48,16 @@ const UpdateForm = () => {
 
   return (
     <Formik
-      initialValues={{ name: "", email: "", password: "", confirmPassword: "" }}
+      enableReinitialize={true}
+      initialValues={{
+        name: user?.name ? user?.name : "",
+        email: user?.email ? user?.email : "",
+        password: "",
+        confirmPassword: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={(values, actions) => {
+        console.log(values);
         actions.setSubmitting(false);
       }}
     >
