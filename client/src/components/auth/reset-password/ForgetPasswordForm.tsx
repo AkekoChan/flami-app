@@ -20,7 +20,7 @@ const ForgetPasswordForm = () => {
     APIHandler<GenericResponse>(
       "/auth/forget-password",
       false,
-      "post",
+      "POST",
       body
     ).then((res) => {
       toast.success(res.data.message, {

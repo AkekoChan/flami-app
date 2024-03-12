@@ -2,7 +2,7 @@ import { ApiResponse } from "../../interfaces/api-response/api-response";
 import { ErrorResponse } from "../../interfaces/api-response/error-response";
 import toast from "react-hot-toast";
 
-type HTTPMethod = "get" | "post" | "patch";
+type HTTPMethod = "GET" | "POST" | "PATCH";
 
 const apiURLFlami = "http://localhost:3001/api";
 const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
@@ -10,13 +10,13 @@ const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
 export const APIHandler = <T>(
   endpoint: string,
   isMap: boolean = false,
-  method: HTTPMethod = "get",
+  method: HTTPMethod = "GET",
   body: unknown = undefined,
   token: string | null = null
 ): Promise<ApiResponse<T>> => {
   const headers = new Headers();
   const url = isMap ? apiURLMap : apiURLFlami;
-  if (method === "post") {
+  if (method === "POST" || method === "PATCH") {
     headers.append("Content-Type", "application/json");
   }
   if (token) {
