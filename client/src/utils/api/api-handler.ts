@@ -47,6 +47,11 @@ export const APIHandler = <T>(
             },
           });
         });
+        
+        if(res.status === 401) {
+          localStorage.clear();
+          window.location.pathname = "/sign-in";
+        }
       }
     });
   });
