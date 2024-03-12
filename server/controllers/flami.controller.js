@@ -8,7 +8,10 @@ const flamiController = {
     share: (req, res) => {
 
     },
-    rankup: (req, res) => {
+    competition: (req, res) => {
+
+    },
+    training: (req, res) => {
 
     }
 };
