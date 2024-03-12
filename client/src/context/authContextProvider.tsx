@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { AuthContext, AuthContextType } from "./authContext";
 import { SignupBody } from "../interfaces/api-body/signup-body";
 import { APIHandler } from "../utils/api/api-handler";
@@ -8,7 +8,7 @@ import { GenericResponse } from "../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
 import { User } from "../interfaces/user.interface";
 import { SigninBody } from "../interfaces/api-body/signin-body";
-import { VerifyTokenResponse } from "../interfaces/api-response/verify-token-response";
+import { RefreshTokenResponse } from "../interfaces/api-response/refresh-token-response";
 import { ErrorResponse } from "../interfaces/api-response/error-response";
 
 interface AuthContextProviderInterface {
@@ -60,7 +60,7 @@ export const AuthContextProvider = ({
     navigate("/sign-in");
   };
 
-  const signup = async (body: SignupBody) => {
+  const signup = (body: SignupBody) => {
     APIHandler<AuthResponse>("/auth/signup", false, "post", body)
       .then(() => {
         navigate("/otp");
@@ -89,8 +89,8 @@ export const AuthContextProvider = ({
       });
   };
 
-  const verifyToken = (token: string | null) => {
-    APIHandler<VerifyTokenResponse>(
+  const refreshToken = useCallback(() => {
+    APIHandler<RefreshTokenResponse>(
       "/auth/token",
       false,
       "get",
@@ -105,10 +105,17 @@ export const AuthContextProvider = ({
         if (data.error) {
           setToken(null);
           localStorage.clear();
-          navigate("/welcome");
         }
       });
-  };
+  }, [token]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      refreshToken();
+    }, 5 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, [refreshToken]);
 
   const authContextValue: AuthContextType = {
     signin,
@@ -117,7 +124,6 @@ export const AuthContextProvider = ({
     token,
     user,
     setToken,
-    verifyToken,
   };
 
   return (

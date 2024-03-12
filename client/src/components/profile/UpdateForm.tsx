@@ -27,8 +27,6 @@ const validationSchema = Yup.object().shape({
 });
 const UpdateForm = () => {
   const { token } = useAuth();
-
-  console.log(token);
   const [user, setUser] = useState<User>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
@@ -41,6 +39,8 @@ const UpdateForm = () => {
       }
     );
   }, [token]);
+
+  console.log(user);
 
   useEffect(() => {
     getAccount();

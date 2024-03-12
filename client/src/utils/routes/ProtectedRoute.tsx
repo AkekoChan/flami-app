@@ -1,14 +1,9 @@
 import { Navigate, Outlet } from "react-router";
 import { useAuth } from "../../hooks/useAuth";
 import Navigation from "../../components/navigation/Navigation";
-import { useEffect } from "react";
 
 const ProtectedRoute = () => {
-  const { token, verifyToken } = useAuth();
-
-  useEffect(() => {
-    verifyToken(token);
-  });
+  const { token } = useAuth();
 
   return (
     <>

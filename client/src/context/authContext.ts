@@ -5,12 +5,11 @@ import { SigninBody } from "../interfaces/api-body/signin-body";
 
 export interface AuthContextType {
   signin: (body: SigninBody) => void;
-  signup: (body: SignupBody) => Promise<void>;
+  signup: (body: SignupBody) => void;
   signout: () => void;
   token: string | null;
   user: Omit<User, "created_at"> | undefined;
   setToken: React.Dispatch<React.SetStateAction<string | null>>;
-  verifyToken: (token: string | null) => void;
 }
 
 export const AuthContext = createContext<AuthContextType | null>(null);
