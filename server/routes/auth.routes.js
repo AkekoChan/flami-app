@@ -14,7 +14,7 @@ if (process.env.ENVIRONMENT == "dev") {
   store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 } else {
   // stores state with memcached
-  store = new MemcachedStore(["https://flami-api.onrender.com"], {
+  store = new MemcachedStore(["127.0.0.1"], {
     prefix: "NoConflicts",
   });
 }
@@ -62,9 +62,5 @@ router.post(
   bruteforce.prevent,
   forgetPasswordController.resetPassword
 );
-
-router.get("/", function (req, res) {
-  res.send("hello world");
-});
 
 export default router;
