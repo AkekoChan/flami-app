@@ -14,7 +14,7 @@ if (process.env.ENVIRONMENT == "dev") {
   store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 } else {
   // stores state with memcached
-  store = new MemcachedStore(["127.0.0.1"], {
+  store = new MemcachedStore(["https://flami-api.onrender.com"], {
     prefix: "NoConflicts",
   });
 }
