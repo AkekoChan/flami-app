@@ -38,7 +38,7 @@ let handleStoreError = function (error) {
 };
 
 let bruteforce = new ExpressBrute(store, {
-  freeRetries: 1000,
+  freeRetries: 5,
   minWait: 5 * 60 * 1000, // 5 minutes
   maxWait: 10 * 60 * 1000, // 1 hour,
   failCallback: failCallback,
@@ -52,7 +52,15 @@ router.get("/token", auth.require, authController.token);
 
 router.post("/send-otp", bruteforce.prevent, otpController.sendOTP);
 router.post("/verify-otp", bruteforce.prevent, otpController.verifyOTP);
-router.post("/forget-password", bruteforce.prevent, forgetPasswordController.forgetPassword);
-router.post("/reset-password/:token", bruteforce.prevent, forgetPasswordController.resetPassword);
+router.post(
+  "/forget-password",
+  bruteforce.prevent,
+  forgetPasswordController.forgetPassword
+);
+router.post(
+  "/reset-password/:token",
+  bruteforce.prevent,
+  forgetPasswordController.resetPassword
+);
 
 export default router;
