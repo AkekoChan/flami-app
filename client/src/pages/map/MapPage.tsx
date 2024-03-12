@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "leaflet/dist/leaflet.css";
 import { APIHandler } from "../../utils/api/api-handler";
 import { Step } from "../../interfaces/step.interface";
