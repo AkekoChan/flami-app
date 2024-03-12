@@ -1,23 +1,59 @@
 import userModel from "../models/user.model.js";
+import auth from "../helpers/authMiddleware.js";
+import bcrypt from "bcryptjs";
+import { readFile } from "fs/promises";
 
 const userController = {
-  getUsers: async (req, res) => {
-    try {
-      const users = await userModel.find();
-      res.status(200).json(users);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
-    }
+  getProfile: async (req, res) => {
+    let userdata = res.locals.user;
+    let content = await readFile("./data/badges.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+    return res.status(200).json({
+      data: {
+        name: userdata.name,
+        email: userdata.email,
+        badges: userdata.badges
+          .slice(Math.max(0, userdata.badges.length - 3))
+          .map((id) => json[id] ?? json[0]),
+        created_at: new Date(userdata.date).toDateString(),
+      },
+    });
   },
-  addUser: async (req, res) => {
-    const user = req.body;
-    const newUser = new userModel(user);
-    try {
-      await newUser.save();
-      res.status(201).json(newUser);
-    } catch (error) {
-      res.status(409).json({ message: error.message });
-    }
+  getBadges: async (req, res) => {
+    let userdata = res.locals.user;
+    let content = await readFile("./data/badges.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+    return res.status(200).json({
+      data: {
+        badges: userdata.badges.map((id) => json[id] ?? json[0]),
+      },
+    });
+  },
+  updateAccount: async (req, res) => {
+    let userdata = res.locals.user;
+    const { password, name, email } = req.body;
+
+    let patch = {};
+
+    if (
+      password &&
+      String(password).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )
+    )
+      patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
+    if (name) patch.name = name;
+    if (email) patch.email = email;
+
+    await userModel.updateOne({ _id: userdata._id }, patch);
+
+    let token = auth.encode({ email: email ?? userdata.email });
+    return res.status(200).json({
+      data: {
+        message: "Informations de compte misent à jour.",
+        token: token,
+      },
+    });
   },
 };
 

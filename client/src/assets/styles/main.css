@@ -1,3 +1,115 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Light.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Regular.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Regular.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Medium.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Bold.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Bold.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Thin.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Thin.woff") format("woff");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("../../../public/assets/fonts/Roboto-Black.woff2") format("woff2"),
+    url("../../../public/assets/fonts/Roboto-Black.woff") format("woff");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+.cluster-icon {
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+  background-color: orange;
+  background-image: url(./img/fire.png);
+  transform: translate(-25%, -25%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.leaflet-container {
+  height: 100% !important;
+}
+
+main .leaflet-popup-content p {
+  margin: 4px 0 !important;
+  color: #fafafa !important;
+}
+
+main .leaflet-popup-tip {
+  background-color: #656565 !important;
+}
+
+main .leaflet-popup-content-wrapper {
+  background-color: #656565 !important;
+}
+
+main .leaflet-container a.leaflet-popup-close-button {
+  color: #fafafa !important;
+}
+
+main .leaflet-popup {
+  border-radius: 8px !important;
+}
+
+.badge-display {
+  transition: .21s ease-out;
+  transform: rotate(0deg);
+  user-select: none;
+}
+
+.badge-display .side-cover {
+  transform: rotateY(180deg);
+  transition: .21s ease-out;
+}
+
+.badge-reverse {
+  transform: rotateY(180deg);
+}
+
+.badge-reverse .side-cover {
+  z-index: 7;
+}

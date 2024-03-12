@@ -1,35 +1,56 @@
-import { useEffect, useState } from "react";
+import { Route, Routes } from "react-router";
+import ForgetPasswordPage from "./pages/auth/ForgetPasswordPage";
+import OtpPage from "./pages/auth/OtpPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import SigninPage from "./pages/auth/SigninPage";
+import SignupPage from "./pages/auth/SignupPage";
+import WelcomePage from "./pages/auth/WelcomePage";
+import FlamiPage from "./pages/flami/FlamiPage";
+import MapPage from "./pages/map/MapPage";
+import ProfilePage from "./pages/profile/ProfilePage";
+import ProtectedRoute from "./utils/routes/ProtectedRoute";
+import { toast, Toaster, useToasterStore } from "react-hot-toast";
+import AuthRoute from "./utils/routes/AuthRoute";
+import ErrorPage from "./pages/error/ErrorPage";
+import { useEffect } from "react";
+import AccountPage from "./pages/profile/AccountPage";
 
-import User from "./interfaces/userInterface";
-
-import apiService from "./services/api";
+const TOAST_LIMIT = 2;
 
 const App = () => {
-  const [users, setUsers] = useState<User[]>([]);
-
-  const getUsers = async () => {
-    const users = await apiService.getUsers();
-    setUsers(users);
-  };
+  const { toasts } = useToasterStore();
 
   useEffect(() => {
-    getUsers();
-  }, []);
+    toasts
+      .filter((t) => t.visible)
+      .filter((_, i) => i >= TOAST_LIMIT)
+      .forEach((t) => toast.dismiss(t.id));
+  }, [toasts]);
 
   return (
-    <div>
-      <h1>User page</h1>
-
-      <ul>
-        {users.length === 0
-          ? "No users found"
-          : users.map((user) => (
-              <li key={user._id}>
-                {user.name} - {user.email}
-              </li>
-            ))}
-      </ul>
-    </div>
+    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid mb-24">
+      <Routes>
+        <Route path="/" element={<ProtectedRoute />}>
+          <Route index element={<FlamiPage />} />
+          <Route path="map" element={<MapPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route path="account" element={<AccountPage />} />
+        </Route>
+        <Route element={<AuthRoute />}>
+          <Route path="/welcome" element={<WelcomePage />} />
+          <Route path="/sign-in" element={<SigninPage />} />
+          <Route path="/sign-up" element={<SignupPage />} />
+          <Route
+            path="/reset-password/:token"
+            element={<ResetPasswordPage />}
+          />
+          <Route path="/forget-password" element={<ForgetPasswordPage />} />
+          <Route path="/otp" element={<OtpPage />} />
+        </Route>
+        <Route path="*" element={<ErrorPage />}></Route>
+      </Routes>
+      <Toaster position="top-center" reverseOrder={false} />
+    </main>
   );
 };
 
