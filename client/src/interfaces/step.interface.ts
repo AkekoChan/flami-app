@@ -16,5 +16,5 @@ export interface Step {
     y: number;
   };
   population: number;
-  code_postal: "04100";
+  code_postal: string;
 }

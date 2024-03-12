@@ -74,6 +74,27 @@
   height: 100% !important;
 }
 
+main .leaflet-popup-content p {
+  margin: 4px 0 !important;
+  color: #fafafa !important;
+}
+
+main .leaflet-popup-tip {
+  background-color: #656565 !important;
+}
+
+main .leaflet-popup-content-wrapper {
+  background-color: #656565 !important;
+}
+
+main .leaflet-container a.leaflet-popup-close-button {
+  color: #fafafa !important;
+}
+
+main .leaflet-popup {
+  border-radius: 8px !important;
+}
+
 .badge-display {
   transition: .21s ease-out;
   transform: rotate(0deg);
