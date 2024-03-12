@@ -27,7 +27,7 @@ export const AuthContextProvider = ({
 
   const signin = useCallback(
     (body: SigninBody) => {
-      APIHandler<AuthResponse>("/auth/signin", false, "post", body)
+      APIHandler<AuthResponse>("/auth/signin", false, "POST", body)
         .then((res) => {
           setToken(res.data.token);
           localStorage.setItem("token", res.data.token);
@@ -61,10 +61,10 @@ export const AuthContextProvider = ({
   };
 
   const signup = (body: SignupBody) => {
-    APIHandler<AuthResponse>("/auth/signup", false, "post", body)
+    APIHandler<AuthResponse>("/auth/signup", false, "POST", body)
       .then(() => {
         navigate("/otp");
-        APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
+        APIHandler<GenericResponse>("/auth/send-otp", false, "POST", body).then(
           (res) => {
             setUser({
               name: body.name,
@@ -93,7 +93,7 @@ export const AuthContextProvider = ({
     APIHandler<RefreshTokenResponse>(
       "/auth/token",
       false,
-      "get",
+      "GET",
       undefined,
       token
     )
@@ -115,7 +115,7 @@ export const AuthContextProvider = ({
     }, 5 * 60 * 1000);
 
     return () => clearInterval(interval);
-  }, [refreshToken]);
+  });
 
   const authContextValue: AuthContextType = {
     signin,

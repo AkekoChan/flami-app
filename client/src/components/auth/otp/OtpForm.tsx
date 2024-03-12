@@ -19,7 +19,7 @@ const OtpForm = () => {
       email: auth.user?.email,
     };
 
-    APIHandler<GenericResponse>("/auth/send-otp", false, "post", body).then(
+    APIHandler<GenericResponse>("/auth/send-otp", false, "POST", body).then(
       (res) => {
         toast.success(res.data.message, {
           style: {
@@ -42,7 +42,7 @@ const OtpForm = () => {
         otp: values.otp,
       };
 
-      APIHandler<AuthResponse>("/auth/verify-otp", false, "post", body).then(
+      APIHandler<AuthResponse>("/auth/verify-otp", false, "POST", body).then(
         (res) => {
           toast.success(res.data.message, {
             style: {

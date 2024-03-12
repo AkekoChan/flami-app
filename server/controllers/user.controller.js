@@ -6,24 +6,26 @@ import { readFile } from "fs/promises";
 const userController = {
   getProfile: async (req, res) => {
     let userdata = res.locals.user;
-    let content = await readFile('./data/badges.json', { encoding: "utf8" });
+    let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let json = JSON.parse(content);
     return res.status(200).json({
       data: {
         name: userdata.name,
         email: userdata.email,
-        badges: userdata.badges.slice(Math.max(0, userdata.badges.length - 3)).map(id => json[id] ?? json[0]),
+        badges: userdata.badges
+          .slice(Math.max(0, userdata.badges.length - 3))
+          .map((id) => json[id] ?? json[0]),
         created_at: new Date(userdata.date).toDateString(),
       },
     });
   },
   getBadges: async (req, res) => {
     let userdata = res.locals.user;
-    let content = await readFile('./data/badges.json', { encoding: "utf8" });
+    let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let json = JSON.parse(content);
     return res.status(200).json({
       data: {
-        badges: userdata.badges.map(id => json[id] ?? json[0]),
+        badges: userdata.badges.map((id) => json[id] ?? json[0]),
       },
     });
   },
@@ -33,7 +35,12 @@ const userController = {
 
     let patch = {};
 
-    if (password && String(password).match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/))
+    if (
+      password &&
+      String(password).match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+      )
+    )
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
     if (name) patch.name = name;
     if (email) patch.email = email;

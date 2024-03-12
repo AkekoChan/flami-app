@@ -6,15 +6,15 @@ import { Button } from "../ui";
 import { useAuth } from "../../hooks/useAuth";
 import { User } from "../../interfaces/user.interface";
 import { APIHandler } from "../../utils/api/api-handler";
+import { UpdateAccountBody } from "../../interfaces/api-body/update-account-body";
+import { AuthResponse } from "../../interfaces/api-response/auth-reponse";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
 
 const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Le nom est obligatoire.").trim(),
-  email: Yup.string()
-    .email("Le format de l'e-mail est incorrect.")
-    .required("L'e-mail est obligatoire.")
-    .trim(),
+  name: Yup.string().trim(),
+  email: Yup.string().email("Le format de l'e-mail est incorrect.").trim(),
   password: Yup.string()
-    .required("Le mot de passe est obligatoire.")
     .matches(
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
@@ -22,25 +22,24 @@ const validationSchema = Yup.object().shape({
     .trim(),
   confirmPassword: Yup.string()
     .oneOf([Yup.ref("password")], "Le mot de passe ne correspond pas.")
-    .required("La confirmation du mot de passe est obligatoire.")
     .trim(),
 });
 const UpdateForm = () => {
-  const { token } = useAuth();
+  const { token, setToken } = useAuth();
   const [user, setUser] = useState<User>();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
 
+  const navigate = useNavigate();
+
   const getAccount = useCallback(() => {
-    APIHandler<User>("/my/profile", false, "get", undefined, token).then(
+    APIHandler<User>("/my/profile", false, "GET", undefined, token).then(
       (res) => {
         setUser(res.data);
       }
     );
   }, [token]);
-
-  console.log(user);
 
   useEffect(() => {
     getAccount();
@@ -57,11 +56,34 @@ const UpdateForm = () => {
       }}
       validationSchema={validationSchema}
       onSubmit={(values, actions) => {
-        console.log(values);
+        const body: UpdateAccountBody = {
+          email: values.email,
+          name: values.name,
+          password: values.password,
+        };
+        console.log(token, body);
+        APIHandler<AuthResponse>(
+          "/my/account",
+          false,
+          "PATCH",
+          body,
+          token
+        ).then((res) => {
+          setToken(res.data.token);
+          localStorage.setItem("token", res.data.token);
+          toast.success(res.data.message, {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
+          navigate("/profile");
+        });
         actions.setSubmitting(false);
       }}
     >
-      {({ errors, touched, isValid, dirty }) => (
+      {({ errors, touched }) => (
         <Form className="flex flex-col gap-8">
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-4">
@@ -229,11 +251,7 @@ const UpdateForm = () => {
               </div>
             </div>
             <div className="flex flex-col gap-4">
-              <Button
-                variant={"primary"}
-                type="submit"
-                disabled={!(isValid && dirty)}
-              >
+              <Button variant={"primary"} type="submit">
                 Sauvegarder
               </Button>
             </div>

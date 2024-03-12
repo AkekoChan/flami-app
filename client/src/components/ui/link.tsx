@@ -11,6 +11,8 @@ const linksVariants = {
   secondary:
     "bg-alabaster-950 text-alabaster-50 rounded-xl shadow-secondary border-3 border-alabaster-400 active:shadow-none active:translate-y-1 hover:brightness-90",
   tertiary: "text-mandy-500 hover:text-mandy-600",
+  disabled:
+    "rounded-xl bg-alabaster-600 text-alabaster-300 shadow-none hover:brightness-100 active:translate-y-0 pointer-events-none",
 };
 
 const link = cva(baseLink, {

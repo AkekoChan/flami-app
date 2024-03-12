@@ -36,7 +36,7 @@ const ResetPasswordForm = () => {
     APIHandler<ResetPasswordResponse>(
       `/auth/reset-password/${token}`,
       false,
-      "post",
+      "POST",
       resetPasswordBody
     ).then((res) => {
       toast.success(res.data.message, {

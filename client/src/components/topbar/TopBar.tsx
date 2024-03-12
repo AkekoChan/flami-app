@@ -4,13 +4,15 @@ import { useNavigate } from "react-router";
 const TopBar = ({
   title,
   hasReturn,
+  prevPage,
 }: {
   title: string;
   hasReturn: boolean;
+  prevPage: string;
 }) => {
   const navigate = useNavigate();
   const handlePrevPage = () => {
-    navigate(-1);
+    navigate(prevPage);
   };
   return (
     <div className="flex items-center gap-4">

@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const [user, setUser] = useState<User>();
 
   const getUser = useCallback(() => {
-    APIHandler<User>("/my/profile", false, "get", undefined, token).then(
+    APIHandler<User>("/my/profile", false, "GET", undefined, token).then(
       (res) => {
         setUser(res.data);
       }
@@ -22,10 +22,11 @@ const ProfilePage = () => {
   useEffect(() => {
     getUser();
   }, [getUser]);
+  console.log(user?.badges);
 
   return (
     <div className="flex flex-col gap-8">
-      <TopBar title="Mon profil" hasReturn={false} />
+      <TopBar title="Mon profil" hasReturn={false} prevPage="" />
       <div className="flex flex-col gap-6">
         {user && (
           <div className="flex flex-col gap-2">
@@ -46,10 +47,20 @@ const ProfilePage = () => {
       <div className="flex flex-col gap-6">
         <h3 className="text-2xl font-bold">Mes badges</h3>
         <div className="flex justify-between">
-          {
-            user && user.badges && user.badges.map(badge => <BadgeDisplay badge={badge}></BadgeDisplay>)
-          }
+          {user && user.badges?.length !== 0 ? (
+            user.badges?.map((badge) => (
+              <BadgeDisplay badge={badge}></BadgeDisplay>
+            ))
+          ) : (
+            <p>Tu n'as pas de badges !</p>
+          )}
         </div>
+        <LinkComponent
+          to={"/badges"}
+          variant={`${user?.badges?.length === 0 ? "disabled" : "primary"}`}
+        >
+          Voir tous mes badges
+        </LinkComponent>
       </div>
     </div>
   );
