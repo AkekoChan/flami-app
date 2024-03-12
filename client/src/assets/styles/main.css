@@ -73,3 +73,22 @@
 .leaflet-container {
   height: 100% !important;
 }
+
+.badge-display {
+  transition: .21s ease-out;
+  transform: rotate(0deg);
+  user-select: none;
+}
+
+.badge-display .side-cover {
+  transform: rotateY(180deg);
+  transition: .21s ease-out;
+}
+
+.badge-reverse {
+  transform: rotateY(180deg);
+}
+
+.badge-reverse .side-cover {
+  z-index: 7;
+}

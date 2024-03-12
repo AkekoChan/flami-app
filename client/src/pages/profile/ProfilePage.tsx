@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { APIHandler } from "../../utils/api/api-handler";
 import { User } from "../../interfaces/user.interface";
 import { getReadableDate } from "../../utils/getReadableDate";
+import BadgeDisplay from "../../components/profile/BadgeDisplay";
 
 const ProfilePage = () => {
   const { signout, token } = useAuth();
@@ -40,6 +41,14 @@ const ProfilePage = () => {
           <Button variant={"tertiary"} onClick={signout}>
             Se déconnecter
           </Button>
+        </div>
+      </div>
+      <div className="flex flex-col gap-6">
+        <h3 className="text-2xl font-bold">Mes badges</h3>
+        <div className="flex justify-between">
+          {
+            user && user.badges && user.badges.map(badge => <BadgeDisplay badge={badge}></BadgeDisplay>)
+          }
         </div>
       </div>
     </div>
