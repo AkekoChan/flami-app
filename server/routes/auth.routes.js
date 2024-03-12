@@ -63,4 +63,8 @@ router.post(
   forgetPasswordController.resetPassword
 );
 
+router.get("/", function (req, res) {
+  res.send("hello world");
+});
+
 export default router;
