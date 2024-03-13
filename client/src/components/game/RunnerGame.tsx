@@ -130,7 +130,7 @@ const RunnerGame = () => {
         )}
       </div>
       {gameOver && (
-        <div className="max-h-min bg-alabaster-950 p-8 text-center fixed z-50 left-0 top-1/2 -translate-y-1/2 flex items-center justify-center text-4xl font-bold text-alabaster-50">
+        <div className="max-h-min bg-alabaster-950 p-8 text-center fixed z-50 left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 flex items-center justify-center text-4xl font-bold text-alabaster-50">
           Bravo tu as été rapide ! Score : {score}
         </div>
       )}
