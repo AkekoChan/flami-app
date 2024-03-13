@@ -15,7 +15,7 @@ if (process.env.ENVIRONMENT == "dev") {
 } else {
   // stores state with memcached
   store = new MemcachedStore(
-    ["3.75.158.163", "3.125.183.140", "35.157.117.28"],
+    ["3.75.158.163:11211", "3.125.183.140:11211", "35.157.117.28:11211"],
     {
       prefix: "NoConflicts",
     }
