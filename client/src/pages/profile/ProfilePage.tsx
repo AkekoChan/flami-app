@@ -46,13 +46,13 @@ const ProfilePage = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h3 className="text-2xl font-bold">Mes badges</h3>
-        <div className="grid grid-cols-3 items-center justify-items-center">
+        <div className="grid grid-cols-3 items-center">
           {user && user.badges?.length !== 0 ? (
             user.badges?.map((badge: Badge) => (
               <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
             ))
           ) : (
-            <p>Tu n'as pas de badges !</p>
+            <p className="col-span-4">Tu n'as pas de badges !</p>
           )}
         </div>
         <LinkComponent
