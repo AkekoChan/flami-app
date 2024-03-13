@@ -33,30 +33,35 @@ const MapPage = () => {
       setCurrentFlameLocation(res.data);
       handleNextStep(res.data.etape_numero);
     });
-  }
+  };
 
   useEffect(() => {
     handleSteps();
     handleCurrentStep();
   }, []);
 
-  if(currentFlameLocation) {
+  if (currentFlameLocation) {
     steps.forEach((step) => {
-      if(currentFlameLocation && step.etape_numero > currentFlameLocation.etape_numero) return;
+      if (
+        currentFlameLocation &&
+        step.etape_numero > currentFlameLocation.etape_numero
+      )
+        return;
       polylinePath.push([
         step.geolocalisation.latitude,
         step.geolocalisation.longitude,
       ]);
     });
   }
-
-  console.log(currentFlameLocation);
-
   return (
     <div className="map-page flex flex-col gap-8">
       <h1 className="font-roboto text-xl font-bold">Parcours de la flamme</h1>
       <div className="flex flex-col gap-8">
-        <Map currentStep={currentFlameLocation} steps={steps} polylinePath={polylinePath} />
+        <Map
+          currentStep={currentFlameLocation}
+          steps={steps}
+          polylinePath={polylinePath}
+        />
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-bold">Où est la flamme</h2>
