@@ -14,6 +14,7 @@ import AuthRoute from "./utils/routes/AuthRoute";
 import ErrorPage from "./pages/error/ErrorPage";
 import { useEffect } from "react";
 import AccountPage from "./pages/profile/AccountPage";
+import SharePage from "./pages/flami/SharePage";
 
 const TOAST_LIMIT = 2;
 
@@ -32,6 +33,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<ProtectedRoute />}>
           <Route index element={<FlamiPage />} />
+          <Route path="share" element={<SharePage />} />
           <Route path="map" element={<MapPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route path="account" element={<AccountPage />} />

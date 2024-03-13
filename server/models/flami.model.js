@@ -4,10 +4,10 @@ const flamiShema = new mongoose.Schema({
   name: {
     type: String
   },
-  owner: {
+  owner_id: {
     type: mongoose.Types.ObjectId
   },
-  current_friend: {
+  current_sharer_id: {
     type: mongoose.Types.ObjectId,
   },
   date: {
@@ -25,15 +25,15 @@ const flamiShema = new mongoose.Schema({
   stats: {
     strength: {
       type: Number,
-      default: 0
+      default: 1
     },
     speed: {
       type: Number,
-      default: 0
+      default: 1
     },
     dexterity: {
       type: Number,
-      default: 0
+      default: 1
     }
   },
   stamina: {
