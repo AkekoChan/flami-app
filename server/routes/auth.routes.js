@@ -14,12 +14,9 @@ if (process.env.ENVIRONMENT == "dev") {
   store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 } else {
   // stores state with memcached
-  store = new MemcachedStore(
-    ["3.75.158.163:11211", "3.125.183.140:11211", "35.157.117.28:11211"],
-    {
-      prefix: "NoConflicts",
-    }
-  );
+  store = new MemcachedStore(["3.75.158.163:11211"], {
+    prefix: "NoConflicts",
+  });
 }
 
 let failCallback = function (req, res, next, nextValidRequestDate) {
