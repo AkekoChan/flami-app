@@ -5,7 +5,7 @@ const BadgeDisplay = ({ badge }: { badge: Badge }) => {
   const [side, setSide] = useState(false);
   return (
     <div
-      className={`w-3/5 relative badge-display badge-${
+      className={`w-60 relative cursor-pointer badge-display badge-${
         side ? "reverse" : "front"
       }`}
       onClick={() => setSide(!side)}

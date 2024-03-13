@@ -73,7 +73,6 @@ export default {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
       },
-
       boxShadow: {
         primary: "0px 6px 0px #ffbd1b",
         secondary: "0px 6px 0px #989898",
@@ -88,6 +87,11 @@ export default {
       width: {
         100: "100%",
         90: "90%",
+        auto: "auto"
+      },
+      margin: {
+        "auto-h": "auto 0",
+        "auto-v": "0 auto"
       },
       zIndex: {
         100: "100",

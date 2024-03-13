@@ -19,7 +19,7 @@ export const mailSender = async (email, subject, message) => {
       html: message,
       attachments: [{
         filename: "flami-logo.png",
-        path: './mail/flami-logo.png',
+        path: './mail/IdleAnim.gif', // './mail/flami-logo.png'
         cid: 'logo-flami@cid'
       }]
     });

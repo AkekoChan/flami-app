@@ -25,6 +25,8 @@ const FlamiPage = () => {
     getFlami();
   }, [getFlami]);
 
+  console.log(flami?.last_share, new Date().toDateString());
+
   return (
   <div className="flex flex-col gap-8">
     <TopBar title="Mon Flami" hasReturn={false} prevPage="" />
@@ -33,17 +35,20 @@ const FlamiPage = () => {
         <div className="relative">
           <img src="/assets/img/icons/flami.svg" className="relative z-10 w-100 max-h-60" alt="Flami" />
           {
-            flami?.cosmetics.map((cosmetic: Cosmetic) => (<img className="top-0 z-20 absolute" src={cosmetic.url} alt={cosmetic.name} />))
+            flami?.cosmetics.map((cosmetic: Cosmetic) => (<img key={cosmetic.name} className="top-0 z-20 absolute" src={cosmetic.url} alt={cosmetic.name} />))
           }
         </div>
         { flami?.shared_flami ? 
-          (<div className="relative">
-            <span>{flami.shared_flami.owner}</span>
-            <img src="/assets/img/animations/IdleAnim.gif" alt={`Flami de ${flami.shared_flami.owner}`} />
+          (<div className="relative flex items-center justify-center">
+            <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">{`Flami de ${flami.shared_flami.owner}`}</span>
+            <img src="/assets/img/icons/flami.svg" alt={`Flami de ${flami.shared_flami.owner}`} />
+            {
+            flami.shared_flami.cosmetics.map((cosmetic: Cosmetic) => (<img key={cosmetic.name} className="top-0 z-20 absolute" src={cosmetic.url} alt={cosmetic.name} />))
+            }
           </div>) 
         : null }
       </div>
-      <Button variant={"secondary"} disabled={flami?.shared_flami && flami?.shared_flami.last_action === new Date() ? true : false} type="button" onClick={() => navigate("/share")}>
+      <Button variant={"secondary"} disabled={flami?.last_share && flami.last_share === new Date().toDateString() ? true : false} type="button" onClick={() => navigate("/share")}>
         Partager
       </Button>
     </div>

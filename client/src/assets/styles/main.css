@@ -96,20 +96,16 @@ main .leaflet-popup {
 }
 
 .badge-display {
-  transition: .21s ease-out;
-  transform: rotate(0deg);
+  transition: 1s cubic-bezier(.62,-0.02,0,1.08);
+  transform: rotateY(0deg);
+  transform-style: preserve-3d;
   user-select: none;
 }
 
-.badge-display .side-cover {
-  transform: rotateY(180deg);
-  transition: .21s ease-out;
+.badge-display img.side-cover {
+  transform: rotateY(0deg) translateZ(-1px);
 }
 
 .badge-reverse {
   transform: rotateY(180deg);
-}
-
-.badge-reverse .side-cover {
-  z-index: 7;
 }

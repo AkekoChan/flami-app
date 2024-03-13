@@ -14,5 +14,7 @@ export interface Flami {
     long: number
   },
   last_action: Date,
-  shared_flami: Flami | null
+  last_share: string,
+  shared_flami: Flami | null,
+  _id: string
 }

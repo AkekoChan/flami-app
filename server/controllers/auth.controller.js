@@ -120,8 +120,8 @@ const authController = {
       }
     } catch (error) {
       return res
-        .status(404)
-        .json({ message: "Une erreur s'est produite.", error: 404 });
+        .status(401)
+        .json({ message: "Une erreur s'est produite.", error: 401 });
     }
   },
 };
