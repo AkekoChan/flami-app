@@ -1,43 +1,43 @@
 [
     {
         "name": "Marseille",
-        "url": "/assets/img/badges/PACA/medaille-40.svg",
-        "url_cover": "/assets/img/badges/PACA/medaille_Médaille PACA (36-41).svg",
+        "url": "/assets/img/badges/marseille_blason.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "START OF PARCOURS",
         "region": "PACA"
     },
     {
         "name": "Marseille",
-        "url": "/assets/img/badges/PACA/medaille-40.svg",
-        "url_cover": "/assets/img/badges/PACA/medaille_Médaille PACA (36-41).svg",
+        "url": "/assets/img/badges/PACA/marseille_blason.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "",
         "region": "PACA"
     },
     {
         "name": "Toulon",
-        "url": "/assets/img/badges/PACA/medaille-39.svg",
-        "url_cover": "/assets/img/badges/PACA/medaille_Médaille PACA (36-41).svg",
+        "url": "/assets/img/badges/toulon_blason.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "",
         "region": "PACA"
     },
     {
         "name": "Manosque",
-        "url": "/assets/img/badges/PACA/medaille-41.svg",
-        "url_cover": "/assets/img/badges/PACA/medaille_Médaille PACA (36-41).svg",
+        "url": "/assets/img/badges/manosque_blason.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "",
         "region": "PACA"
     },
     {
         "name": "Arles",
-        "url": "/assets/img/badges/PACA/medaille-38.svg",
-        "url_cover": "/assets/img/badges/PACA/medaille_Médaille PACA (36-41).svg",
+        "url": "/assets/img/badges/arles_blason.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "",
         "region": "PACA"
     },
     {
         "name": "Montpellier",
-        "url": "/assets/img/badges/Occitanie/medaille-29.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "url": "/assets/img/badges/montpellier.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     },
@@ -50,36 +50,36 @@
     },
     {
         "name": "Perpignan",
-        "url": "/assets/img/badges/Occitanie/medaille-25.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "url": "/assets/img/badges/perpignan_blason.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     },
     {
-        "name": "Carcassone",
-        "url": "/assets/img/badges/Occitanie/medaille-24.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "name": "Carcassonne",
+        "url": "/assets/img/badges/carcassonne_blason.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     },
     {
         "name": "Toulouse",
-        "url": "/assets/img/badges/Occitanie/medaille-26.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "url": "/assets/img/badges/toulouse_blason.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     },
     {
         "name": "Auch",
-        "url": "/assets/img/badges/Occitanie/medaille-27.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "url": "/assets/img/badges/auch_blason.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     },
     {
         "name": "Tarbes",
-        "url": "/assets/img/badges/Occitanie/medaille-28.svg",
-        "url_cover": "/assets/img/badges/Occitanie/medaille_Médaille Occitanie (24-29).svg",
+        "url": "/assets/img/badges/tarbes_blason.svg",
+        "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"
     }
