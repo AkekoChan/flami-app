@@ -25,7 +25,10 @@ const userController = {
     let json = JSON.parse(content);
     return res.status(200).json({
       data: {
-        badges: json.map((id, item) => userdata.badges.includes(id) ? item.owned = true : item.owned = false),
+        badges: json.map((item, id) => {
+          userdata.badges.includes(id) ? item.owned = true : item.owned = false
+          return item;
+        }),
       },
     });
   },

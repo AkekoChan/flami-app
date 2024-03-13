@@ -1,8 +1,7 @@
 import Router from "express";
-import userController from "../controllers/user.controller.js";
 
 const router = Router();
 
-router.get("/map", userController.getProfile);
+// router.get("/badges", miscController.getAllBadges);
 
 export default router;
