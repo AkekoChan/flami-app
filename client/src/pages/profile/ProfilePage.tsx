@@ -23,7 +23,6 @@ const ProfilePage = () => {
   useEffect(() => {
     getUser();
   }, [getUser]);
-  console.log(user?.badges);
 
   return (
     <div className="flex flex-col gap-8">
