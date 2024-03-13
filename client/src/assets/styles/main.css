@@ -109,3 +109,16 @@ main .leaflet-popup {
 .badge-reverse {
   transform: rotateY(180deg);
 }
+
+.animate-slide {
+  animation: slide 10s linear;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
+}
