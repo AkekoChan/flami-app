@@ -49,7 +49,12 @@ const ProfilePage = () => {
         <div className="grid grid-cols-3 items-center justify-items-center">
           {user && user.badges?.length !== 0 ? (
             user.badges?.map((badge: Badge) => (
-              <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
+              // <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
+              <img
+                className="w-full top-0"
+                src={badge.url}
+                alt={`Badge de ${badge.name}`}
+              />
             ))
           ) : (
             <p>Tu n'as pas de badges !</p>
