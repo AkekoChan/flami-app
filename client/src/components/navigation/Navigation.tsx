@@ -19,7 +19,7 @@ const Navigation = () => {
                   : ""
               }`}
             >
-              <img src="../../../public/assets/img/icons/user.svg" alt="" />
+              <img src="/assets/img/icons/user.svg" alt="" />
             </NavLink>
           </li>
           <li className="inline-flex items-center justify-center">
@@ -32,7 +32,7 @@ const Navigation = () => {
                   : ""
               }`}
             >
-              <img src="../../../public/assets/img/icons/flame.svg" alt="" />
+              <img src="/assets/img/icons/flame.svg" alt="" />
             </NavLink>
           </li>
           <li className="inline-flex items-center justify-center">
@@ -45,7 +45,7 @@ const Navigation = () => {
                   : ""
               }`}
             >
-              <img src="../../../public/assets/img/icons/map.svg" alt="" />
+              <img src="/assets/img/icons/map.svg" alt="" />
             </NavLink>
           </li>
         </ul>
