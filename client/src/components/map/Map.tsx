@@ -27,7 +27,7 @@ const Map = ({
   });
 
   const customIconGhost = new Icon({
-    iconUrl: "/assets/img/map/pin.svg",
+    iconUrl: "/assets/img/map/pin-ghost.svg",
     iconSize: [40, 40],
   });
 
