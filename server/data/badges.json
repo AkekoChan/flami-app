@@ -1,8 +1,8 @@
 [
     {
         "name": "Départ de la flamme",
-        "url": "/assets/img/icons/flami.svg",
-        "url_cover": "/assets/img/icons/flami.svg",
+        "url": "/assets/img/badges/depart_marseille.svg",
+        "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "START OF PARCOURS",
         "region": "PACA"
     },
