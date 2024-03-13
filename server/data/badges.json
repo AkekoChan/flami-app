@@ -1,14 +1,14 @@
 [
     {
-        "name": "Marseille",
-        "url": "/assets/img/badges/marseille_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
+        "name": "Départ de la flamme",
+        "url": "/assets/img/icons/flami.svg",
+        "url_cover": "/assets/img/icons/flami.svg",
         "description": "START OF PARCOURS",
         "region": "PACA"
     },
     {
         "name": "Marseille",
-        "url": "/assets/img/badges/PACA/marseille_blason.svg",
+        "url": "/assets/img/badges/marseille_blason.svg",
         "url_cover": "/assets/img/badges/paca_cover.svg",
         "description": "",
         "region": "PACA"
@@ -36,7 +36,7 @@
     },
     {
         "name": "Montpellier",
-        "url": "/assets/img/badges/montpellier.svg",
+        "url": "/assets/img/badges/montpellier_blason.svg",
         "url_cover": "/assets/img/badges/occitanie_cover.svg",
         "description": "",
         "region": "Occitanie"

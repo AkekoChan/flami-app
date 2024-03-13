@@ -24,9 +24,10 @@ const userController = {
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let json = JSON.parse(content);
     return res.status(200).json({
-      data: {
-        badges: userdata.badges.map((id) => json[id] ?? json[0]),
-      },
+      data: json.map((item, id) => {
+        userdata.badges.includes(id) ? item.owned = true : item.owned = false
+        return item;
+      })
     });
   },
   updateAccount: async (req, res) => {
