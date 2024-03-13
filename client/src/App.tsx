@@ -16,6 +16,7 @@ import { useEffect } from "react";
 import AccountPage from "./pages/profile/AccountPage";
 import AllBadgesPage from "./pages/profile/AllBadgesPage";
 import SharePage from "./pages/flami/SharePage";
+import TrainingPage from "./pages/activities/TrainingPage";
 
 const TOAST_LIMIT = 2;
 
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="account" element={<AccountPage />} />
           <Route path="badges" element={<AllBadgesPage />} />
+          <Route path="training" element={<TrainingPage />} />
         </Route>
         <Route element={<AuthRoute />}>
           <Route path="/welcome" element={<WelcomePage />} />

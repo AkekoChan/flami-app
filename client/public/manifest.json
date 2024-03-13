@@ -1,6 +1,6 @@
 {
-  "theme_color": "FF9900",
-  "background_color": "FF9900",
+  "theme_color": "#FF9900",
+  "background_color": "#FF9900",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

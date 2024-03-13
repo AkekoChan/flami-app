@@ -96,14 +96,14 @@ main .leaflet-popup {
 }
 
 .badge-display {
-  transition: .21s ease-out;
+  transition: 0.21s ease-out;
   transform: rotate(0deg);
   user-select: none;
 }
 
 .badge-display .side-cover {
   transform: rotateY(180deg);
-  transition: .21s ease-out;
+  transition: 0.21s ease-out;
 }
 
 .badge-reverse {
@@ -112,4 +112,17 @@ main .leaflet-popup {
 
 .badge-reverse .side-cover {
   z-index: 7;
+}
+
+.animate-slide {
+  animation: slide 10s linear;
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-300%);
+  }
 }

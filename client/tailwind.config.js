@@ -81,6 +81,9 @@ export default {
         nav: "0px -6px 0px #656565",
         "tree-poppy-500": "0px 6px 0px #ff9900",
         "tree-poppy-500-press": "0px 2px 0px #ff9900",
+        "tree-poppy-300": "0px 4px 0px #ffd246",
+        "mahogany-300": "0px 4px 0px #ff9696",
+        "midnight-300": "0px 4px 0px #92c68f",
       },
       borderWidth: {
         3: "3px",
