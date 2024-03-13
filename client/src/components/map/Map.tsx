@@ -22,22 +22,35 @@ const Map = ({
   const polylineOptions = { color: "orange", dashArray: "10,25", weight: 3 };
 
   const customIcon = new Icon({
-    iconUrl: "/src/assets/img/pin.svg",
+    iconUrl: "/assets/img/map/pin.svg",
     iconSize: [40, 40],
   });
 
   const customIconGhost = new Icon({
-    iconUrl: "/src/assets/img/pin-ghost.svg",
+    iconUrl: "/assets/img/map/pin-ghost.svg",
     iconSize: [40, 40],
   });
 
-  const geolocalisation = currentStep ? new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude) : new LatLng(43.282, 5.405);
-  
-  const MapRecenter= ({ lat, lng, zoomLevel }: { lat: number; lng: number; zoomLevel: number }) => {
+  const geolocalisation = currentStep
+    ? new LatLng(
+        currentStep.geolocalisation.latitude,
+        currentStep.geolocalisation.longitude
+      )
+    : new LatLng(43.282, 5.405);
+
+  const MapRecenter = ({
+    lat,
+    lng,
+    zoomLevel,
+  }: {
+    lat: number;
+    lng: number;
+    zoomLevel: number;
+  }) => {
     const map = useMap();
-  
+
     useEffect(() => {
-      map.flyTo([lat, lng], zoomLevel );
+      map.flyTo([lat, lng], zoomLevel);
     }, [lat, lng]);
     return null;
   };
@@ -51,7 +64,11 @@ const Map = ({
         scrollWheelZoom={false}
         attributionControl={false}
       >
-        <MapRecenter lat={geolocalisation.lat} lng={geolocalisation.lng} zoomLevel={12} />
+        <MapRecenter
+          lat={geolocalisation.lat}
+          lng={geolocalisation.lng}
+          zoomLevel={12}
+        />
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
 
         {steps &&
@@ -61,7 +78,13 @@ const Map = ({
                 marker.geolocalisation.latitude,
                 marker.geolocalisation.longitude,
               ]}
-              icon={!currentStep ? customIconGhost : (currentStep.etape_numero < marker.etape_numero ? customIconGhost : customIcon)}
+              icon={
+                !currentStep
+                  ? customIconGhost
+                  : currentStep.etape_numero < marker.etape_numero
+                  ? customIconGhost
+                  : customIcon
+              }
               key={index}
             >
               <Popup>
