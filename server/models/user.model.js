@@ -29,11 +29,20 @@ const userSchema = new mongoose.Schema({
     required: true,
     min: 13
   },
+  owned_cosmetics: {
+    type: Array,
+    default: []
+  },
   flami_id: {
     type: mongoose.Types.ObjectId
   },
-  friend_flami_id: {
-    type: mongoose.Types.ObjectId
+  shared_flami: {
+    id: {
+      type: mongoose.Types.ObjectId
+    },
+    shared_date: {
+      type: Date
+    }
   },
   badges: {
     type: Array,
@@ -66,10 +75,10 @@ userSchema.post('validate', async function () {
   let sports = { "Sport de combat": 0, "Sport de course": 1, "Sport aquatique": 2, "Sport collectif": 3, "Sport de plage": 4, "Sport de force": 5 }
   let flami = await flamiModel.create({
     name: `Flami de ${this.name}`,
-    owner: this._id,
-    cosmetics: sports[this.metadata.favorite_sport] ? [sports[this.metadata.favorite_sport]] : []
+    owner: this._id
   });
   this.flami_id = flami._id;
+  this.owned_cosmetics = sports[this.metadata.favorite_sport] ? [sports[this.metadata.favorite_sport]] : []
 });
 
 export default mongoose.model("User", userSchema);

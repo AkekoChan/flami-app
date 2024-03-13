@@ -2,37 +2,37 @@
     {
         "name": "Gants de boxe",
         "description": "Des gants de boxe d'une grande qualité, donné aux utilisateurs aimant le sport de combat.",
-        "url": "",
+        "url": "/assets/img/cosmetics/boxes-gloves.png",
         "place": 2
     },
     {
         "name": "Turbo-Chaussures",
         "description": "Des baskets qui courts vite, donné aux utilisateurs aimant le sport de course.",
-        "url": "",
+        "url": "/assets/img/cosmetics/turbo-chaussures.png",
         "place": 4
     },
     {
         "name": "Bonnet de bain et lunettes de plongé",
         "description": "Quelle allure ! Donné aux utilisateurs aimant le sport aquatique.",
-        "url": "",
+        "url": "/assets/img/cosmetics/bonnetbain.png",
         "place": 1
     },
     {
         "name": "Ballon de basket-ball",
         "description": "Un ballon de basket-ball bien gonflé, donné aux utilisateurs aimant le sport collectif.",
-        "url": "",
+        "url": "/assets/img/cosmetics/basket-ball.png",
         "place": 3
     },
     {
         "name": "Ballon de volley-ball",
         "description": "Un ballon de volley-ball bien gonflé, donné aux utilisateurs aimant le sport de plage.",
-        "url": "",
+        "url": "/assets/img/cosmetics/volley-ball.png",
         "place": 3
     },
     {
         "name": "Altère pesant son poids",
         "description": "Une altère d'au moins 200kg, donné aux utilisateurs aimant le sport de force.",
-        "url": "",
+        "url": "/assets/img/cosmetics/altere.png",
         "place": 3
     }
 ]

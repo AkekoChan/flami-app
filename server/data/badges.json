@@ -43,8 +43,8 @@
     },
     {
         "name": "Bastia",
-        "url": "/assets/img/badges/",
-        "url_cover": "/assets/img/badges/",
+        "url": "/assets/img/badges/placeholder.svg",
+        "url_cover": "/assets/img/badges/placeholder.svg",
         "description": "",
         "region": "Corse"
     },
