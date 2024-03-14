@@ -52,7 +52,7 @@ const SharePage = () => {
                     </div>
                   )
                 }
-                <span>En fesant scanner ce QR code à un ami.</span>
+                <span>En faisant scanner ce QR code à un ami.</span>
             </div>
             <div className="w-1/3 bg-alabaster-50 rounded-xl" style={{ height: "auto", margin: "0 auto", padding: "10px" }}>
                 <QRCode
