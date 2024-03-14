@@ -5,7 +5,6 @@ import { useAuth } from "../../hooks/useAuth";
 import { APIHandler } from "../../utils/api/api-handler";
 import { User } from "../../interfaces/user.interface";
 import { getReadableDate } from "../../utils/getReadableDate";
-import BadgeDisplay from "../../components/profile/BadgeDisplay";
 import { Badge } from "../../interfaces/badge.interface";
 
 const ProfilePage = () => {
