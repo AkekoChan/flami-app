@@ -20,8 +20,9 @@ const flamiController = {
 
         return res.status(200).json({
             data: {
+                name: flami.name,
                 owner: userdata.name,
-                cosmetics: flami.cosmetics.map((id) => json[id] ?? json[0]),
+                cosmetics: flami.cosmetics.map((id) => json[id] || json[0]),
                 stamina: flami.stamina,
                 stats: flami.stats,
                 location: flami.location,
@@ -29,8 +30,9 @@ const flamiController = {
                 last_share: userdata.shared_flami?.shared_date || null,
                 _id: flami._id,
                 shared_flami: shared_flami ? {
+                    name: shared_flami.name,
                     owner: sharer_user.name,
-                    cosmetics: shared_flami.cosmetics.map((id) => json[id] ?? json[0]),
+                    cosmetics: shared_flami.cosmetics.map((id) => json[id] || json[0]),
                     location: shared_flami.location,
                     stamina: shared_flami.stamina,
                     stats: shared_flami.stats,
@@ -58,14 +60,14 @@ const flamiController = {
                 });
             }
 
-            if(sharer_user._id === userdata._id) {
+            if(sharer_user._id == userdata._id) {
                 return res.status(409).json({
                     message: `Ces utilisateurs sont identiques.`,
                     error: 409
                 });
             }
 
-            if(user_flami._id === shared_flami._id) {
+            if(user_flami._id == shared_flami._id) {
                 return res.status(409).json({
                     message: `Ce sont les mêmes Flami..?`,
                     error: 409
@@ -118,6 +120,7 @@ const flamiController = {
 
             return res.status(202).json({
                 data: {
+                    name: shared_flami.name,
                     owner: sharer_user.name,
                     location: shared_flami.location,
                     _id: shared_flami._id
