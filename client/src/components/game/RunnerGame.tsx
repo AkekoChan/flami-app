@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import { APIHandler } from "../../utils/api/api-handler";
+import { useAuth } from "../../hooks/useAuth";
 
 interface Click {
   x: number;
@@ -7,6 +9,7 @@ interface Click {
 }
 
 const RunnerGame = () => {
+  const { token } = useAuth();
   const [clicks, setClicks] = useState<Click[]>([]);
   const [isStarting, setIsStarting] = useState<boolean>(false);
   const [gameOver, setGameOver] = useState<boolean>(false);
@@ -37,6 +40,9 @@ const RunnerGame = () => {
   useEffect(() => {
     setTimeout(() => {
       setGameOver(true);
+      APIHandler<any>("/my/flami/training", false, "PATCH", {
+        worked_stat: "speed"
+      }, token)
     }, 9000);
   }, []);
 

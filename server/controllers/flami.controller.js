@@ -74,16 +74,16 @@ const flamiController = {
                 });
             }
 
-            if(userdata.shared_flami?.shared_date && userdata.shared_flami.shared_date === new Date().toDateString()) {
+            if(user_flami.shared_date == new Date().toDateString()) {
                 return res.status(409).json({
                     message: `Votre Flami a déjà été échangé aujourd'hui.`,
                     error: 409
                 }); 
             }
 
-            if(sharer_user.shared_flami?.shared_date && sharer_user.shared_flami.shared_date === new Date().toDateString()) {
+            if(shared_flami.shared_date == new Date().toDateString()) {
                 return res.status(409).json({
-                    message: `Le Flami de ${sharer_user.name} a déjà été échangé aujourd'hui.`,
+                    message: `Le ${shared_flami.name} a déjà été échangé aujourd'hui.`,
                     error: 409
                 });
             }
@@ -136,8 +136,19 @@ const flamiController = {
     competition: (req, res) => {
 
     },
-    training: (req, res) => {
+    training: async (req, res) => {
+        let userdata = res.locals.user;
+        const { worked_stat } = req.body;
 
+        const f = await flamiModel.findOne({ _id: userdata.flami_id });
+        f["stats"][worked_stat]++;
+        f.save();
+
+        return res.status(202).json({
+            data: {
+                message: `Flami a gagner en ${worked_stat} !`
+            }
+        });
     }
 };
 
