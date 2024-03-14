@@ -6,6 +6,7 @@ import { APIHandler } from "../../utils/api/api-handler";
 import { User } from "../../interfaces/user.interface";
 import { getReadableDate } from "../../utils/getReadableDate";
 import BadgeDisplay from "../../components/profile/BadgeDisplay";
+import { Badge } from "../../interfaces/badge.interface";
 
 const ProfilePage = () => {
   const { signout, token } = useAuth();
@@ -22,7 +23,6 @@ const ProfilePage = () => {
   useEffect(() => {
     getUser();
   }, [getUser]);
-  console.log(user?.badges);
 
   return (
     <div className="flex flex-col gap-8">
@@ -46,13 +46,18 @@ const ProfilePage = () => {
       </div>
       <div className="flex flex-col gap-6">
         <h3 className="text-2xl font-bold">Mes badges</h3>
-        <div className="flex justify-between">
+        <div className="grid grid-cols-3 items-center">
           {user && user.badges?.length !== 0 ? (
-            user.badges?.map((badge) => (
-              <BadgeDisplay badge={badge}></BadgeDisplay>
+            user.badges?.map((badge: Badge) => (
+              // <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
+              <img
+                className="w-full top-0"
+                src={badge.url}
+                alt={`Badge de ${badge.name}`}
+              />
             ))
           ) : (
-            <p>Tu n'as pas de badges !</p>
+            <p className="col-span-4">Tu n'as pas de badges !</p>
           )}
         </div>
         <LinkComponent

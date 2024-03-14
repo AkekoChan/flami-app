@@ -73,7 +73,6 @@ export default {
       fontFamily: {
         roboto: ["Roboto", "sans-serif"],
       },
-
       boxShadow: {
         primary: "0px 6px 0px #ffbd1b",
         secondary: "0px 6px 0px #989898",
@@ -81,6 +80,9 @@ export default {
         nav: "0px -6px 0px #656565",
         "tree-poppy-500": "0px 6px 0px #ff9900",
         "tree-poppy-500-press": "0px 2px 0px #ff9900",
+        "tree-poppy-300": "0px 4px 0px #ffd246",
+        "mahogany-300": "0px 4px 0px #ff9696",
+        "midnight-300": "0px 4px 0px #92c68f",
       },
       borderWidth: {
         3: "3px",
@@ -88,6 +90,14 @@ export default {
       width: {
         100: "100%",
         90: "90%",
+        auto: "auto"
+      },
+      margin: {
+        "auto-h": "auto 0",
+        "auto-v": "0 auto"
+      },
+      zIndex: {
+        100: "100",
       },
     },
   },

@@ -3,7 +3,7 @@ import userModel from "../models/user.model.js";
 
 const auth = {
   encode: (data) => {
-    return jwt.sign(data, process.env.PRIVATE, { expiresIn: 60 * 15 });
+    return jwt.sign(data, process.env.PRIVATE, { expiresIn: "15m" });
   },
   require: async (req, res, next) => {
     try {
@@ -40,8 +40,8 @@ const auth = {
       return next();
     } catch (error) {
       return res
-        .status(error.code ?? 401)
-        .json({ message: "Une erreur s'est produite.", error: error.code ?? 401 });
+        .status(401)
+        .json({ message: "Une erreur s'est produite.", error: 401 });
     }
   },
 };
