@@ -105,7 +105,7 @@ const MapPage = () => {
           <div className="flex flex-col gap-4">
             <h2 className="text-2xl font-bold">Où est mon Flami</h2>
             {
-              flamiLocation !== null ? (<FlamiLocation location={flamiLocation}/>) : (<p>Aucune position trouvé.</p>)
+              flamiLocation !== null ? (<FlamiLocation location={flamiLocation}/>) : (<p>Aucune position trouvée.</p>)
             }
           </div>
         </div>
