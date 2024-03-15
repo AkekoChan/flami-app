@@ -1,86 +1,86 @@
 [
-    {
-        "name": "Départ de la flamme",
-        "url": "/assets/img/badges/depart_marseille.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Prologue - Grande arrivée de la flamme à Marseille",
-        "region": "PACA"
-    },
-    {
-        "name": "Marseille",
-        "url": "/assets/img/badges/marseille_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Marseille est bien établie comme une ville capitale du transit méditerranéen de voyageurs et biens marchand. Cela est réellement ancré dans l'histoire de la ville avec son héritage maritime riche qui remonte même jusqu'à l'antiquité,à l'époque nommé Massalia. La ville a toujours été pleine de bien des richesses et cela est toujours visible aujourd'hui, notamment grâce au vieux quartier du panier, qui tient son nom d'une auberge qui arbore un panier comme enseigne, ce quartier existe depuis les premiers fondements de la ville et est aussi embelli qu'il sert de véritable capsule temporelle vers un temps ancien.",
-        "region": "PACA"
-    },
-    {
-        "name": "Toulon",
-        "url": "/assets/img/badges/toulon_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "La ville de Toulon cache au sein de ses coutumes culinaires un hommage insolite et secret bien caché. Une des spécialités originaires de la ville est un gâteau nommé le Chanteclair. Cette pâtisserie à base de meringue, d'un mélange de crème chantilly et crème pâtissière glacée, parfumée de praline et de moka, et décoré d'un coq, tient son nom d'une pièce de théâtre créé en 1910 nommée Chantecler. Cette pièce d'Edmond Rostand, auteur de Cyrano de Bergerac, est retenue de par son envergure pour l'époque et les moyens mis en oeuvre pour la réalisé, comportant plus de 70 personnages et 195 costumes complets d'animaux, principalement des volailles. La pièce évoque l'histoire d'un coq de basse-cour et sa vanité, par la suite perdue mais retrouvée par le biais de sacrifices douloureux, histoire qui écho encore aujourd'hui grâce à cette pâtisserie Toulonnaise.",
-        "region": "PACA"
-    },
-    {
-        "name": "Manosque",
-        "url": "/assets/img/badges/manosque_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "La ville de Manosque accueille chaque année, depuis 1999, le Festival des correspondances. C'est un festival de littérature qui célèbre les grands auteurs et promeut les nouveaux écrivains, organise des lectures et lectures croisées publiques et cherche à mettre la littérature en relation avec d'autres formes artistiques pour de nouvelles créations originales. C'est un évènement qui attire plus de 16 000 personnes chaque année et qui se déroule pendant plusieurs jours.",
-        "region": "PACA"
-    },
-    {
-        "name": "Arles",
-        "url": "/assets/img/badges/arles_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Au coeur de la ville d'Arles se trouve un amphithéâtre romain, l'un des mieux conservé au monde, et cela est dû au fait qu'il est toujours un lieu très attractif de par son activité. ici, le taureau Camargue est à l'honneur, et de véritable corrida française s'organise régulièrement, où les jeunes gens de la région affrontent les taureaux pour décrocher les cocardes des cornes de la bête. Les taureaux aussi sont récompensés, et les meilleurs sont immortalisés par le biais de titres et de statues commémoratives.",
-        "region": "PACA"
-    },
-    {
-        "name": "Montpellier",
-        "url": "/assets/img/badges/montpellier_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Bastia",
-        "url": "/assets/img/badges/placeholder.svg",
-        "url_cover": "/assets/img/badges/placeholder.svg",
-        "description": "",
-        "region": "Corse"
-    },
-    {
-        "name": "Perpignan",
-        "url": "/assets/img/badges/perpignan_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Carcassonne",
-        "url": "/assets/img/badges/carcassonne_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Toulouse",
-        "url": "/assets/img/badges/toulouse_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Auch",
-        "url": "/assets/img/badges/auch_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Tarbes",
-        "url": "/assets/img/badges/tarbes_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    }
+  {
+    "name": "Départ de la flamme",
+    "url": "/assets/img/badges/depart_marseille.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Prologue - Grande arrivée de la flamme à Marseille",
+    "region": "PACA"
+  },
+  {
+    "name": "Marseille",
+    "url": "/assets/img/badges/marseille_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Marseille est reconnue comme une plaque tournante du transit méditerranéen pour les voyageurs et les marchandises. Son héritage maritime, qui remonte à l'Antiquité sous le nom de Massalia, en est la preuve. La richesse de la ville est toujours tangible aujourd'hui, notamment dans son vieux quartier du Panier, qui existe depuis les premiers jours de la ville et offre une véritable immersion dans le passé.",
+    "region": "PACA"
+  },
+  {
+    "name": "Toulon",
+    "url": "/assets/img/badges/toulon_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "La ville de Toulon cache un hommage insolite et secret dans sa cuisine : le Chanteclair, un gâteau délicieux. Ce dessert, à base de meringue, crème chantilly, crème pâtissière glacée, praliné et moka, est orné d'un coq. Il tire son nom d'une pièce de théâtre de 1910 de Edmond Rostand, mettant en scène un coq de basse-cour. Cette histoire d'une vanité perdue et retrouvée résonne encore aujourd'hui à travers cette pâtisserie toulonnaise.",
+    "region": "PACA"
+  },
+  {
+    "name": "Manosque",
+    "url": "/assets/img/badges/manosque_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Chaque année depuis 1999, Manosque organise le Festival des Correspondances, dédié à la littérature. Cet événement met en avant les grands auteurs tout en encourageant les nouveaux écrivains. Il propose des lectures publiques et des rencontres croisées, favorisant les échanges entre la littérature et d'autres formes artistiques pour des créations originales. Le festival attire plus de 16 000 personnes chaque année et dure plusieurs jours.",
+    "region": "PACA"
+  },
+  {
+    "name": "Arles",
+    "url": "/assets/img/badges/arles_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Au coeur de la ville d'Arles se trouve un amphithéâtre romain, l'un des mieux conservé au monde, et cela est dû au fait qu'il est toujours un lieu très attractif de par son activité. ici, le taureau Camargue est à l'honneur, et de véritable corrida française s'organise régulièrement, où les jeunes gens de la région affrontent les taureaux pour décrocher les cocardes des cornes de la bête. Les taureaux aussi sont récompensés, et les meilleurs sont immortalisés par le biais de titres et de statues commémoratives.",
+    "region": "PACA"
+  },
+  {
+    "name": "Montpellier",
+    "url": "/assets/img/badges/montpellier_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "La ville de Montpellier comporte beaucoup de sites et monument historiques en son sein, mais la faculté de médecine qui s'y trouve est des plus intéressante de par son héritage historique. En effet il s'agit de l'école de médecine la plus ancienne et toujours en activité du monde, et fut le premier à instaurer des éléments d'apprentissages médical bien établi aujourd'hui comme des cours d'anatomie poussée, elle fut aussi la première à instaurer un amphithéâtre dédié à l'examen posthume de corps humains, ce qui était considéré comme un affront à l'église, bien en place à l'époque.",
+    "region": "Occitanie"
+  },
+  {
+    "name": "Bastia",
+    "url": "/assets/img/badges/placeholder.svg",
+    "url_cover": "/assets/img/badges/placeholder.svg",
+    "description": "",
+    "region": "Corse"
+  },
+  {
+    "name": "Perpignan",
+    "url": "/assets/img/badges/perpignan_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie"
+  },
+  {
+    "name": "Carcassonne",
+    "url": "/assets/img/badges/carcassonne_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie"
+  },
+  {
+    "name": "Toulouse",
+    "url": "/assets/img/badges/toulouse_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie"
+  },
+  {
+    "name": "Auch",
+    "url": "/assets/img/badges/auch_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie"
+  },
+  {
+    "name": "Tarbes",
+    "url": "/assets/img/badges/tarbes_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie"
+  }
 ]
