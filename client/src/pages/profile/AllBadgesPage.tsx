@@ -3,16 +3,21 @@ import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import { Badge } from "../../interfaces/badge.interface";
-import { CloseIcon } from "react-line-awesome";
-import BadgeDisplay from "../../components/profile/BadgeDisplay";
+import CityBadgesDisplay from "../../components/profile/CityBadgesDisplay";
+import SportBadgesDisplay from "../../components/profile/SportBadgesDisplay";
+import { motion } from "framer-motion";
 
 const AllBadgesPage = () => {
   const { token } = useAuth();
   const [badges, setBadges] = useState<Badge[]>();
-  const [infoBadge, setInfoBadge] = useState<Badge | null>();
+  const [selectDisplay, setSelectDisplay] = useState<Boolean>(true);
 
-  const selectBadge = (badge: Badge | null) => {
-    infoBadge ? setInfoBadge(null) : setInfoBadge(badge);
+  const SwitchSelectDisplay = () => {
+    if (selectDisplay) {
+      setSelectDisplay(false);
+    } else {
+      setSelectDisplay(true);
+    }
   };
 
   const getBadges = useCallback(() => {
@@ -30,39 +35,41 @@ const AllBadgesPage = () => {
   return (
     <div className="w-full flex flex-col gap-8">
       <TopBar title="Mes badges" hasReturn={true} prevPage="/profile" />
-      {infoBadge ? (
-        <section className="w-full min-h-dvh flex gap-4 p-8 flex-col items-center bg-alabaster-950">
-          <CloseIcon
-            onClick={() => selectBadge(null)}
-            className="text-3xl text-alabaster-50 cursor-pointer px-2 py-1 hover:bg-alabaster-300/20 rounded-xl ease-out duration-100 place-self-end"
-          />
-          <BadgeDisplay badge={infoBadge}></BadgeDisplay>
-          <p className="text-2xl font-bold text-center">{infoBadge.name}</p>
-          <p className="text-sm text-center">{infoBadge.description}</p>
-        </section>
+      <div className="grid grid-cols-2 gap-4">
+        {selectDisplay ? (
+          <>
+            <button className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500 shadow-tree-poppy-500">
+              Villes
+            </button>
+            <button
+              onClick={SwitchSelectDisplay}
+              className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400 shadow-alabaster-400"
+            >
+              Sports
+            </button>
+          </>
+        ) : (
+          <>
+            <button
+              onClick={SwitchSelectDisplay}
+              className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400 shadow-alabaster-400"
+            >
+              Villes
+            </button>
+            <button className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500 shadow-tree-poppy-500">
+              Sports
+            </button>
+          </>
+        )}
+      </div>
+      {selectDisplay ? (
+        <motion.div>
+          <CityBadgesDisplay badges={badges}></CityBadgesDisplay>
+        </motion.div>
       ) : (
-        <section className="w-full flex flex-col gap-4">
-          <h2 className="text-2xl">Badges villes étapes</h2>
-          <div className="w-full grid grid-cols-3">
-            {badges &&
-              badges.map((badge: Badge) =>
-                badge.owned ? (
-                  <img
-                    onClick={() => selectBadge(badge)}
-                    className="w-full cursor-pointer"
-                    src={badge.url}
-                    alt={`Badge de ${badge.name}`}
-                  />
-                ) : (
-                  <img
-                    className="w-full grayscale opacity-50 cursor-not-allowed"
-                    src={badge.url}
-                    alt={`Badge de ${badge.name}`}
-                  />
-                )
-              )}
-          </div>
-        </section>
+        <motion.div animate={{ x: 0 }}>
+          <SportBadgesDisplay badges={null}></SportBadgesDisplay>
+        </motion.div>
       )}
     </div>
   );
