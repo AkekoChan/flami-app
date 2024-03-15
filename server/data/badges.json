@@ -82,5 +82,26 @@
     "url_cover": "/assets/img/badges/occitanie_cover.svg",
     "description": "",
     "region": "Occitanie"
+  },
+  {
+    "name": "Course (Bronze)",
+    "url": "/assets/img/badges/Bronze-course.svg",
+    "url_cover": "/assets/img/badges/Bronze-course.svg",
+    "description": "",
+    "type": "sport"
+  },
+  {
+    "name": "Course (Argent)",
+    "url": "/assets/img/badges/Argent-course.svg",
+    "url_cover": "/assets/img/badges/Argent-course.svg",
+    "description": "",
+    "type": "sport"
+  },
+  {
+    "name": "Course (Or)",
+    "url": "/assets/img/badges/Or-course.svg",
+    "url_cover": "/assets/img/badges/Or-course.svg",
+    "description": "",
+    "type": "sport"
   }
 ]
