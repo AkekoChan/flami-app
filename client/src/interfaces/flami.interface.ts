@@ -1,6 +1,7 @@
 import { Cosmetic } from "./cosmetic.interface"
 
 export interface Flami {
+  name: string,
   owner: string,
   cosmetics: Cosmetic[],
   stamina: number,

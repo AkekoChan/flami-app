@@ -20,8 +20,9 @@ const flamiController = {
 
         return res.status(200).json({
             data: {
+                name: flami.name,
                 owner: userdata.name,
-                cosmetics: flami.cosmetics.map((id) => json[id] ?? json[0]),
+                cosmetics: flami.cosmetics.map((id) => json[id] || json[0]),
                 stamina: flami.stamina,
                 stats: flami.stats,
                 location: flami.location,
@@ -29,8 +30,9 @@ const flamiController = {
                 last_share: userdata.shared_flami?.shared_date || null,
                 _id: flami._id,
                 shared_flami: shared_flami ? {
+                    name: shared_flami.name,
                     owner: sharer_user.name,
-                    cosmetics: shared_flami.cosmetics.map((id) => json[id] ?? json[0]),
+                    cosmetics: shared_flami.cosmetics.map((id) => json[id] || json[0]),
                     location: shared_flami.location,
                     stamina: shared_flami.stamina,
                     stats: shared_flami.stats,
@@ -58,30 +60,30 @@ const flamiController = {
                 });
             }
 
-            if(sharer_user._id === userdata._id) {
+            if(sharer_user._id == userdata._id) {
                 return res.status(409).json({
                     message: `Ces utilisateurs sont identiques.`,
                     error: 409
                 });
             }
 
-            if(user_flami._id === shared_flami._id) {
+            if(user_flami._id == shared_flami._id) {
                 return res.status(409).json({
                     message: `Ce sont les mêmes Flami..?`,
                     error: 409
                 });
             }
 
-            if(userdata.shared_flami?.shared_date && userdata.shared_flami.shared_date === new Date().toDateString()) {
+            if(user_flami.shared_date == new Date().toDateString()) {
                 return res.status(409).json({
                     message: `Votre Flami a déjà été échangé aujourd'hui.`,
                     error: 409
                 }); 
             }
 
-            if(sharer_user.shared_flami?.shared_date && sharer_user.shared_flami.shared_date === new Date().toDateString()) {
+            if(shared_flami.shared_date == new Date().toDateString()) {
                 return res.status(409).json({
-                    message: `Le Flami de ${sharer_user.name} a déjà été échangé aujourd'hui.`,
+                    message: `Le ${shared_flami.name} a déjà été échangé aujourd'hui.`,
                     error: 409
                 });
             }
@@ -118,6 +120,7 @@ const flamiController = {
 
             return res.status(202).json({
                 data: {
+                    name: shared_flami.name,
                     owner: sharer_user.name,
                     location: shared_flami.location,
                     _id: shared_flami._id
@@ -133,8 +136,19 @@ const flamiController = {
     competition: (req, res) => {
 
     },
-    training: (req, res) => {
+    training: async (req, res) => {
+        let userdata = res.locals.user;
+        const { worked_stat } = req.body;
 
+        const f = await flamiModel.findOne({ _id: userdata.flami_id });
+        f["stats"][worked_stat]++;
+        f.save();
+
+        return res.status(202).json({
+            data: {
+                message: `Flami a gagner en ${worked_stat} !`
+            }
+        });
     }
 };
 

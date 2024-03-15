@@ -1,6 +1,6 @@
 import TopBar from "../../components/topbar/TopBar";
 import { useAuth } from "../../hooks/useAuth";
-import { QrReader } from "react-qr-reader";
+import QrReader from "react-qr-reader-es6";
 import { APIHandler } from "../../utils/api/api-handler";
 import { Flami } from "../../interfaces/flami.interface";
 import { useNavigate } from "react-router";
@@ -44,7 +44,7 @@ const ScanPage = () => {
         .then((res) => {
           console.log(res);
           navigate("/");
-          toast.success(`Flami de ${res.data.owner} reçu !`, {
+          toast.success(`${res.data.name} reçu !`, {
             style: {
               background: "#3D3D3D",
               color: "#FAFAFA",
@@ -60,22 +60,23 @@ const ScanPage = () => {
   );
 
   return (
-    <div className="flex flex-col gap-8 mb-24">
+    <div className="flex flex-col gap-8">
       <TopBar title="Scanner un QR code" hasReturn={true} prevPage="/share" />
       <QrReader
-        videoStyle={{
+        style={{
           objectFit: "cover",
           border: "4px solid #ff9900",
           borderRadius: "12px",
         }}
-        scanDelay={500}
-        constraints={{ facingMode: "environment" }}
-        onResult={(result) => {
+        delay={500}
+        facingMode="environment"
+        onScan={(result) => {
           if (!!result && token) {
-            shareFlami(result?.getText());
+            shareFlami(result);
             shareFlami = () => null;
           }
         }}
+        onError={(error) => console.error(error)}
       />
       <span className="text-alabaster-50">
         Centrez le QR code de votre ami dans le carré et attendez qu'il soit

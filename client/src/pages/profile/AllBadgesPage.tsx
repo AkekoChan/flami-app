@@ -3,7 +3,7 @@ import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import { Badge } from "../../interfaces/badge.interface";
-import { ArrowLeftIcon, CloseIcon } from "react-line-awesome";
+import { CloseIcon } from "react-line-awesome";
 import BadgeDisplay from "../../components/profile/BadgeDisplay";
 import { useTheme } from "../../hooks/useTheme";
 

@@ -70,10 +70,10 @@ const SharePage = () => {
               size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
-                id: flami?.shared_flami?._id ?? flami?._id ?? null,
+                id: flami?.shared_flami?._id || flami?._id || null,
                 location: {
-                  lat: coords?.latitude ?? null,
-                  long: coords?.longitude ?? null,
+                  lat: coords?.latitude || null,
+                  long: coords?.longitude || null,
                 },
               })}
               viewBox={`0 0 400 400`}
