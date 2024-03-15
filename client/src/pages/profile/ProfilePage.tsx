@@ -6,11 +6,14 @@ import { APIHandler } from "../../utils/api/api-handler";
 import { User } from "../../interfaces/user.interface";
 import { getReadableDate } from "../../utils/getReadableDate";
 import { Badge } from "../../interfaces/badge.interface";
+import { useTheme } from "../../hooks/useTheme";
 
 const ProfilePage = () => {
   const { signout, token } = useAuth();
+  const { setShowNav } = useTheme();
   const [user, setUser] = useState<User>();
 
+  setShowNav(true);
   const getUser = useCallback(() => {
     APIHandler<User>("/my/profile", false, "GET", undefined, token).then(
       (res) => {
@@ -24,7 +27,7 @@ const ProfilePage = () => {
   }, [getUser]);
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Mon profil" hasReturn={false} prevPage="" />
       <div className="flex flex-col gap-6">
         {user && (

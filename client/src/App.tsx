@@ -32,7 +32,7 @@ const App = () => {
   }, [toasts]);
 
   return (
-    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid mb-24">
+    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid">
       <Routes>
         <Route path="/" element={<ProtectedRoute />}>
           <Route index element={<FlamiPage />} />

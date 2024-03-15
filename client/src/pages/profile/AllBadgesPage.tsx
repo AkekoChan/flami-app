@@ -6,11 +6,17 @@ import { Badge } from "../../interfaces/badge.interface";
 import CityBadgesDisplay from "../../components/profile/CityBadgesDisplay";
 import SportBadgesDisplay from "../../components/profile/SportBadgesDisplay";
 import { motion } from "framer-motion";
+import { CloseIcon } from "react-line-awesome";
+import BadgeDisplay from "../../components/profile/BadgeDisplay";
+import { useTheme } from "../../hooks/useTheme";
 
 const AllBadgesPage = () => {
   const { token } = useAuth();
+  const { setShowNav } = useTheme();
   const [badges, setBadges] = useState<Badge[]>();
   const [selectDisplay, setSelectDisplay] = useState<Boolean>(true);
+  const [infoBadge, setInfoBadge] = useState<Badge | null>();
+  setShowNav(true);
 
   const SwitchSelectDisplay = () => {
     if (selectDisplay) {

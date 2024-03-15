@@ -7,11 +7,15 @@ import { Button } from "../../components/ui";
 import { motion } from "framer-motion";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { useNavigate } from "react-router";
+import { useTheme } from "../../hooks/useTheme";
 
 const FlamiPage = () => {
   const { token } = useAuth();
+  const { setShowNav } = useTheme();
   const [flami, setFlami] = useState<Flami>();
   const navigate = useNavigate();
+
+  setShowNav(true);
 
   const getFlami = useCallback(() => {
     APIHandler<Flami>("/my/flami", false, "GET", undefined, token).then(
@@ -28,15 +32,42 @@ const FlamiPage = () => {
   console.log(flami?.last_share, new Date().toDateString());
 
   return (
-  <div className="flex flex-col gap-8">
-    <TopBar title="Mon Flami" hasReturn={false} prevPage="" />
-    <div className="flex flex-col gap-6">
-      <div className="flex justify-around relative">
-        <div className="relative">
-          <img src="/assets/img/icons/flami.svg" className="relative z-10 w-100 max-h-60" alt="Flami" />
-          {
-            flami?.cosmetics.map((cosmetic: Cosmetic) => (<img key={cosmetic.name} className="top-0 z-20 absolute" src={cosmetic.url} alt={cosmetic.name} />))
-          }
+    <div className="flex flex-col gap-8 mb-24">
+      <TopBar title="Mon Flami" hasReturn={false} prevPage="" />
+      <div className="flex flex-col gap-6">
+        <div className="flex justify-around relative">
+          <div className="relative">
+            <img
+              src="/assets/img/icons/flami.svg"
+              className="relative z-10 w-100 max-h-60"
+              alt="Flami"
+            />
+            {flami?.cosmetics.map((cosmetic: Cosmetic) => (
+              <img
+                key={cosmetic.name}
+                className="top-0 z-20 absolute"
+                src={cosmetic.url}
+                alt={cosmetic.name}
+              />
+            ))}
+          </div>
+          {flami?.shared_flami ? (
+            <div className="relative flex items-center justify-center">
+              <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">{`Flami de ${flami.shared_flami.owner}`}</span>
+              <img
+                src="/assets/img/icons/flami.svg"
+                alt={`Flami de ${flami.shared_flami.owner}`}
+              />
+              {flami.shared_flami.cosmetics.map((cosmetic: Cosmetic) => (
+                <img
+                  key={cosmetic.name}
+                  className="top-0 z-20 absolute"
+                  src={cosmetic.url}
+                  alt={cosmetic.name}
+                />
+              ))}
+            </div>
+          ) : null}
         </div>
         { flami?.shared_flami ? 
           (<div className="relative flex items-center justify-center">
@@ -131,6 +162,6 @@ const FlamiPage = () => {
     </div>
     </div>
   );
-}
+};
 
 export default FlamiPage;
