@@ -26,19 +26,21 @@ const SportBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
         <section className="w-full flex flex-col gap-4">
           <div className="w-full grid grid-cols-3">
             {badges &&
-              badges.map((badge: Badge) =>
+              badges.map((badge: Badge, index) =>
                 badge.owned ? (
                   <img
                     onClick={() => selectBadge(badge)}
                     className="w-full cursor-pointer"
                     src={badge.url}
                     alt={`Badge de ${badge.name}`}
+                    key={index}
                   />
                 ) : (
                   <img
                     className="w-full grayscale opacity-50 cursor-not-allowed"
                     src={badge.url}
                     alt={`Badge de ${badge.name}`}
+                    key={index}
                   />
                 )
               )}

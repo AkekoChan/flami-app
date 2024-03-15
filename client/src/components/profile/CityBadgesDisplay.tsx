@@ -38,7 +38,7 @@ const CityBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
             className="w-full grid grid-cols-3"
           >
             {badges &&
-              badges.map((badge: Badge) =>
+              badges.map((badge: Badge, index) =>
                 badge.owned ? (
                   <motion.img
                     variants={badgeVariants}
@@ -48,6 +48,7 @@ const CityBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
                     className="block w-full cursor-pointer"
                     src={badge.url}
                     alt={`Badge de ${badge.name}`}
+                    key={index}
                   />
                 ) : (
                   <motion.img
@@ -57,6 +58,7 @@ const CityBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
                     className="block w-full grayscale opacity-50 cursor-not-allowed"
                     src={badge.url}
                     alt={`Badge de ${badge.name}`}
+                    key={index}
                   />
                 )
               )}
