@@ -1,11 +1,11 @@
-import RunnerGame from "../../components/game/RunnerGame";
+// import RunnerGame from "../../components/game/RunnerGame";
+
+import { useTheme } from "../../hooks/useTheme";
 
 const TrainingPage = () => {
-  return (
-    <>
-      <RunnerGame />
-    </>
-  );
+  const { setShowNav } = useTheme();
+  setShowNav(false);
+  return <>{/* <RunnerGame /> */}</>;
 };
 
 export default TrainingPage;

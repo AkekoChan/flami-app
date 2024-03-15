@@ -5,11 +5,14 @@ import { useAuth } from "../../hooks/useAuth";
 import { Badge } from "../../interfaces/badge.interface";
 import { ArrowLeftIcon, CloseIcon } from "react-line-awesome";
 import BadgeDisplay from "../../components/profile/BadgeDisplay";
+import { useTheme } from "../../hooks/useTheme";
 
 const AllBadgesPage = () => {
   const { token } = useAuth();
+  const { setShowNav } = useTheme();
   const [badges, setBadges] = useState<Badge[]>();
   const [infoBadge, setInfoBadge] = useState<Badge | null>();
+  setShowNav(true);
 
   const selectBadge = (badge: Badge | null) => {
     infoBadge ? setInfoBadge(null) : setInfoBadge(badge);
@@ -41,7 +44,7 @@ const AllBadgesPage = () => {
           <p className="text-sm text-center">{infoBadge.description}</p>
         </section>
       ) : (
-        <section className="w-full flex flex-col gap-4">
+        <section className="w-full flex flex-col gap-4 mb-24">
           <h2 className="text-2xl">Badges villes étapes</h2>
           <div className="w-full grid grid-cols-3">
             {badges &&
