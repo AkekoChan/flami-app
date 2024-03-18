@@ -6,7 +6,7 @@ import Map from "../../components/map/Map";
 import FlameLocation from "../../components/map/FlameLocation";
 import FlamiLocation from "../../components/map/FlamiLocation";
 import { useAuth } from "../../hooks/useAuth";
-import { Flami } from "../../interfaces/flami.interface";
+import { FlamiData } from "../../interfaces/flami.interface";
 import { useTheme } from "../../hooks/useTheme";
 
 const MapPage = () => {
@@ -44,36 +44,33 @@ const MapPage = () => {
   };
 
   const getFlamiLocation = useCallback(() => {
-    APIHandler<Flami>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
       async (res) => {
-        if (
-          !res.data ||
-          !res.data.location ||
-          res.data.location.lat === undefined ||
-          res.data.location.long === undefined
-        )
+        if (!res.data ||
+          !res.data.my_flami ||
+          !res.data.my_flami.location ||
+          res.data.my_flami.location.lat === null ||
+          res.data.my_flami.location.long === null) { 
           return setFlamiLocation(null);
-        await fetch(
-          `https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.location.lat}&lon=${res.data.location.long}`
-        )
-          .then((res) =>
-            res.json().then((data) => {
-              console.log(data);
-              if (data.features?.length > 0) {
-                const context =
-                  data.features[0]["properties"]["context"].split(", ");
-                console.log(context);
-                setFlamiLocation({
-                  ville: data.features[0]["properties"]["city"],
-                  dept: `${context[1]} (${context[0]})`,
-                  region: context[2],
-                });
-              } else {
-                setFlamiLocation(null);
-              }
-            })
-          )
-          .catch(() => setFlamiLocation(null));
+        } else {
+          await fetch(`https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.lat}&lon=${res.data.my_flami.location.long}`).then((res) =>
+              res.json().then((data) => {
+                console.log(data);
+                if (data.features?.length > 0) {
+                  const context =
+                    data.features[0]["properties"]["context"].split(", ");
+                  console.log(context);
+                  setFlamiLocation({
+                    ville: data.features[0]["properties"]["city"],
+                    dept: `${context[1]} (${context[0]})`,
+                    region: context[2],
+                  });
+                } else {
+                  setFlamiLocation(null);
+                }
+              })
+            ).catch(() => setFlamiLocation(null));
+        }
       }
     );
   }, [token]);
