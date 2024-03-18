@@ -36,7 +36,7 @@ const AllBadgesPage = () => {
   }, [getBadges]);
 
   return (
-    <div className="w-full flex flex-col gap-8">
+    <div className="w-full flex flex-col gap-8 mb-24">
       <TopBar title="Mes badges" hasReturn={true} prevPage="/profile" />
       <div className="grid grid-cols-2 gap-4">
         {selectDisplay ? (

@@ -45,7 +45,7 @@ const FlamiPage = () => {
             {flami?.cosmetics.map((cosmetic: Cosmetic) => (
               <img
                 key={cosmetic.name}
-                className="top-0 z-20"
+                className="absolute top-0 z-20"
                 src={cosmetic.url}
                 alt={cosmetic.name}
               />
@@ -61,7 +61,7 @@ const FlamiPage = () => {
               {flami.shared_flami.cosmetics.map((cosmetic: Cosmetic) => (
                 <img
                   key={cosmetic.name}
-                  className="top-0 z-20"
+                  className="absolute top-0 z-20"
                   src={cosmetic.url}
                   alt={cosmetic.name}
                 />
@@ -71,9 +71,7 @@ const FlamiPage = () => {
         </div>
         <Button
           variant={"secondary"}
-          disabled={
-            flami?.last_share && flami.last_share === new Date().toDateString()
-          }
+          disabled={flami?.last_share && flami.last_share === new Date().toDateString()}
           type="button"
           onClick={() => navigate("/share")}
         >
