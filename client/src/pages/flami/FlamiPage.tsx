@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
-import { Flami } from "../../interfaces/flami.interface";
+import { FlamiData } from "../../interfaces/flami.interface";
 import { Button } from "../../components/ui";
 import { useNavigate } from "react-router";
 import { useTheme } from "../../hooks/useTheme";
@@ -12,13 +12,13 @@ import FlamiStats from "../../components/flami/FlamiStats";
 const FlamiPage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
-  const [flami, setFlami] = useState<Flami>();
+  const [flami, setFlami] = useState<FlamiData>();
   const navigate = useNavigate();
 
   setShowNav(true);
 
   const getFlami = useCallback(() => {
-    APIHandler<Flami>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
         setFlami(res.data);
       }
@@ -28,9 +28,6 @@ const FlamiPage = () => {
   useEffect(() => {
     getFlami();
   }, [getFlami]);
-
-  console.log(flami?.last_share, new Date().toDateString());
-  console.log(flami);
 
   return (
     <div className="flex flex-col gap-8 mb-24">

@@ -1,7 +1,7 @@
-import { Flami } from "../../interfaces/flami.interface";
+import { FlamiData } from "../../interfaces/flami.interface";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 
-const FlamiShow = ({ flami }: { flami: Flami }) => {
+const FlamiShow = ({ flami }: { flami: FlamiData | undefined }) => {
   return (
     <div className="flex justify-around relative">
       <div className="relative">
@@ -10,7 +10,7 @@ const FlamiShow = ({ flami }: { flami: Flami }) => {
           className="relative z-10 w-full max-h-60"
           alt="Flami"
         />
-        {flami?.cosmetics.map((cosmetic: Cosmetic) => (
+        {flami?.my_flami.cosmetics.map((cosmetic: Cosmetic) => (
           <img
             key={cosmetic.name}
             className="absolute top-0 z-20"
@@ -19,14 +19,14 @@ const FlamiShow = ({ flami }: { flami: Flami }) => {
           />
         ))}
       </div>
-      {flami?.shared_flami ? (
+      {flami?.keeped_flami ? (
         <div className="relative flex items-center justify-center">
-          <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">{`Flami de ${flami.shared_flami.owner}`}</span>
+          <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">{flami.keeped_flami.name}</span>
           <img
             src="/assets/img/icons/flami.svg"
-            alt={`Flami de ${flami.shared_flami.owner}`}
+            alt={`${flami.keeped_flami.name}`}
           />
-          {flami.shared_flami.cosmetics.map((cosmetic: Cosmetic) => (
+          {flami.keeped_flami.cosmetics.map((cosmetic: Cosmetic) => (
             <img
               key={cosmetic.name}
               className="absolute top-0 z-20"

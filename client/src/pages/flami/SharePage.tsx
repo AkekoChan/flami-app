@@ -3,7 +3,7 @@ import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import QRCode from "react-qr-code";
-import { Flami } from "../../interfaces/flami.interface";
+import { Flami, FlamiData } from "../../interfaces/flami.interface";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import { useGeolocated } from "react-geolocated";
@@ -12,13 +12,13 @@ import { useTheme } from "../../hooks/useTheme";
 const SharePage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
-  const [flami, setFlami] = useState<Flami>();
+  const [flami, setFlami] = useState<FlamiData>();
   const navigate = useNavigate();
 
   setShowNav(true);
 
   const getFlami = useCallback(() => {
-    APIHandler<Flami>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
         setFlami(res.data);
       }
@@ -48,12 +48,11 @@ const SharePage = () => {
         />
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
-            {flami?.shared_flami ? (
+            {flami?.keeped_flami ? (
               <>
-                <span>Relaie le Flami de</span>
-                <span className="text-2xl text-tree-poppy-500">
-                  {flami?.owner}
-                </span>
+                <span>Relaie le <span className="text-2xl text-tree-poppy-500">
+                  {flami?.keeped_flami.name}
+                </span></span>
               </>
             ) : (
               <div>
@@ -70,7 +69,7 @@ const SharePage = () => {
               size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
-                id: flami?.shared_flami?._id || flami?._id || null,
+                id: flami?.keeped_flami?._id || flami?.my_flami._id || null,
                 location: {
                   lat: coords?.latitude || null,
                   long: coords?.longitude || null,

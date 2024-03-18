@@ -48,6 +48,13 @@ const authController = {
       bcrypt.genSaltSync(11)
     );
 
+    let sports = { "Sport de combat": 0, "Sport de course": 1, "Sport aquatique": 2, "Sport collectif": 3, "Sport de plage": 4, "Sport de force": 5 }
+    userdata.owned_cosmetics = [
+      {
+        id: sports[userdata.metadata?.favourite_sport] ?? 0
+      }
+    ]
+
     let new_user = new userModel(userdata);
 
     try {
@@ -96,7 +103,7 @@ const authController = {
           .json({ message: "E-mail ou mot de passe incorrect.", error: 404 });
       }
 
-      if (!user.isVerified) {
+      if (!user.is_verified) {
         return res
           .status(403)
           .json({ message: "Code de vérification non vérifié.", error: 403 });

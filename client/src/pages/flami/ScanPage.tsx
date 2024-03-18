@@ -32,11 +32,11 @@ const ScanPage = () => {
         false,
         "POST",
         {
-          flami_id: id,
-          location_shared: location,
+          shared_flami_id: id,
+          shared_location: location,
           location: {
-            lat: coords?.latitude || null,
-            long: coords?.longitude || null,
+            lat: coords?.latitude ?? null,
+            long: coords?.longitude ?? null,
           },
         },
         token

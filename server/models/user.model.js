@@ -7,12 +7,29 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  flami_id: {
+    type: mongoose.Types.ObjectId
+  },
+  keeped_flami_id: {
+    type: mongoose.Types.ObjectId
+  },
+  badges: {
+    sports: [
+      { id: { type: Number }, level: { type: Number, min: 0, max: 2 } }
+    ],
+    etapes: [
+      { id: { type: Number } }
+    ]
+  },
+  owned_cosmetics: [
+    { id: { type: Number } }
+  ],
   email: {
     type: String,
     required: true,
     unique: true
   },
-  isVerified: {
+  is_verified: {
     type: Boolean,
     default: false
   },
@@ -20,32 +37,14 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  date: {
-    type: Date,
-    default: Date.now
-  },
   age: {
     type: Number,
     required: true,
     min: 13
   },
-  owned_cosmetics: {
-    type: Array,
-    default: []
-  },
-  flami_id: {
-    type: mongoose.Types.ObjectId
-  },
-  shared_flami: {
-    id: {
-      type: mongoose.Types.ObjectId
-    },
-    shared_date: {
-      type: String
-    }
-  },
-  badges: {
-    type: Array,
+  created_at: {
+    type: Date,
+    default: Date.now
   },
   metadata: {
     favorite_sport: {
@@ -62,7 +61,7 @@ const userSchema = new mongoose.Schema({
     }
   }
 },
-{ 
+{
   statics: {
     findByEmail (email) {
       return this.findOne({ email: new RegExp(email, 'i') });
@@ -72,15 +71,12 @@ const userSchema = new mongoose.Schema({
 
 userSchema.post('validate', async function () {
   if(await this.constructor.findByEmail(this.email)) return;
-  let sports = { "Sport de combat": 0, "Sport de course": 1, "Sport aquatique": 2, "Sport collectif": 3, "Sport de plage": 4, "Sport de force": 5 }
-  let givenCosmetics = sports[this.metadata.favorite_sport] !== undefined ? [sports[this.metadata.favorite_sport]] : [];
   let flami = await flamiModel.create({
     name: `Flami de ${this.name}`,
     owner_id: this._id,
-    cosmetics: givenCosmetics
+    cosmetics: this.owned_cosmetics
   });
   this.flami_id = flami._id;
-  this.owned_cosmetics = givenCosmetics;
 });
 
 export default mongoose.model("User", userSchema);

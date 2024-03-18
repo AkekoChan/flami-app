@@ -2,6 +2,8 @@ import Router from "express";
 
 const router = Router();
 
-// router.get("/badges", miscController.getAllBadges);
+router.get("/", async (req, res) => {
+    return res.json({ context: "sandbox" });
+});
 
 export default router;

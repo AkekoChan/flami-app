@@ -68,7 +68,7 @@ const otpController = {
         });
       }
 
-      await userModel.findOneAndUpdate({ email }, { isVerified: true });
+      await userModel.findOneAndUpdate({ email }, { is_verified: true });
       let token = auth.encode({ email: email });
 
       res.status(200).json({

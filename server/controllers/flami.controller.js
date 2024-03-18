@@ -1,137 +1,95 @@
 import { readFile } from "fs/promises";
 import flamiModel from "../models/flami.model.js";
 import userModel from "../models/user.model.js";
+import flamitradeModel from "../models/flamitrade.model.js";
+import { cp } from "fs";
+import mongoose from "mongoose";
 
 const flamiController = {
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
-
         let flami = await flamiModel.findById(userdata.flami_id);
-
-        let shared_flami = await flamiModel.findById(userdata.shared_flami.id);
-        let sharer_user;
-
-        if(shared_flami) {
-            sharer_user = await userModel.findById(shared_flami.owner_id);
-        }
+        let keeped_flami = userdata.keeped_flami ? await flamiModel.findById(userdata.keeped_flami_id) : null;
+        let trade = await flamitradeModel.getLastUserTrade(userdata._id);
         
         let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
         let json = JSON.parse(content);
 
         return res.status(200).json({
             data: {
-                name: flami.name,
-                owner: userdata.name,
-                cosmetics: flami.cosmetics.map((id) => json[id] || json[0]),
-                stamina: flami.stamina,
-                stats: flami.stats,
-                location: flami.location,
-                last_action: flami.last_action_time,
-                last_share: userdata.shared_flami?.shared_date || null,
-                _id: flami._id,
-                shared_flami: shared_flami ? {
-                    name: shared_flami.name,
-                    owner: sharer_user.name,
-                    cosmetics: shared_flami.cosmetics.map((id) => json[id] || json[0]),
-                    location: shared_flami.location,
-                    stamina: shared_flami.stamina,
-                    stats: shared_flami.stats,
-                    last_action: shared_flami.last_action_time,
-                    _id: shared_flami._id
-                } : null
+                my_flami: {
+                    name: flami.name,
+                    stats: flami.stats,
+                    cosmetics: flami.cosmetics.map(item => json[item.id]),
+                    location: trade?.flamis_positions[flami._id] ?? { lat: null, long: null },
+                    _id: flami.id
+                },
+                keeped_flami: keeped_flami ? {
+                    name: flami.name,
+                    cosmetics: flami.cosmetics.map(item => json[item.id]),
+                    location: trade?.flamis_positions[keeped_flami._id] ?? { lat: null, long: null },
+                    _id: keeped_flami.id
+                } : null,
+                last_trade_date: trade?.created_at ?? null
             }
         });
     },
     share: async (req, res) => {
+        // IN THIS CONTEXT YOU ARE THE FLASHER !!
         let userdata = res.locals.user;
-        const { flami_id, location, location_shared } = req.body;
+        const { shared_flami_id, location, shared_location } = req.body;
+        const flami_id = userdata.flami_id;
 
-        let user_flami = await flamiModel.findById(userdata.shared_flami?.id || userdata.flami_id);
-        let shared_flami = await flamiModel.findById(flami_id);
-        let sharer_user;
+        let shared_user = userModel.findOne({ flami_id: shared_flami_id });
 
-        if(shared_flami) {
-            sharer_user = await userModel.findById(shared_flami.current_sharer_id || shared_flami.owner_id);
-
-            if(!sharer_user) {
-                return res.status(404).json({
-                    message: `Cet utilisateur n'existe pas.`,
-                    error: 404
-                });
-            }
-
-            if(sharer_user._id == userdata._id) {
-                return res.status(409).json({
-                    message: `Ces utilisateurs sont identiques.`,
-                    error: 409
-                });
-            }
-
-            if(user_flami._id == shared_flami._id) {
-                return res.status(409).json({
-                    message: `Ce sont les mêmes Flami..?`,
-                    error: 409
-                });
-            }
-
-            if(user_flami.shared_date == new Date().toDateString()) {
-                return res.status(409).json({
-                    message: `Votre Flami a déjà été échangé aujourd'hui.`,
-                    error: 409
-                }); 
-            }
-
-            if(shared_flami.shared_date == new Date().toDateString()) {
-                return res.status(409).json({
-                    message: `Le ${shared_flami.name} a déjà été échangé aujourd'hui.`,
-                    error: 409
-                });
-            }
-
-            await userModel.updateOne({ _id: userdata._id }, {
-                shared_flami: {
-                    id: shared_flami._id,
-                    shared_date: new Date().toDateString()
-                }
-            });
-
-            await userModel.updateOne({ _id: sharer_user._id }, {
-                shared_flami: {
-                    id: user_flami._id,
-                    shared_date: new Date().toDateString()
-                }
-            });
-
-            await flamiModel.updateOne({ _id: user_flami._id }, {
-                current_sharer_id: sharer_user._id,
-                location: {
-                    lat: location_shared.lat,
-                    long: location_shared.long
-                }
-            });
-
-            await flamiModel.updateOne({ _id: shared_flami._id }, {
-                current_sharer_id: userdata._id,
-                location: {
-                    lat: location.lat,
-                    long: location.long
-                }
-            });
-
-            return res.status(202).json({
-                data: {
-                    name: shared_flami.name,
-                    owner: sharer_user.name,
-                    location: shared_flami.location,
-                    _id: shared_flami._id
-                }
-            });
-        } else {
+        if(!shared_user) {
             return res.status(404).json({
                 message: `Ce Flami n'existe pas.`,
                 error: 404
-            });    
+            });
         }
+
+        let shared_flami = flamiModel.findOne({ _id: shared_flami_id });
+        let flami = flamiModel.findOne({ _id: userdata.keeped_flami_id ?? flami_id });
+
+        let sharer_last_trade = flamitradeModel.getLastUserTrade(shared_user._id);
+        if(sharer_last_trade.created_at.toDateString() === new Date().toDateString()) return res.status(401).json({ message: "La personne avec qui tu échange a déjà fait un échange aujourd'hui.", error: 401 });
+
+        let user_last_trade = flamitradeModel.getLastUserTrade(userdata._id);
+        if(user_last_trade.created_at.toDateString() === new Date().toDateString()) return res.status(401).json({ message: "Tu as déjà fait un échange aujourd'hui.", error: 401 });
+
+        await flamitradeModel.create({
+            owners: {
+                flasher: userdata._id,
+                sender: shared_user._id
+            },
+            flamis: {
+                flasher: flami_id,
+                sender: shared_flami_id
+            },
+            flamis_positions: {
+                [flami_id]: {
+                    lat: location.latitude,
+                    long: location.longitude
+                },
+                [shared_flami_id]: {
+                    lat: shared_location.latitude,
+                    long: shared_location.longitude
+                },
+            }
+        });
+
+        shared_flami.keeper_id = userdata._id;
+        flami.keeper_id = shared_user._id;
+
+        shared_flami.save();
+        flami.save();
+
+        return res.status(202).json({
+            data: {
+                message: `Tu as bien reçu le ${shared_flami.name} !`
+            }
+        });
     },
     competition: (req, res) => {
 

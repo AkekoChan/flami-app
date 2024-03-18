@@ -1,9 +1,9 @@
-import { Flami } from "../../interfaces/flami.interface";
+import { FlamiData } from "../../interfaces/flami.interface";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import FlamiShow from "./FlamiShow";
 
-const FlamiDisplay = ({ flami }: { flami: Flami }) => {
+const FlamiDisplay = ({ flami }: { flami: FlamiData | undefined }) => {
   const navigate = useNavigate();
 
   return (
@@ -12,7 +12,7 @@ const FlamiDisplay = ({ flami }: { flami: Flami }) => {
       <Button
         variant={"secondary"}
         disabled={
-          flami?.last_share && flami.last_share === new Date().toDateString()
+          flami?.last_trade_date && flami.last_trade_date.toDateString() === new Date().toDateString()
         }
         type="button"
         onClick={() => navigate("/share")}

@@ -19,11 +19,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(cors());
 
+if(process.env.ENVIRONMENT === "dev") app.use("/api/sandbox", miscRoutes); // only in dev
+
 app.use("/api/auth", authRoutes);
 app.use("/api/my/flami", auth.require, flamiRoutes);
 app.use("/api/my", auth.require, userRoutes);
 app.use("/api/user/:name", auth.require, usersRoutes);
-app.use("/api", auth.require, miscRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);

@@ -27,7 +27,7 @@ const userController = {
 
     return res.status(200).json({
       data: {
-        cosmetics: userdata.owned_cosmetics.map(id => json[id])
+        cosmetics: userdata.owned_cosmetics.map(item => json[item.id])
       }
     });
   },
