@@ -2,7 +2,7 @@ import { cva, VariantProps } from "class-variance-authority";
 import React from "react";
 
 const baseButton =
-  "text-center w-full px-8 py-4 font-roboto font-bold uppercase w-full cursor-pointer";
+  "text-center w-full px-8 py-4 font-roboto font-bold uppercase cursor-pointer";
 
 const buttonVariants = {
   primary:
