@@ -30,6 +30,7 @@ const FlamiPage = () => {
   }, [getFlami]);
 
   console.log(flami?.last_share, new Date().toDateString());
+  console.log(flami);
 
   return (
     <div className="flex flex-col gap-8 mb-24">

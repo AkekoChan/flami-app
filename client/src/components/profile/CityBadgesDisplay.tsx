@@ -13,7 +13,7 @@ const CityBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
 
   const badgeVariants = {
     hidden: { opacity: 0, scale: 0.5 },
-    shown: { opacity: 0.5, scale: 1, filter: "grayscale(80%)" },
+    shown: { opacity: 0.5, scale: 1, filter: "grayscale(75%)" },
     owned: { opacity: 1, scale: 1 },
   };
 
