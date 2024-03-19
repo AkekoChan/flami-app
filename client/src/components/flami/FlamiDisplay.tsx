@@ -12,7 +12,7 @@ const FlamiDisplay = ({ flami }: { flami: FlamiData | undefined }) => {
       <Button
         variant={"secondary"}
         disabled={
-          flami?.last_trade_date && flami.last_trade_date.toDateString() === new Date().toDateString()
+          flami?.last_trade_date && new Date(flami.last_trade_date).toDateString() === new Date().toDateString()
         }
         type="button"
         onClick={() => navigate("/share")}

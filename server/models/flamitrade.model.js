@@ -18,11 +18,12 @@ const flamiTradeShema = new mongoose.Schema({
         }
     },
     flamis_positions: {
-        type: Map,
-        of: {
-            lat: Number,
-            long: Number
-        }
+        $id: [
+            {
+                lat: Number,
+                long: Number
+            }
+        ]
     },
     created_at: {
         type: Date,
@@ -30,9 +31,9 @@ const flamiTradeShema = new mongoose.Schema({
     }
 }, {
     statics: {
-        getLastUserTrade (user_id) {
-            return this.findOne({ $where: 
-                `this.owners.flasher === ${user_id.$oid} || this.owners.sender === ${user_id.$oid};`
+        getLastUserTrade (user) {
+            return this.findOne({ $where: () => 
+                this.owners.flasher === user._id || this.owners.sender === user._id
             }).sort({ created_at: 'desc' });
         }
     }

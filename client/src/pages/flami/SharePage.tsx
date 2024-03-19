@@ -3,7 +3,7 @@ import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import QRCode from "react-qr-code";
-import { Flami, FlamiData } from "../../interfaces/flami.interface";
+import { FlamiData } from "../../interfaces/flami.interface";
 import { useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import { useGeolocated } from "react-geolocated";
@@ -69,7 +69,7 @@ const SharePage = () => {
               size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
-                id: flami?.keeped_flami?._id || flami?.my_flami._id || null,
+                id: flami?.my_flami.owner,
                 location: {
                   lat: coords?.latitude || null,
                   long: coords?.longitude || null,

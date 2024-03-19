@@ -18,5 +18,6 @@ export interface Flami {
     lat: number, 
     long: number
   },
-  _id: string
+  _id: string,
+  owner: string
 }

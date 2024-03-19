@@ -2,7 +2,6 @@ import TopBar from "../../components/topbar/TopBar";
 import { useAuth } from "../../hooks/useAuth";
 import QrReader from "react-qr-reader-es6";
 import { APIHandler } from "../../utils/api/api-handler";
-import { Flami } from "../../interfaces/flami.interface";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
 import { useCallback } from "react";
@@ -27,16 +26,17 @@ const ScanPage = () => {
   let shareFlami = useCallback(
     (data: string) => {
       const { id, location } = JSON.parse(data);
-      APIHandler<Flami>(
+      console.log(coords)
+      APIHandler<{ message: string }>(
         "/my/flami/share",
         false,
         "POST",
         {
-          shared_flami_id: id,
+          shared_user_id: id,
           shared_location: location,
           location: {
-            lat: coords?.latitude ?? null,
-            long: coords?.longitude ?? null,
+            lat: coords?.latitude,
+            long: coords?.longitude,
           },
         },
         token
@@ -44,7 +44,7 @@ const ScanPage = () => {
         .then((res) => {
           console.log(res);
           navigate("/");
-          toast.success(`${res.data.name} reçu !`, {
+          toast.success(`${res.data.message} reçu !`, {
             style: {
               background: "#3D3D3D",
               color: "#FAFAFA",
