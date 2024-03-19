@@ -13,16 +13,11 @@ const userSchema = new mongoose.Schema({
   keeped_flami_id: {
     type: mongoose.Types.ObjectId
   },
-  badges: {
-    sports: [
-      { id: { type: Number }, level: { type: Number, min: 0, max: 2 } }
-    ],
-    etapes: [
-      { id: { type: Number } }
-    ]
-  },
+  badges: [
+    { id: { type: String }, created_at: { type: Date, default: Date.now() } }
+  ],
   owned_cosmetics: [
-    { id: { type: Number } }
+    { id: { type: String }, created_at: { type: Date, default: Date.now() } }
   ],
   email: {
     type: String,

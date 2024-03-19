@@ -35,7 +35,8 @@ const flamiController = {
         });
     },
     share: async (req, res) => {
-        // IN THIS CONTEXT YOU ARE THE FLASHER !!
+        // ? IN THIS CONTEXT YOU ARE THE FLASHER !!
+        
         let userdata = res.locals.user;
         const { shared_flami_id, location, shared_location } = req.body;
         const flami_id = userdata.flami_id;

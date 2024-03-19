@@ -15,7 +15,7 @@ const flamiShema = new mongoose.Schema({
     default: Date.now
   },
   cosmetics: [
-    { id: { type: Number } }
+    { id: { type: String } }
   ],
   stats: {
     strength: {

@@ -2,7 +2,7 @@ import { useCallback, useState, useEffect } from "react";
 import TopBar from "../../components/topbar/TopBar";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
-import { Badge } from "../../interfaces/badge.interface";
+import { Badges } from "../../interfaces/badge.interface";
 import CityBadgesDisplay from "../../components/profile/CityBadgesDisplay";
 import SportBadgesDisplay from "../../components/profile/SportBadgesDisplay";
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ import { useTheme } from "../../hooks/useTheme";
 const AllBadgesPage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
-  const [badges, setBadges] = useState<Badge[]>();
+  const [badges, setBadges] = useState<Badges>();
   const [selectDisplay, setSelectDisplay] = useState<boolean>(true);
   setShowNav(true);
 
@@ -24,7 +24,7 @@ const AllBadgesPage = () => {
   };
 
   const getBadges = useCallback(() => {
-    APIHandler<Badge[]>("/my/badges", false, "GET", undefined, token).then(
+    APIHandler<Badges>("/my/badges", false, "GET", undefined, token).then(
       (res) => {
         setBadges(res.data);
       }
@@ -67,11 +67,11 @@ const AllBadgesPage = () => {
       </div>
       {selectDisplay ? (
         <motion.div>
-          <CityBadgesDisplay badges={badges}></CityBadgesDisplay>
+          <CityBadgesDisplay badges={badges?.badges_etapes}></CityBadgesDisplay>
         </motion.div>
       ) : (
         <motion.div animate={{ x: 0 }}>
-          <SportBadgesDisplay badges={null}></SportBadgesDisplay>
+          <SportBadgesDisplay badges={badges?.badges_sports}></SportBadgesDisplay>
         </motion.div>
       )}
     </div>

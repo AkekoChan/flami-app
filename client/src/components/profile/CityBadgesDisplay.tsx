@@ -4,7 +4,7 @@ import BadgeDisplay from "./BadgeDisplay";
 import { CloseIcon } from "react-line-awesome";
 import { motion } from "framer-motion";
 
-const CityBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
+const CityBadgesDisplay = ({ badges }: { badges: Badge[] | undefined }) => {
   const [infoBadge, setInfoBadge] = useState<Badge | null>();
 
   const selectBadge = (badge: Badge | null) => {

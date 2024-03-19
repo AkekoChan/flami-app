@@ -3,7 +3,7 @@ import { useState } from "react";
 import BadgeDisplay from "./BadgeDisplay";
 import { CloseIcon } from "react-line-awesome";
 
-const SportBadgesDisplay = ({ badges }: { badges: Badge[] }) => {
+const SportBadgesDisplay = ({ badges }: { badges: Badge[] | undefined }) => {
   const [infoBadge, setInfoBadge] = useState<Badge | null>();
 
   const selectBadge = (badge: Badge | null) => {

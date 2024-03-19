@@ -12,9 +12,9 @@ const userController = {
       data: {
         name: userdata.name,
         email: userdata.email,
-        badges: [...userdata.badges.sports, ...userdata.badges.etapes]
-          .slice(Math.max(0, userdata.badges.length - 3))
-          .map((id) => json[id] || json[0]),
+        badges: userdata.badges.map((item) => json[item.id])
+        .sort((a, b) => a.created_at < b.created_at ? 1 : -1)
+        .slice(0, 3),
         created_at: new Date(userdata.created_at).toDateString(),
       },
     });
@@ -35,16 +35,19 @@ const userController = {
     let userdata = res.locals.user;
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let json = JSON.parse(content);
+
+    let badges = { sport: [], etape: [] }
+
+    Object.values(json).map(item => {
+      userdata.badges.findIndex((badge) => badge.id === item.id) !== -1 ? item.owned = true : item.owned = false;
+      badges[item.type].push(item);
+      return item;
+    })
+
     return res.status(200).json({
       data: {
-        badges_sports: json["badges_sports"].map(item => {
-          userdata.badges.sports.findIndex((badge) => badge.id === item.id) !== -1 ? item.owned = true : item.owned = false
-          return item;
-        }),
-        badges_etapes: json["badges_etapes"].map(item => {
-          userdata.badges.etapes.findIndex((badge) => badge.id === item.id) !== -1 ? item.owned = true : item.owned = false
-          return item;
-        })
+        badges_sports: badges["sport"],
+        badges_etapes: badges["etape"]
       }
     });
   },
