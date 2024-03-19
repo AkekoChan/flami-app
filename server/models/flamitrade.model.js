@@ -18,12 +18,7 @@ const flamiTradeShema = new mongoose.Schema({
         }
     },
     flamis_positions: {
-        $id: [
-            {
-                lat: Number,
-                long: Number
-            }
-        ]
+        type: Object
     },
     created_at: {
         type: Date,
