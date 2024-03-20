@@ -15,7 +15,9 @@ const MapPage = () => {
   const [steps, setSteps] = useState<Step[]>([]);
   const [currentFlameLocation, setCurrentFlameLocation] = useState<Step>();
   const [nextFlameLocation, setNextFlameLocation] = useState<Step>();
-  const [flamiLocation, setFlamiLocation] = useState<any>();
+  const [flamiLocation, setFlamiLocation] = useState<any>(null);
+  const [flamiTrail, setFlamiTrail] = useState<any>([]);
+  const [flamiPosition, setFlamiPosition] = useState<any>(null);
   const polylinePath: [number, number][] = [];
 
   setShowNav(true);
@@ -44,41 +46,44 @@ const MapPage = () => {
   };
 
   const getFlamiLocation = useCallback(() => {
-    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
-      async (res) => {
-        if (
-          !res.data ||
-          !res.data.my_flami ||
-          !res.data.my_flami.location ||
-          res.data.my_flami.location.lat === null ||
-          res.data.my_flami.location.long === null
-        ) {
-          return setFlamiLocation(null);
-        } else {
-          await fetch(
-            `https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.lat}&lon=${res.data.my_flami.location.long}`
+    APIHandler<FlamiData>(
+      "/my/flami?trail",
+      false,
+      "GET",
+      undefined,
+      token
+    ).then(async (res) => {
+      if (
+        res.data.my_flami?.location?.latitude === null ||
+        res.data.my_flami?.location?.longitude === null
+      ) {
+        return setFlamiLocation(null);
+      } else {
+        setFlamiTrail(
+          res.data.my_flami?.trail?.map((e) => [e.latitude, e.longitude])
+        );
+        setFlamiPosition(res.data.my_flami?.location);
+        await fetch(
+          `https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.latitude}&lon=${res.data.my_flami.location.longitude}`
+        )
+          .then((res) =>
+            res.json().then((data) => {
+              if (data.features?.length > 0) {
+                const context =
+                  data.features[0]["properties"]["context"].split(", ");
+                setFlamiLocation({
+                  ville: data.features[0]["properties"]["city"],
+                  dept: `${context[1]} (${context[0]})`,
+                  region: context[2],
+                });
+              } else {
+                setFlamiLocation(null);
+              }
+            })
           )
-            .then((res) =>
-              res.json().then((data) => {
-                console.log(data);
-                if (data.features?.length > 0) {
-                  const context =
-                    data.features[0]["properties"]["context"].split(", ");
-                  console.log(context);
-                  setFlamiLocation({
-                    ville: data.features[0]["properties"]["city"],
-                    dept: `${context[1]} (${context[0]})`,
-                    region: context[2],
-                  });
-                } else {
-                  setFlamiLocation(null);
-                }
-              })
-            )
-            .catch(() => setFlamiLocation(null));
-        }
+          .catch(() => setFlamiLocation(null));
       }
-    );
+    });
   }, [token]);
 
   useEffect(() => {
@@ -108,6 +113,8 @@ const MapPage = () => {
           currentStep={currentFlameLocation}
           steps={steps}
           polylinePath={polylinePath}
+          flamiTrailPath={flamiTrail}
+          flamiPosition={flamiPosition}
         />
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">

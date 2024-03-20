@@ -1,6 +1,7 @@
 export interface Cosmetic {
-  name: string,
+  category: string;
+  name: string;
   description: string;
   url: string;
-  place: number;
+  id: string;
 }

@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   flami_id: {
     type: mongoose.Types.ObjectId
   },
-  keeped_flami_id: {
+  kept_flami_id: {
     type: mongoose.Types.ObjectId
   },
   badges: [
@@ -35,7 +35,8 @@ const userSchema = new mongoose.Schema({
   age: {
     type: Number,
     required: true,
-    min: 13
+    min: 13,
+    max: 120
   },
   created_at: {
     type: Date,
