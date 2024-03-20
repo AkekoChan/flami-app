@@ -25,7 +25,8 @@ const lastStepValidationSchema = Yup.object().shape({
     .required("La confirmation du mot de passe est obligatoire.")
     .trim(),
   age: Yup.number()
-    .min(13, "Vous devez avoir au moins 13 ans.")
+    .min(13, "Tu dois avoir au moins 13 ans.")
+    .max(120, "Saisie un âge valide.")
     .required("L'âge est obligatoire.")
     .truncate(),
 });
