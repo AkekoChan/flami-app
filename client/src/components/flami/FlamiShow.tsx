@@ -21,7 +21,9 @@ const FlamiShow = ({ flami }: { flami: FlamiData | undefined }) => {
       </div>
       {flami?.keeped_flami ? (
         <div className="relative flex items-center justify-center">
-          <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">{flami.keeped_flami.name}</span>
+          <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute -top-4">
+            {flami.keeped_flami.name}
+          </span>
           <img
             src="/assets/img/icons/flami.svg"
             alt={`${flami.keeped_flami.name}`}
