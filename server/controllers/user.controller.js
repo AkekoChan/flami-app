@@ -34,7 +34,7 @@ const userController = {
 
     let items = userdata.owned_cosmetics.map(item => {
       let jitem = json[item.id];
-      sorted_cosmetics[jitem.category]?.push(jitem)
+      if(jitem) sorted_cosmetics[jitem.category]?.push(jitem)
     });
 
     return res.status(200).json({
