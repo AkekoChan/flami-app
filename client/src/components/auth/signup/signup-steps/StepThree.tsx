@@ -18,6 +18,13 @@ const choices = {
   intent: ["Participer", "Me divertir", "Apprendre", "Autre"],
 };
 
+const intentIcons = [
+  "/assets/img/icons/volunteering.svg",
+  "/assets/img/icons/pyramid_toy.svg",
+  "/assets/img/icons/classroom.svg",
+  "/assets/img/icons/more.svg",
+];
+
 const StepThree = ({
   nextStep,
   prevStep,
@@ -97,7 +104,7 @@ const StepThree = ({
                         handleChoiceClick(index);
                       }
                     }}
-                    className={`flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press font-bold uppercase active:border-tree-poppy-500 ${
+                    className={`flex gap-3 items-center p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press font-bold uppercase active:border-tree-poppy-500 ${
                       index === clickedIndex ? "border-tree-poppy-500" : ""
                     } ${
                       index === clickedIndex
@@ -105,6 +112,7 @@ const StepThree = ({
                         : "shadow-secondary"
                     }`}
                   >
+                    <img src={intentIcons[index]} alt="" className="w-8 h-8" />
                     {choice}
                   </div>
                 </li>

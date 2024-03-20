@@ -33,7 +33,7 @@ const SharePage = () => {
 
   useGeolocated({
     positionOptions: {
-      enableHighAccuracy: false
+      enableHighAccuracy: false,
     },
     userDecisionTimeout: 15000,
     onSuccess: (position) => setCoords(position.coords),
@@ -53,16 +53,19 @@ const SharePage = () => {
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
             {flami?.kept_flami ? (
               <>
-                <span>Relaie le <span className="text-2xl text-tree-poppy-500">
-                  {flami?.kept_flami.name}
-                </span></span>
+                <span>
+                  Relaie le{" "}
+                  <span className="text-2xl text-tree-poppy-500">
+                    {flami?.kept_flami.name}
+                  </span>
+                </span>
               </>
             ) : (
               <div>
                 <span className="text-tree-poppy-500">Partage ton Flami</span>
               </div>
             )}
-            <span>En fesant scanner ce QR code à un ami.</span>
+            <span>En faisant scanner ce QR code à un ami.</span>
           </div>
           <div
             className="w-1/3 bg-alabaster-50 rounded-xl"

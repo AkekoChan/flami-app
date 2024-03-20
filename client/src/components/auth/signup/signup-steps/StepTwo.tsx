@@ -18,6 +18,12 @@ const choices = {
   intent: ["Participer", "Me divertir", "Apprendre", "Autre"],
 };
 
+const originIcons = [
+  "/assets/img/icons/internet.svg",
+  "/assets/img/icons/crowd.svg",
+  "/assets/img/icons/more.svg",
+];
+
 const StepTwo = ({
   nextStep,
   prevStep,
@@ -97,7 +103,7 @@ const StepTwo = ({
                       }
                     }}
                     aria-selected={clickedIndex === index ? "true" : "false"}
-                    className={`flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press font-bold uppercase active:border-tree-poppy-500 ${
+                    className={`flex gap-3 items-center p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press font-bold uppercase active:border-tree-poppy-500 ${
                       index === clickedIndex ? "border-tree-poppy-500" : ""
                     } ${
                       index === clickedIndex
@@ -105,6 +111,7 @@ const StepTwo = ({
                         : "shadow-secondary"
                     }`}
                   >
+                    <img src={originIcons[index]} alt="" className="w-8 h-8" />
                     {choice}
                   </div>
                 </li>

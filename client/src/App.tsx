@@ -19,6 +19,8 @@ import SharePage from "./pages/flami/SharePage";
 import ScanPage from "./pages/flami/ScanPage";
 import TrainingPage from "./pages/activities/TrainingPage";
 import CosmeticPage from "./pages/flami/CosmeticPage";
+import LegalNoticesPage from "./pages/legal/LegalNoticesPage";
+import ThanksPage from "./pages/legal/ThanksPage";
 
 const TOAST_LIMIT = 2;
 
@@ -45,6 +47,8 @@ const App = () => {
           <Route path="badges" element={<AllBadgesPage />} />
           <Route path="training" element={<TrainingPage />} />
           <Route path="cosmetics" element={<CosmeticPage />} />
+          <Route path="legal-notices" element={<LegalNoticesPage />} />
+          <Route path="thanks" element={<ThanksPage />} />
         </Route>
         <Route element={<AuthRoute />}>
           <Route path="/welcome" element={<WelcomePage />} />

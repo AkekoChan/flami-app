@@ -46,7 +46,7 @@ const AllBadgesPage = () => {
             </button>
             <button
               onClick={SwitchSelectDisplay}
-              className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400 shadow-alabaster-400"
+              className="items-center flex-col py-6 px-4 border-3 shadow-secondary rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400"
             >
               Sports
             </button>
@@ -55,11 +55,11 @@ const AllBadgesPage = () => {
           <>
             <button
               onClick={SwitchSelectDisplay}
-              className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400 shadow-alabaster-400"
+              className="items-center flex-col shadow-secondary py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-alabaster-400 "
             >
               Villes
             </button>
-            <button className="items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500 shadow-tree-poppy-500">
+            <button className="items-center flex-col shadow-secondary py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500 shadow-tree-poppy-500">
               Sports
             </button>
           </>
@@ -71,7 +71,9 @@ const AllBadgesPage = () => {
         </motion.div>
       ) : (
         <motion.div animate={{ x: 0 }}>
-          <SportBadgesDisplay badges={badges?.badges_sports}></SportBadgesDisplay>
+          <SportBadgesDisplay
+            badges={badges?.badges_sports}
+          ></SportBadgesDisplay>
         </motion.div>
       )}
     </div>
