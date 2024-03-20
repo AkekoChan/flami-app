@@ -2,17 +2,24 @@ import { readFile } from "fs/promises";
 import flamiModel from "../models/flami.model.js";
 import userModel from "../models/user.model.js";
 import flamitradeModel from "../models/flamitrade.model.js";
-import mongoose from "mongoose";
 
 const flamiController = {
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
         let flami = await flamiModel.findOne({ _id: userdata.flami_id });
-        let keeped_flami = userdata.keeped_flami_id ? await flamiModel.findOne({ _id: userdata.keeped_flami_id }) : null;
+        let kept_flami = userdata.kept_flami_id ? await flamiModel.findOne({ _id: userdata.kept_flami_id }) : null;
         let trade = await flamitradeModel.getLastUserTrade(userdata);
         
         let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
         let json = JSON.parse(content);
+
+        let trailing = [];
+        if(req.query.trail !== undefined) {
+            let d = await flamitradeModel.getFlamiTrailing(flami);
+            d.map(e => {
+                trailing.push(e.flamis_positions.get(flami._id));
+            });
+        }
 
         return res.status(200).json({
             data: {
@@ -20,18 +27,19 @@ const flamiController = {
                     name: flami.name,
                     stats: flami.stats,
                     cosmetics: flami.cosmetics.map(item => json[item.id]),
-                    location: trade?.flamis_positions[flami._id] ?? { lat: null, long: null },
+                    location: trade.flamis_positions.get(flami.id),
                     _id: flami.id,
-                    owner: flami.owner_id
+                    owner: flami.owner_id,
+                    trail: trailing
                 },
-                keeped_flami: keeped_flami ? {
-                    name: keeped_flami.name,
-                    cosmetics: keeped_flami.cosmetics.map(item => json[item.id]),
-                    location: trade?.flamis_positions[keeped_flami._id] ?? { lat: null, long: null },
-                    _id: keeped_flami.id,
-                    owner: keeped_flami.owner_id
+                kept_flami: kept_flami ? {
+                    name: kept_flami.name,
+                    cosmetics: kept_flami.cosmetics.map(item => json[item.id]),
+                    location: trade.flamis_positions.get(kept_flami.id),
+                    _id: kept_flami.id,
+                    owner: kept_flami.owner_id
                 } : null,
-                last_trade_date: trade?.created_at ?? null
+                last_trade_date: trade?.created_at || null
             }
         });
     },
@@ -51,8 +59,8 @@ const flamiController = {
             });
         }
 
-        let shared_flami = await flamiModel.findOne({ _id: shared_user.keeped_flami_id || shared_user.flami_id });
-        let flami = await flamiModel.findOne({ _id: userdata.keeped_flami_id || flami_id });
+        let shared_flami = await flamiModel.findOne({ _id: shared_user.kept_flami_id || shared_user.flami_id });
+        let flami = await flamiModel.findOne({ _id: userdata.kept_flami_id || flami_id });
 
         if(!shared_flami || !flami) {
             return res.status(404).json({
@@ -85,12 +93,12 @@ const flamiController = {
             },
             flamis_positions: {
                 [flami_id]: {
-                    lat: location.latitude,
-                    long: location.longitude
+                    latitude: location.latitude,
+                    longitude: location.longitude
                 },
                 [shared_flami._id]: {
-                    lat: shared_location.latitude,
-                    long: shared_location.longitude
+                    latitude: shared_location.latitude,
+                    longitude: shared_location.longitude
                 },
             }
         });
@@ -98,8 +106,8 @@ const flamiController = {
         await flamiModel.updateOne({ owner_id: userdata._id }, { keeper_id: shared_user._id });
         await flamiModel.updateOne({ owner_id: shared_user._id }, { keeper_id: userdata._id });
 
-        await userModel.updateOne({ _id: userdata._id }, { keeped_flami_id: shared_flami._id });
-        await userModel.updateOne({ _id: shared_user._id }, { keeped_flami_id: flami._id });
+        await userModel.updateOne({ _id: userdata._id }, { kept_flami_id: shared_flami._id });
+        await userModel.updateOne({ _id: shared_user._id }, { kept_flami_id: flami._id });
 
         return res.status(202).json({
             data: {

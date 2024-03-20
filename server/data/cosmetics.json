@@ -1,10 +1,10 @@
 {
-    "boxes_gloves": {
+    "boxing_gloves": {
         "name": "Gants de boxe",
         "description": "Des gants de boxe d'une grande qualité, donné aux utilisateurs aimant le sport de combat.",
-        "url": "/assets/img/cosmetics/boxes-gloves.png",
+        "url": "/assets/img/cosmetics/boxing-gloves.png",
         "category": "hands",
-        "id": "boxes_gloves"
+        "id": "boxing_gloves"
     },
     "turbo_shoes": {
         "name": "Turbo-Chaussures",

@@ -14,10 +14,14 @@ const Map = ({
   currentStep,
   steps,
   polylinePath,
+  flamiTrailPath,
+  flamiPosition
 }: {
   currentStep: Step | undefined;
   steps: Step[];
   polylinePath: [number, number][];
+  flamiTrailPath: [number, number][];
+  flamiPosition: { latitude: number, longitude: number }
 }) => {
   const polylineOptions = { color: "orange", dashArray: "10,25", weight: 3 };
 
@@ -95,6 +99,21 @@ const Map = ({
             </Marker>
           ))}
         <Polyline pathOptions={polylineOptions} positions={polylinePath} />
+        {flamiPosition ? <Marker
+          position={[
+            flamiPosition.latitude,
+            flamiPosition.longitude,
+          ]}
+          icon={new Icon({
+            iconUrl: "/assets/img/animations/IdleAnim.gif",
+            iconSize: [45, 45],
+          })}
+        >
+          <Popup>
+            <span className="text-alabaster-50"><b>Ton Flami</b></span>
+          </Popup>
+        </Marker> : null}
+        {flamiTrailPath ? <Polyline pathOptions={{ color: "red", dashArray: "10,25", weight: 2 }} positions={flamiTrailPath} /> : null}
       </MapContainer>
     </div>
   );

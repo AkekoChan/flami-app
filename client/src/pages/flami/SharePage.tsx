@@ -29,11 +29,14 @@ const SharePage = () => {
     getFlami();
   }, [getFlami]);
 
-  const { coords } = useGeolocated({
+  const [coords, setCoords] = useState<GeolocationCoordinates>();
+
+  useGeolocated({
     positionOptions: {
-      enableHighAccuracy: false,
+      enableHighAccuracy: false
     },
-    userDecisionTimeout: 5000,
+    userDecisionTimeout: 15000,
+    onSuccess: (position) => setCoords(position.coords),
   });
 
   return (
@@ -48,10 +51,10 @@ const SharePage = () => {
         />
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
-            {flami?.keeped_flami ? (
+            {flami?.kept_flami ? (
               <>
                 <span>Relaie le <span className="text-2xl text-tree-poppy-500">
-                  {flami?.keeped_flami.name}
+                  {flami?.kept_flami.name}
                 </span></span>
               </>
             ) : (
@@ -71,8 +74,8 @@ const SharePage = () => {
               value={JSON.stringify({
                 id: flami?.my_flami.owner,
                 location: {
-                  lat: coords?.latitude || null,
-                  long: coords?.longitude || null,
+                  latitude: coords?.latitude || null,
+                  longitude: coords?.longitude || null,
                 },
               })}
               viewBox={`0 0 400 400`}
