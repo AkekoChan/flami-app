@@ -71,7 +71,7 @@ const MapPage = () => {
             ).catch(() => setFlamiLocation(null));
         }
       }
-    });
+    );
   }, [token]);
 
   useEffect(() => {

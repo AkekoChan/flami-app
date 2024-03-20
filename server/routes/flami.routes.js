@@ -7,6 +7,8 @@ router.get("/", flamiController.getFlami);
 router.patch("/competition", flamiController.competition);
 router.patch("/training", flamiController.training);
 
+router.patch("/equip", flamiController.equipCosmetic);
+
 router.post("/share", flamiController.share);
 
 export default router;

@@ -4,6 +4,9 @@ import userModel from "../models/user.model.js";
 import flamitradeModel from "../models/flamitrade.model.js";
 
 const flamiController = {
+    equipCosmetic: async (req, res) => {
+        
+    },
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
         let flami = await flamiModel.findOne({ _id: userdata.flami_id });
