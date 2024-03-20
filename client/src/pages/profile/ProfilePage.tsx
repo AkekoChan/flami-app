@@ -62,10 +62,7 @@ const ProfilePage = () => {
             <p className="col-span-4">Tu n'as pas de badges !</p>
           )}
         </div>
-        <LinkComponent
-          to={"/badges"}
-          variant={`${user?.badges?.length === 0 ? "disabled" : "primary"}`}
-        >
+        <LinkComponent to={"/badges"} variant={"primary"}>
           Voir tous mes badges
         </LinkComponent>
       </div>

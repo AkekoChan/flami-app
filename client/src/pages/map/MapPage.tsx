@@ -46,14 +46,19 @@ const MapPage = () => {
   const getFlamiLocation = useCallback(() => {
     APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
       async (res) => {
-        if (!res.data ||
+        if (
+          !res.data ||
           !res.data.my_flami ||
           !res.data.my_flami.location ||
           res.data.my_flami.location.lat === null ||
-          res.data.my_flami.location.long === null) { 
+          res.data.my_flami.location.long === null
+        ) {
           return setFlamiLocation(null);
         } else {
-          await fetch(`https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.lat}&lon=${res.data.my_flami.location.long}`).then((res) =>
+          await fetch(
+            `https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.lat}&lon=${res.data.my_flami.location.long}`
+          )
+            .then((res) =>
               res.json().then((data) => {
                 console.log(data);
                 if (data.features?.length > 0) {
@@ -69,13 +74,12 @@ const MapPage = () => {
                   setFlamiLocation(null);
                 }
               })
-            ).catch(() => setFlamiLocation(null));
+            )
+            .catch(() => setFlamiLocation(null));
         }
       }
     );
   }, [token]);
-
-  console.log(flamiLocation);
 
   useEffect(() => {
     handleSteps();
