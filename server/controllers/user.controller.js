@@ -25,9 +25,21 @@ const userController = {
     let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
     let json = JSON.parse(content);
 
+    let sorted_cosmetics = {
+      head: [],
+      back: [],
+      hands: [],
+      feet: []
+    }
+
+    let items = userdata.owned_cosmetics.map(item => {
+      let jitem = json[item.id];
+      sorted_cosmetics[jitem.category]?.push(jitem)
+    });
+
     return res.status(200).json({
       data: {
-        cosmetics: userdata.owned_cosmetics.map(item => json[item.id])
+        cosmetics: sorted_cosmetics
       }
     });
   },
