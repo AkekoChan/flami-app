@@ -27,7 +27,7 @@ const flamiController = {
                     name: flami.name,
                     stats: flami.stats,
                     cosmetics: flami.cosmetics.map(item => json[item.id]),
-                    location: trade.flamis_positions.get(flami.id),
+                    location: trade?.flamis_positions.get(flami.id),
                     _id: flami.id,
                     owner: flami.owner_id,
                     trail: trailing
@@ -35,7 +35,7 @@ const flamiController = {
                 kept_flami: kept_flami ? {
                     name: kept_flami.name,
                     cosmetics: kept_flami.cosmetics.map(item => json[item.id]),
-                    location: trade.flamis_positions.get(kept_flami.id),
+                    location: trade?.flamis_positions.get(kept_flami.id),
                     _id: kept_flami.id,
                     owner: kept_flami.owner_id
                 } : null,
