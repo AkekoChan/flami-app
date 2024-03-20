@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import FlamiShow from "../../components/flami/FlamiShow";
 import TopBar from "../../components/topbar/TopBar";
 import { useAuth } from "../../hooks/useAuth";
 import { APIHandler } from "../../utils/api/api-handler";
@@ -8,18 +7,19 @@ import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Button } from "../../components/ui";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import head from "../../../public/assets/img/icons/face.svg";
+import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();
-  const [cosmetics, setCosmetics] = useState<Cosmetic[][]>();
-  const [displayCosmetic, setDisplayCosmetic] = useState<Cosmetic[] | null>();
+  const [cosmetics, setCosmetics] = useState<Cosmetic[]>();
+  const [displayCosmetic, setDisplayCosmetic] = useState<Cosmetic[]>();
   const { token } = useAuth();
   const [displayIndex, setDisplayIndex] = useState(0);
 
   const getFlami = useCallback(() => {
     APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
-        setFlami(res.data);
+        setFlami(res.data.my_flami);
       }
     );
   }, [token]);
@@ -62,15 +62,16 @@ const CosmeticPage = () => {
   useEffect(() => {
     getFlami();
     getCosmetics();
-    setDisplayCosmetic();
+    setDisplayCosmetic(cosmetics?.head);
   }, [getFlami, getCosmetics, setDisplayCosmetic]);
 
-  console.log(flami);
+  console.log(displayCosmetic);
+  console.log(displayIndex);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
-      <FlamiShow flami={flami} />
+      <MyFlamiDisplay myFlami={flami} />
       <div className="grid grid-cols-3 gap-4 w-full">
         <Button
           variant={"secondary"}
@@ -110,7 +111,14 @@ const CosmeticPage = () => {
             <Button key={index} variant={"secondary"}>
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
             </Button>
-          ) : null
+          ) : (
+            <Button
+              key={index}
+              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center shadow-tree-poppy-500 shadow-secondary border-tree-poppy-500"
+            >
+              <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
+            </Button>
+          )
         )}
       </div>
     </section>
