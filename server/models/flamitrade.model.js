@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const flamiTradeShema = new mongoose.Schema({
     owners: {
@@ -18,7 +18,11 @@ const flamiTradeShema = new mongoose.Schema({
         }
     },
     flamis_positions: {
-        type: Object
+        type: Map,
+        of: new Schema({
+            latitude: Number,
+            longitude: Number,
+        })
     },
     created_at: {
         type: Date,
@@ -29,6 +33,11 @@ const flamiTradeShema = new mongoose.Schema({
         getLastUserTrade (user) {
             return this.findOne({ $where: () => 
                 this.owners.flasher === user._id || this.owners.sender === user._id
+            }).sort({ created_at: 'desc' });
+        },
+        getFlamiTrailing (flami) {
+            return this.find({ $where: () =>
+                this.flamis.flasher === flami._id || this.flamis.sender === flami._id
             }).sort({ created_at: 'desc' });
         }
     }

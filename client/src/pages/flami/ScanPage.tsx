@@ -4,7 +4,7 @@ import QrReader from "react-qr-reader-es6";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useNavigate } from "react-router";
 import toast from "react-hot-toast";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useGeolocated } from "react-geolocated";
 import { useTheme } from "../../hooks/useTheme";
 
@@ -13,14 +13,16 @@ const ScanPage = () => {
   const { setShowNav } = useTheme();
 
   const navigate = useNavigate();
+  const [coords, setCoords] = useState<GeolocationCoordinates>();
 
   setShowNav(true);
 
-  const { coords } = useGeolocated({
+  useGeolocated({
     positionOptions: {
-      enableHighAccuracy: false,
+      enableHighAccuracy: false
     },
-    userDecisionTimeout: 5000,
+    userDecisionTimeout: 15000,
+    onSuccess: (position) => {console.log(position.coords); setCoords(position.coords)},
   });
 
   let shareFlami = useCallback(
@@ -35,8 +37,8 @@ const ScanPage = () => {
           shared_user_id: id,
           shared_location: location,
           location: {
-            lat: coords?.latitude,
-            long: coords?.longitude,
+            latitude: coords?.latitude,
+            longitude: coords?.longitude,
           },
         },
         token
@@ -56,7 +58,7 @@ const ScanPage = () => {
           navigate("/share/scan");
         });
     },
-    [token]
+    [token, coords]
   );
 
   return (

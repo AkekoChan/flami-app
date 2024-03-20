@@ -2,7 +2,7 @@ import { Cosmetic } from "./cosmetic.interface"
 
 export interface FlamiData {
   my_flami: Flami,
-  keeped_flami: Flami | null,
+  kept_flami: Flami | null,
   last_trade_date: Date
 }
 
@@ -15,9 +15,14 @@ export interface Flami {
   },
   cosmetics: Cosmetic[],
   location: {
-    lat: number, 
-    long: number
+    latitude: number, 
+    longitude: number
   },
   _id: string,
-  owner: string
+  owner: string,
+  trail: Array<{
+    latitude: number;
+    longitude: number;
+    _id: string;
+  }> | null
 }
