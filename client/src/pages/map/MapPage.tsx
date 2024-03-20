@@ -48,8 +48,8 @@ const MapPage = () => {
   const getFlamiLocation = useCallback(() => {
     APIHandler<FlamiData>("/my/flami?trail", false, "GET", undefined, token).then(
       async (res) => {
-        if (res.data.my_flami?.location?.latitude === null ||
-          res.data.my_flami?.location?.longitude === null) {
+        if (!res.data.my_flami?.location?.latitude ||
+          !res.data.my_flami?.location?.longitude) {
           return setFlamiLocation(null);
         } else {
           setFlamiTrail(res.data.my_flami?.trail?.map(e => [e.latitude, e.longitude]));
