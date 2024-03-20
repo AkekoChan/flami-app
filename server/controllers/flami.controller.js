@@ -5,7 +5,28 @@ import flamitradeModel from "../models/flamitrade.model.js";
 
 const flamiController = {
     equipCosmetic: async (req, res) => {
-        
+        let userdata = res.locals.user;
+        let cosmetic_id = req.body.cosmetic_id;
+        let flami = await flamiModel.findOne({ _id: userdata.flami_id });
+
+        if(userdata.owned_cosmetics.findIndex(e => e.id === cosmetic_id) === -1) return res.status(404).json({
+            error: 404,
+            message: "Tu ne possède pas ce cosmétique."
+        });
+
+        if(req.body.delete === true) {
+            flami.cosmetics.reduce((cosm) => cosm.id !== cosmetic_id);
+            await flami.save();
+        } else {
+            flami.cosmetics.push({ id: cosmetic_id });
+            await flami.save();
+        }
+
+        return res.status(200).json({
+            data: {
+                cosmetics: flami.cosmetics
+            }
+        });
     },
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
