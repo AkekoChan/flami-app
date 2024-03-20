@@ -103,18 +103,21 @@ const CosmeticPage = () => {
           <ArrowRightIcon className="text-3xl text-alabaster-50" />
         </Button>
       </div>
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
         {displayCosmetic?.map((cosmetic: Cosmetic, index) =>
           cosmetic &&
           flami?.cosmetics.findIndex((item) => item.id === cosmetic.id) ===
             -1 ? (
-            <Button key={index} variant={"secondary"}>
+            <Button
+              key={index}
+              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
+            >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
             </Button>
           ) : (
             <Button
               key={index}
-              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center shadow-tree-poppy-500 shadow-secondary border-tree-poppy-500"
+              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
             </Button>
