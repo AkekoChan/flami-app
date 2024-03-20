@@ -9,4 +9,5 @@ export interface Badge {
   url_cover: string;
   description: string;
   owned?: boolean;
+  region?: string;
 }
