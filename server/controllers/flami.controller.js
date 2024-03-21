@@ -22,19 +22,7 @@ const flamiController = {
             await flami.save();
         }
 
-        let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
-        let json = JSON.parse(content);
-        
-        return res.status(200).json({
-            data: {
-                name: flami.name,
-                stats: flami.stats,
-                cosmetics: flami.cosmetics.map(item => json[item.id]),
-                location: trade?.flamis_positions.get(flami.id),
-                _id: flami.id,
-                owner: flami.owner_id,
-            }
-        });
+        return getFlami(req, res);
     },
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
