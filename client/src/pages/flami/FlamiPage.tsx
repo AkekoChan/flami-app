@@ -32,7 +32,7 @@ const FlamiPage = () => {
   return (
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Mon Flami" hasReturn={false} prevPage="" />
-      <FlamiDisplay flami={flami} />
+      { flami ? <FlamiDisplay flami={flami} /> : null }
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <h2 className="text-2xl font-bold">Mes activités</h2>
