@@ -55,7 +55,7 @@ const LegalNoticesPage = () => {
             son suivi:
           </p>
           <p>
-            <strong>Propriétaire</strong> : Martin Théo – 4 avenue de Varsovie
+            <strong>Propriétaire</strong> : Martin Théo – 10 cité des Agriers
             16000 Angoulême
             <br />
             <strong>Responsable publication</strong> : Martin Théo –
