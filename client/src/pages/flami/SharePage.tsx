@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import { useGeolocated } from "react-geolocated";
 import { useTheme } from "../../hooks/useTheme";
-import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
+import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
 
 const SharePage = () => {
   const { token } = useAuth();
@@ -44,7 +44,12 @@ const SharePage = () => {
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Partager Flami" hasReturn={true} prevPage="/" />
       <div className="flex flex-col gap-8">
-        { flami ? <MyFlamiDisplay animation="Idle" myFlami={flami.kept_flami || flami.my_flami} /> : null }
+        {flami ? (
+          <MyFlamiDisplay
+            animation="Idle"
+            myFlami={flami.kept_flami || flami.my_flami}
+          />
+        ) : null}
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
             {flami?.kept_flami ? (
@@ -71,7 +76,7 @@ const SharePage = () => {
               size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
-                expires: new Date().getTime() + (60 * 1000 * 10),
+                expires: new Date().getTime() + 60 * 1000 * 10,
                 id: flami?.my_flami.owner,
                 location: {
                   latitude: coords?.latitude || null,
