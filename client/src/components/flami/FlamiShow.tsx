@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FlamiData } from "../../interfaces/flami.interface";
 import KeptFlamiDisplay from "./KeptFlamiDisplay";
-import MyFlamiDisplay from "./MyFlamiDisplay";
+import MyFlamiDisplay from "./myFlamiDisplay";
 
 const FlamiShow = ({ flami }: { flami: FlamiData }) => {
   const [currentAnimation, setCurrentAnimation] = useState("Idle");
@@ -13,14 +13,17 @@ const FlamiShow = ({ flami }: { flami: FlamiData }) => {
     setTimeout(() => {
       setCurrentAnimation("Idle");
       setCurrentKeptAnimation("Idle");
-    }, 3200)
+    }, 3200);
   }, [setCurrentAnimation]);
 
   return (
     <>
       <MyFlamiDisplay animation={currentAnimation} myFlami={flami?.my_flami} />
       {flami?.kept_flami ? (
-        <KeptFlamiDisplay animation={currentKeptAnimation} keptFlami={flami.kept_flami} />
+        <KeptFlamiDisplay
+          animation={currentKeptAnimation}
+          keptFlami={flami.kept_flami}
+        />
       ) : null}
     </>
   );
