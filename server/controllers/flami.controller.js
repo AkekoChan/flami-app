@@ -8,20 +8,20 @@ const flamiController = {
         let userdata = res.locals.user;
         let cosmetic_id = req.body.cosmetic_id;
         let flami = await flamiModel.findOne({ _id: userdata.flami_id });
-
         if(userdata.owned_cosmetics.findIndex(e => e.id === cosmetic_id) === -1) return res.status(404).json({
             error: 404,
             message: "Tu ne possède pas ce cosmétique."
         });
 
-        if(flami.cosmetics.findIndex((cosm) => cosm.id === cosmetic_id)) {
-            flami.cosmetics.reduce((cosm) => cosm.id !== cosmetic_id);
-            await flami.save();
+        if(flami.cosmetics.findIndex((cosm) => cosm.id === cosmetic_id) !== -1) {
+            console.log("deleted")
+            flami.cosmetics = flami.cosmetics.filter((cosm) => cosm.id !== cosmetic_id);
         } else {
+            console.log("psuhed")
             flami.cosmetics.push({ id: cosmetic_id });
-            await flami.save();
         }
 
+        await flami.save();
         return flamiController.getFlami(req, res);
     },
     getFlami: async (req, res) => {
