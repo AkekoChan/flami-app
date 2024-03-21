@@ -9,6 +9,7 @@ const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami }) => {
           src="/assets/img/animations/IdleAnim.gif"
           className="relative z-10 w-full max-h-60"
           alt="Flami"
+          loading="lazy"
         />
         {myFlami?.cosmetics.map((cosmetic: Cosmetic) => (
           <img
@@ -16,6 +17,7 @@ const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami }) => {
             className="absolute top-0 z-20"
             src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}Idle.gif`}
             alt={cosmetic.name}
+            loading="lazy"
           />
         ))}
       </div>
