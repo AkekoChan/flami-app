@@ -1,7 +1,7 @@
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Flami } from "../../interfaces/flami.interface";
 
-const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami }) => {
+const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami | undefined }) => {
   return (
     <div className="flex justify-around relative">
       <div className="relative">

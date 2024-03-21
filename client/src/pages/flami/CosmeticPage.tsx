@@ -8,10 +8,11 @@ import { Button } from "../../components/ui";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import head from "../../../public/assets/img/icons/face.svg";
 import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
+import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();
-  const [cosmetics, setCosmetics] = useState<Cosmetic[]>();
+  const [cosmetics, setCosmetics] = useState<CosmeticList>();
   const [displayCosmetic, setDisplayCosmetic] = useState<Cosmetic[]>();
   const { token } = useAuth();
   const [displayIndex, setDisplayIndex] = useState(0);
@@ -48,7 +49,7 @@ const CosmeticPage = () => {
   }, [displayIndex, cosmetics]);
 
   const getCosmetics = useCallback(() => {
-    APIHandler<Cosmetic[]>(
+    APIHandler<{ cosmetics: CosmeticList }>(
       "/my/cosmetics",
       false,
       "GET",
@@ -63,10 +64,10 @@ const CosmeticPage = () => {
     getFlami();
     getCosmetics();
     setDisplayCosmetic(cosmetics?.head);
-  }, [getFlami, getCosmetics, setDisplayCosmetic]);
+  }, [getFlami, getCosmetics, setDisplayCosmetic, cosmetics?.head]);
 
-  console.log(displayCosmetic);
-  console.log(displayIndex);
+  console.log(cosmetics);
+  // console.log(displayIndex);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
