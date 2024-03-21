@@ -103,7 +103,7 @@ const Map = ({
                 <p>{marker.ville}</p>
                 {
                   currentStep && currentStep?.etape_numero === marker.etape_numero ? (
-                    <Button onClick={() => APIHandler<GenericResponse>(`/sandbox/g/badge/etapes_${marker.ville.toLowerCase()}`, false, "GET", undefined, token).then(res => {
+                    <Button onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etapes_${marker.ville.toLowerCase()}`, false, "GET", undefined, token).then(res => {
                       toast.success(`${res.data.message}`, {
                         style: {
                           background: "#3D3D3D",
