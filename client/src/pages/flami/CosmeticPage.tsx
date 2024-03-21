@@ -41,6 +41,21 @@ const CosmeticPage = () => {
     });
   }, [token]);
 
+  const changeCosmetic = useCallback(
+    (id: string) => {
+      APIHandler<FlamiData>(
+        "/my/flami/equip",
+        false,
+        "PATCH",
+        { cosmetic_id: id },
+        token
+      ).then((res) => {
+        setFlami(res.data.my_flami);
+      });
+    },
+    [token]
+  );
+
   const selectIconDisplay = useCallback(() => {
     switch (displayIndex) {
       case 0:
@@ -153,6 +168,9 @@ const CosmeticPage = () => {
             <Button
               key={index}
               className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
+              onClick={() => {
+                changeCosmetic(cosmetic.id);
+              }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
             </Button>
