@@ -24,7 +24,7 @@ const flamiController = {
 
         return res.status(200).json({
             data: {
-                cosmetics: flami.cosmetics
+                cosmetics: flami.cosmetics.map(item => json[item.id])
             }
         });
     },
