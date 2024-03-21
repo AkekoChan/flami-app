@@ -24,7 +24,12 @@ const flamiController = {
 
         return res.status(200).json({
             data: {
-                cosmetics: flami.cosmetics.map(item => json[item.id])
+                name: flami.name,
+                stats: flami.stats,
+                cosmetics: flami.cosmetics.map(item => json[item.id]),
+                location: trade?.flamis_positions.get(flami.id),
+                _id: flami.id,
+                owner: flami.owner_id,
             }
         });
     },
