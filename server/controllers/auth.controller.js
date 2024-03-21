@@ -52,7 +52,7 @@ const authController = {
     let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
     let json = JSON.parse(content);
 
-    userdata.owned_cosmetics = json.map(e => e.id);
+    userdata.owned_cosmetics = Object.values(json).map(e => e.id);
 
     let new_user = new userModel(userdata);
 
