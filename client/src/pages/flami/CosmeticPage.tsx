@@ -66,9 +66,6 @@ const CosmeticPage = () => {
     setDisplayCosmetic(cosmetics?.head);
   }, [getFlami, getCosmetics, setDisplayCosmetic, cosmetics?.head]);
 
-  console.log(cosmetics);
-  // console.log(displayIndex);
-
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
