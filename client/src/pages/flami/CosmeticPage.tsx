@@ -109,9 +109,6 @@ const CosmeticPage = () => {
     getCosmetics();
   }, [getFlami, getCosmetics]);
 
-  console.log(displayIndex);
-  console.log(displayCosmetic);
-
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
@@ -161,6 +158,9 @@ const CosmeticPage = () => {
             <Button
               key={index}
               className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
+              onClick={() => {
+                changeCosmetic(cosmetic.id);
+              }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
             </Button>

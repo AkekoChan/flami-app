@@ -29,8 +29,6 @@ const FlamiPage = () => {
     getFlami();
   }, [getFlami]);
 
-  console.log(flami);
-
   return (
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Mon Flami" hasReturn={false} prevPage="" />

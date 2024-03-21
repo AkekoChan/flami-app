@@ -3,7 +3,6 @@ import MyFlamiDisplay from "./MyFlamiDisplay";
 import KeptFlamiDisplay from "./KeptFlamiDisplay";
 
 const FlamiShow = ({ flami }: { flami: FlamiData }) => {
-  console.log(flami);
   return (
     <>
       <MyFlamiDisplay myFlami={flami?.my_flami} />
