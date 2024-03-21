@@ -22,7 +22,7 @@ const flamiController = {
             await flami.save();
         }
 
-        return getFlami(req, res);
+        return flamiController.getFlami(req, res);
     },
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
