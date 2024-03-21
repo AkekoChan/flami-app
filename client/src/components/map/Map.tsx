@@ -9,6 +9,11 @@ import {
 import { Icon, LatLng } from "leaflet";
 import { Step } from "../../interfaces/step.interface";
 import { useEffect } from "react";
+import { Button } from "../ui";
+import { APIHandler } from "../../utils/api/api-handler";
+import { useAuth } from "../../hooks/useAuth";
+import toast from "react-hot-toast";
+import { GenericResponse } from "../../interfaces/api-response/generic-response";
 
 const Map = ({
   currentStep,
@@ -23,6 +28,7 @@ const Map = ({
   flamiTrailPath: [number, number][];
   flamiPosition: { latitude: number, longitude: number }
 }) => {
+  const { token } = useAuth();
   const polylineOptions = { color: "orange", dashArray: "10,25", weight: 3 };
 
   const customIcon = new Icon({
@@ -95,6 +101,19 @@ const Map = ({
                 <b className="text-alabaster-50">Étape n°{marker.etape}</b>
                 <p>{marker.date}</p>
                 <p>{marker.ville}</p>
+                {
+                  currentStep && currentStep?.etape_numero === marker.etape_numero ? (
+                    <Button onClick={() => APIHandler<GenericResponse>(`/sandbox/g/badge/etapes_${marker.ville.toLowerCase()}`, false, "GET", undefined, token).then(res => {
+                      toast.success(`${res.data.message}`, {
+                        style: {
+                          background: "#3D3D3D",
+                          color: "#FAFAFA",
+                          borderRadius: "12px",
+                        },
+                      });
+                    })}>Récupérer le badge</Button>
+                  ) : null
+                }
               </Popup>
             </Marker>
           ))}
