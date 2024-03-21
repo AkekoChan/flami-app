@@ -1,51 +1,44 @@
 {
-    "boxing_gloves": {
+    "BoxeGants": {
         "name": "Gants de boxe",
         "description": "Des gants de boxe d'une grande qualité, donné aux utilisateurs aimant le sport de combat.",
-        "url": "/assets/img/cosmetics/boxing-gloves.png",
+        "url": "/assets/img/cosmetics/BoxeGants.png",
         "category": "hands",
-        "id": "boxing_gloves"
+        "id": "BoxeGants"
     },
-    "turbo_shoes": {
+    "Chaussures": {
         "name": "Turbo-Chaussures",
         "description": "Des baskets qui courts vite, donné aux utilisateurs aimant le sport de course.",
-        "url": "/assets/img/cosmetics/turbo-chaussures.png",
+        "url": "/assets/img/cosmetics/Chaussures.png",
         "category": "feet",
-        "id": "turbo_shoes"
+        "id": "Chaussures"
     },
-    "dive_gear": {
+    "Lunettes": {
         "name": "Bonnet de bain et lunettes de plongé",
         "description": "Quelle allure ! Donné aux utilisateurs aimant le sport aquatique.",
-        "url": "/assets/img/cosmetics/bonnetbain.png",
+        "url": "/assets/img/cosmetics/Lunettes.png",
         "category": "head",
-        "id": "dive_gear"
+        "id": "Lunettes"
     },
-    "basket_ball": {
+    "Basket": {
         "name": "Ballon de basket-ball",
         "description": "Un ballon de basket-ball bien gonflé, donné aux utilisateurs aimant le sport collectif.",
-        "url": "/assets/img/cosmetics/basket-ball.png",
+        "url": "/assets/img/cosmetics/Basket.png",
         "category": "hands",
-        "id": "basket_ball"
+        "id": "Basket"
     },
-    "volley_ball": {
+    "Volley": {
         "name": "Ballon de volley-ball",
         "description": "Un ballon de volley-ball bien gonflé, donné aux utilisateurs aimant le sport de plage.",
-        "url": "/assets/img/cosmetics/volley-ball.png",
+        "url": "/assets/img/cosmetics/Volley.png",
         "category": "hands",
-        "id": "volley_ball"
+        "id": "Volley"
     },
-    "dumbell": {
+    "Haltere": {
         "name": "Altère pesant son poids",
         "description": "Une altère d'au moins 200kg, donné aux utilisateurs aimant le sport de force.",
-        "url": "/assets/img/cosmetics/altere.png",
+        "url": "/assets/img/cosmetics/Haltere.png",
         "category": "hands",
-        "id": "dumbell"
-    },
-    "super_flami_cape": {
-        "name": "Cape de super flami",
-        "description": "Une cape donné aux utilisateurs aimant Flami.",
-        "url": "/assets/img/cosmetics/cape.png",
-        "category": "back",
-        "id": "super_flami_cape"
+        "id": "Haltere"
     }
 }

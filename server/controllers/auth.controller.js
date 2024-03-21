@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import auth from "../helpers/authMiddleware.js";
 import userModel from "../models/user.model.js";
+import { readFile } from "fs/promises";
 
 const authController = {
   token: async (req, res) => {
@@ -48,12 +49,10 @@ const authController = {
       bcrypt.genSaltSync(11)
     );
 
-    let sports = { "Sport de combat": "boxing_gloves", "Sport de course": "turbo_shoes", "Sport aquatique": "dive_gear", "Sport collectif": "basket_ball", "Sport de plage": "volley_ball", "Sport de force": "dumbell" }
-    userdata.owned_cosmetics = [
-      {
-        id: sports[userdata.metadata?.favorite_sport]
-      }
-    ]
+    let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+
+    userdata.owned_cosmetics = json.map(e => e.id);
 
     let new_user = new userModel(userdata);
 

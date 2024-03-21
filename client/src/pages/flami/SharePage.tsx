@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { Button } from "../../components/ui";
 import { useGeolocated } from "react-geolocated";
 import { useTheme } from "../../hooks/useTheme";
+import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
 
 const SharePage = () => {
   const { token } = useAuth();
@@ -43,18 +44,13 @@ const SharePage = () => {
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Partager Flami" hasReturn={true} prevPage="/" />
       <div className="flex flex-col gap-8">
-        <img
-          style={{ filter: "drop-shadow(0px 0px 43px #ff900047)" }}
-          className="max-h-80 w-auto m-auto-v"
-          src="/assets/img/animations/IdleAnim.gif"
-          alt=""
-        />
+        { flami ? <MyFlamiDisplay myFlami={flami.kept_flami || flami.my_flami} /> : null }
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
             {flami?.kept_flami ? (
               <>
                 <span>
-                  Relaie le{" "}
+                  Relaie le
                   <span className="text-2xl text-tree-poppy-500">
                     {flami?.kept_flami.name}
                   </span>

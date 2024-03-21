@@ -6,7 +6,7 @@ const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami }) => {
     <div className="flex justify-around relative">
       <div className="relative">
         <img
-          src="/assets/img/icons/flami.svg"
+          src="/assets/img/animations/IdleAnim.gif"
           className="relative z-10 w-full max-h-60"
           alt="Flami"
         />
@@ -14,7 +14,7 @@ const MyFlamiDisplay = ({ myFlami }: { myFlami: Flami }) => {
           <img
             key={cosmetic.name}
             className="absolute top-0 z-20"
-            src={cosmetic.url}
+            src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}Idle.gif`}
             alt={cosmetic.name}
           />
         ))}

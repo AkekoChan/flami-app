@@ -14,10 +14,8 @@ const flamiController = {
         });
 
         if(flami.cosmetics.findIndex((cosm) => cosm.id === cosmetic_id) !== -1) {
-            console.log("deleted")
             flami.cosmetics = flami.cosmetics.filter((cosm) => cosm.id !== cosmetic_id);
         } else {
-            console.log("psuhed")
             flami.cosmetics.push({ id: cosmetic_id });
         }
 

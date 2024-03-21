@@ -1,6 +1,6 @@
 import { FlamiData } from "../../interfaces/flami.interface";
-import MyFlamiDisplay from "./MyFlamiDisplay";
 import KeptFlamiDisplay from "./KeptFlamiDisplay";
+import MyFlamiDisplay from "./MyFlamiDisplay";
 
 const FlamiShow = ({ flami }: { flami: FlamiData }) => {
   return (
