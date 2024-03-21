@@ -31,14 +31,20 @@ const flamiTradeShema = new mongoose.Schema({
 }, {
     statics: {
         getLastUserTrade (user) {
-            return this.findOne({ $where: () => 
-                this.owners.flasher === user._id || this.owners.sender === user._id
-            }).sort({ created_at: 'desc' });
+            return this.findOne({
+                $or: [
+                  {"owners.flasher": user._id},
+                  {"owners.sender": user._id}
+                ]
+            }).sort({created_at: -1})
         },
         getFlamiTrailing (flami) {
-            return this.find({ $where: () =>
-                this.flamis.flasher === flami._id || this.flamis.sender === flami._id
-            }).sort({ created_at: 'desc' });
+            return this.find({
+                $or: [
+                  {"flamis.flasher": flami._id},
+                  {"flamis.sender": flami._id}
+                ]
+            }).sort({created_at: -1})
         }
     }
 });

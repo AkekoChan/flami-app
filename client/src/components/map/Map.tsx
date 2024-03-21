@@ -119,13 +119,14 @@ const Map = ({
           ))}
         <Polyline pathOptions={polylineOptions} positions={polylinePath} />
         {flamiPosition ? <Marker
+          zIndexOffset={100}
           position={[
             flamiPosition.latitude,
             flamiPosition.longitude,
           ]}
           icon={new Icon({
             iconUrl: "/assets/img/animations/IdleAnim.gif",
-            iconSize: [45, 45],
+            iconSize: [55, 55],
           })}
         >
           <Popup>

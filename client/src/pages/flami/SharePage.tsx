@@ -44,13 +44,13 @@ const SharePage = () => {
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Partager Flami" hasReturn={true} prevPage="/" />
       <div className="flex flex-col gap-8">
-        { flami ? <MyFlamiDisplay myFlami={flami.kept_flami || flami.my_flami} /> : null }
+        { flami ? <MyFlamiDisplay animation="Idle" myFlami={flami.kept_flami || flami.my_flami} /> : null }
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
             {flami?.kept_flami ? (
               <>
                 <span>
-                  Relaie le
+                  Relaie le{" "}
                   <span className="text-2xl text-tree-poppy-500">
                     {flami?.kept_flami.name}
                   </span>
