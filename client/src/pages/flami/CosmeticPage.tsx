@@ -104,27 +104,6 @@ const CosmeticPage = () => {
     }
   }, [setDisplayCosmetic, displayIndex, cosmetics]);
 
-  const switchDisplay = useCallback((way: boolean | undefined) => {
-    if (way !== undefined) {
-      if (way === true) {
-        if (displayIndex <= 0) {
-          setDisplayIndex(3);
-        } else {
-          setDisplayIndex(displayIndex - 1);
-        }
-      }
-      if (way === false) {
-        if (displayIndex >= 3) {
-          setDisplayIndex(0);
-        } else {
-          setDisplayIndex(displayIndex + 1);
-        }
-      }
-    }
-    selectIconDisplay();
-    selectDisplayCosmetics();
-  }, []);
-
   useEffect(() => {
     getFlami();
     getCosmetics();
