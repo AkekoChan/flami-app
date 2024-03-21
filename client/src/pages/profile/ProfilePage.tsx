@@ -53,6 +53,7 @@ const ProfilePage = () => {
             user.badges?.map((badge: Badge) => (
               // <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
               <img
+                key={badge.name}
                 className="w-full top-0"
                 src={badge.url}
                 alt={`Badge de ${badge.name}`}
