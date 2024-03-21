@@ -137,7 +137,7 @@ const CosmeticPage = () => {
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
-      {flami ? <MyFlamiDisplay myFlami={flami} /> : null}
+      {flami ? <MyFlamiDisplay animation="Idle" myFlami={flami} /> : null}
       <div className="grid grid-cols-3 gap-4 w-full">
         <Button
           variant={"secondary"}
