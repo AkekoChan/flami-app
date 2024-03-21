@@ -10,8 +10,8 @@ import head from "../../../public/assets/img/icons/face.svg";
 import hands from "../../../public/assets/img/icons/boxing_glove.svg";
 import feet from "../../../public/assets/img/icons/shoes.svg";
 import back from "../../../public/assets/img/icons/bag.svg";
-import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
+import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();

@@ -3,9 +3,6 @@ import auth from "../helpers/authMiddleware.js";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-    return res.json({ context: "sandbox" });
-});
 
 router.get("/g/badge/:id", auth.require, async (req, res) => {
     let userdata = res.locals.user;
@@ -20,7 +17,7 @@ router.get("/g/badge/:id", auth.require, async (req, res) => {
 
     await userdata.save();
     return res.status(201).json({data: {
-        context: "sandbox", message: "Tu as reçu le badge de cet étape."
+        message: "Tu as reçu le badge de cet étape."
     }});
 });
 
@@ -36,7 +33,7 @@ router.get("/g/cosmetic/:id", auth.require, async (req, res) => {
     }
 
     await userdata.save();
-    return res.status(201).json({ data: { context: "sandbox", message: "done" }});
+    return res.status(201).json({ data: { message: "done" }});
 });
 
 export default router;
