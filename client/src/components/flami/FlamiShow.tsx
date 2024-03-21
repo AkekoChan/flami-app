@@ -1,9 +1,9 @@
 import { FlamiData } from "../../interfaces/flami.interface";
-import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import MyFlamiDisplay from "./MyFlamiDisplay";
 import KeptFlamiDisplay from "./KeptFlamiDisplay";
 
-const FlamiShow = ({ flami }: { flami: FlamiData | undefined }) => {
+const FlamiShow = ({ flami }: { flami: FlamiData }) => {
+  console.log(flami);
   return (
     <>
       <MyFlamiDisplay myFlami={flami?.my_flami} />

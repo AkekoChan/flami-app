@@ -4,7 +4,7 @@ import { Flami } from "../../interfaces/flami.interface";
 const KeptFlamiDisplay = ({ keptFlami }: { keptFlami: Flami }) => {
   return (
     <div className="relative flex items-center justify-center">
-      <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute-top-4">
+      <span className="text-alabaster-50 bg-alabaster-600 px-4 py-2 rounded-3xl absolute top-0 text-center">
         {keptFlami.name}
       </span>
       <img src="/assets/img/icons/flami.svg" alt={`${keptFlami.name}`} />

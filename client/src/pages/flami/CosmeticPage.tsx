@@ -7,6 +7,9 @@ import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Button } from "../../components/ui";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import head from "../../../public/assets/img/icons/face.svg";
+import hands from "../../../public/assets/img/icons/gloves.png";
+import feet from "../../../public/assets/img/icons/shoes.png";
+import back from "../../../public/assets/img/icons/backpack.png";
 import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 
@@ -16,6 +19,7 @@ const CosmeticPage = () => {
   const [displayCosmetic, setDisplayCosmetic] = useState<Cosmetic[]>();
   const { token } = useAuth();
   const [displayIndex, setDisplayIndex] = useState(0);
+  const [displayIcon, setDisplayIcon] = useState(head);
 
   const getFlami = useCallback(() => {
     APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
@@ -24,6 +28,42 @@ const CosmeticPage = () => {
       }
     );
   }, [token]);
+
+  const getCosmetics = useCallback(() => {
+    APIHandler<{ cosmetics: CosmeticList }>(
+      "/my/cosmetics",
+      false,
+      "GET",
+      undefined,
+      token
+    ).then((res) => {
+      setCosmetics(res.data.cosmetics);
+    });
+  }, [token]);
+
+  const selectIconDisplay = useCallback(() => {
+    switch (displayIndex) {
+      case 0:
+        setDisplayIcon(head);
+        break;
+
+      case 1:
+        setDisplayIcon(hands);
+        break;
+
+      case 2:
+        setDisplayIcon(feet);
+        break;
+
+      case 3:
+        setDisplayIcon(back);
+        break;
+
+      default:
+        setDisplayIcon(head);
+        break;
+    }
+  }, [displayIndex]);
 
   const selectDisplayCosmetics = useCallback(() => {
     switch (displayIndex) {
@@ -44,58 +84,55 @@ const CosmeticPage = () => {
         break;
 
       default:
+        setDisplayCosmetic(cosmetics?.head);
         break;
     }
-  }, [displayIndex, cosmetics]);
-
-  const getCosmetics = useCallback(() => {
-    APIHandler<{ cosmetics: CosmeticList }>(
-      "/my/cosmetics",
-      false,
-      "GET",
-      undefined,
-      token
-    ).then((res) => {
-      setCosmetics(res.data.cosmetics);
-    });
-  }, [token]);
+  }, [setDisplayCosmetic, displayIndex, cosmetics]);
 
   useEffect(() => {
     getFlami();
     getCosmetics();
-    setDisplayCosmetic(cosmetics?.head);
-  }, [getFlami, getCosmetics, setDisplayCosmetic, cosmetics?.head]);
+  }, [getFlami, getCosmetics]);
+
+  console.log(displayIndex);
+  console.log(displayCosmetic);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
-      <MyFlamiDisplay myFlami={flami} />
+      {flami ? <MyFlamiDisplay myFlami={flami} /> : null}
       <div className="grid grid-cols-3 gap-4 w-full">
         <Button
           variant={"secondary"}
           className="scale-75"
           onClick={() => {
             if (displayIndex <= 0) {
-              setDisplayIndex(4);
+              setDisplayIndex(3);
             } else {
               setDisplayIndex(displayIndex - 1);
             }
             selectDisplayCosmetics();
+            selectIconDisplay();
           }}
         >
           <ArrowLeftIcon className="text-3xl text-alabaster-50" />
         </Button>
-        <img src={head} alt="Face" className="w-full scale-75" />
+        <img
+          src={displayIcon}
+          alt="Cosmetic icon"
+          className="w-full scale-75 h-full"
+        />
         <Button
           variant={"secondary"}
           className="scale-75"
           onClick={() => {
-            if (displayIndex >= 4) {
+            if (displayIndex >= 3) {
               setDisplayIndex(0);
             } else {
               setDisplayIndex(displayIndex + 1);
             }
             selectDisplayCosmetics();
+            selectIconDisplay();
           }}
         >
           <ArrowRightIcon className="text-3xl text-alabaster-50" />
