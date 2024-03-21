@@ -7,9 +7,9 @@ import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Button } from "../../components/ui";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import head from "../../../public/assets/img/icons/face.svg";
-import hands from "../../../public/assets/img/icons/gloves.png";
-import feet from "../../../public/assets/img/icons/shoes.png";
-import back from "../../../public/assets/img/icons/backpack.png";
+import hands from "../../../public/assets/img/icons/boxing_glove.svg";
+import feet from "../../../public/assets/img/icons/shoes.svg";
+import back from "../../../public/assets/img/icons/bag.svg";
 import MyFlamiDisplay from "../../components/flami/MyFlamiDisplay";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 
@@ -104,10 +104,35 @@ const CosmeticPage = () => {
     }
   }, [setDisplayCosmetic, displayIndex, cosmetics]);
 
+  const switchDisplay = useCallback((way: boolean | undefined) => {
+    if (way !== undefined) {
+      if (way === true) {
+        if (displayIndex <= 0) {
+          setDisplayIndex(3);
+        } else {
+          setDisplayIndex(displayIndex - 1);
+        }
+      }
+      if (way === false) {
+        if (displayIndex >= 3) {
+          setDisplayIndex(0);
+        } else {
+          setDisplayIndex(displayIndex + 1);
+        }
+      }
+    }
+    selectIconDisplay();
+    selectDisplayCosmetics();
+  }, []);
+
   useEffect(() => {
     getFlami();
     getCosmetics();
   }, [getFlami, getCosmetics]);
+
+  console.log(displayIndex);
+  console.log(displayCosmetic);
+  console.log(displayIcon);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
@@ -118,13 +143,13 @@ const CosmeticPage = () => {
           variant={"secondary"}
           className="scale-75"
           onClick={() => {
+            selectDisplayCosmetics();
+            selectIconDisplay();
             if (displayIndex <= 0) {
               setDisplayIndex(3);
             } else {
               setDisplayIndex(displayIndex - 1);
             }
-            selectDisplayCosmetics();
-            selectIconDisplay();
           }}
         >
           <ArrowLeftIcon className="text-3xl text-alabaster-50" />
@@ -138,13 +163,13 @@ const CosmeticPage = () => {
           variant={"secondary"}
           className="scale-75"
           onClick={() => {
+            selectDisplayCosmetics();
+            selectIconDisplay();
             if (displayIndex >= 3) {
               setDisplayIndex(0);
             } else {
               setDisplayIndex(displayIndex + 1);
             }
-            selectDisplayCosmetics();
-            selectIconDisplay();
           }}
         >
           <ArrowRightIcon className="text-3xl text-alabaster-50" />
