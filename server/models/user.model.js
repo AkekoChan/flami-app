@@ -70,7 +70,12 @@ userSchema.post('validate', async function () {
   let flami = await flamiModel.create({
     name: `Flami de ${this.name}`,
     owner_id: this._id,
-    cosmetics: { "Sport de combat": "BoxeGants", "Sport de course": "Chaussures", "Sport aquatique": "Lunettes", "Sport collectif": "Basket", "Sport de plage": "Volley", "Sport de force": "Haltere" }[this.metadata.favorite_sport] ?? "Chaussures"
+    cosmetics: [
+      {
+        id: { "Sport de combat": "BoxeGants", "Sport de course": "Chaussures", "Sport aquatique": "Lunettes", "Sport collectif": "Basket", "Sport de plage": "Volley", "Sport de force": "Haltere" }[this.metadata.favorite_sport] 
+          ?? "Chaussures"
+      }
+    ]
   });
   this.flami_id = flami._id;
 });
