@@ -22,6 +22,9 @@ const flamiController = {
             await flami.save();
         }
 
+        let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+        let json = JSON.parse(content);
+        
         return res.status(200).json({
             data: {
                 name: flami.name,
@@ -116,7 +119,7 @@ const flamiController = {
            Object.values(this.owners).includes(userdata._id)
         });
 
-        if(sharer_search_flami) return res.status(409).json({ message: "Tu as déjà reçu ce Flami précedement.", error: 409 });
+        if(sharer_search_flami) return res.status(409).json({ message: "Tu as déjà reçu ce Flami précédement.", error: 409 });
         
         let user_search_flami = await flamitradeModel.findOne({ $where: () => 
             Object.values(this.flamis).includes(flami._id) && 
