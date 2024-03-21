@@ -48,7 +48,7 @@ const authController = {
       bcrypt.genSaltSync(11)
     );
 
-    let sports = { "Sport de combat": "boxes_gloves", "Sport de course": "turbo_shoes", "Sport aquatique": "dive_gear", "Sport collectif": "basket_ball", "Sport de plage": "volley_ball", "Sport de force": "dumbell" }
+    let sports = { "Sport de combat": "boxing_gloves", "Sport de course": "turbo_shoes", "Sport aquatique": "dive_gear", "Sport collectif": "basket_ball", "Sport de plage": "volley_ball", "Sport de force": "dumbell" }
     userdata.owned_cosmetics = [
       {
         id: sports[userdata.metadata?.favorite_sport]

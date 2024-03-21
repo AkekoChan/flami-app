@@ -7,7 +7,7 @@ router.get("/", async (req, res) => {
     return res.json({ context: "sandbox" });
 });
 
-router.get("/give/badge/:id", auth.require, async (req, res) => {
+router.get("/g/badge/:id", auth.require, async (req, res) => {
     let userdata = res.locals.user;
     let id = req.params.id;
     if(userdata.badges.findIndex((item) => item.id === id) === -1) {
@@ -15,14 +15,16 @@ router.get("/give/badge/:id", auth.require, async (req, res) => {
             id: id
         });
     } else {
-        return res.status(401).json({ error: "T'as déjà le badge bg" });
+        return res.status(409).json({ error: 409, message: "Tu possède déjà ce badge." });
     }
 
     await userdata.save();
-    return res.status(201).json({ context: "sandbox", message: "done" });
+    return res.status(201).json({data: {
+        context: "sandbox", message: "Tu as reçu le badge de cet étape."
+    }});
 });
 
-router.get("/give/cosmetic/:id", auth.require, async (req, res) => {
+router.get("/g/cosmetic/:id", auth.require, async (req, res) => {
     let userdata = res.locals.user;
     let id = req.params.id;
     if(userdata.owned_cosmetics.findIndex((item) => item.id === id) === -1) {
@@ -30,11 +32,11 @@ router.get("/give/cosmetic/:id", auth.require, async (req, res) => {
             id: id
         });
     } else {
-        return res.status(401).json({ error: "T'as déjà le cosmetic bg" });
+        return res.status(409).json({ error: 409, message: "Tu possède déjà ce cosmetique." });
     }
 
     await userdata.save();
-    return res.status(201).json({ context: "sandbox", message: "done" });
+    return res.status(201).json({ data: { context: "sandbox", message: "done" }});
 });
 
 export default router;

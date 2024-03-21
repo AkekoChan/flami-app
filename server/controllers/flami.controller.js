@@ -14,7 +14,7 @@ const flamiController = {
             message: "Tu ne possède pas ce cosmétique."
         });
 
-        if(req.body.delete === true) {
+        if(flami.cosmetics.findIndex((cosm) => cosm.id === cosmetic_id)) {
             flami.cosmetics.reduce((cosm) => cosm.id !== cosmetic_id);
             await flami.save();
         } else {
@@ -101,10 +101,24 @@ const flamiController = {
         }
 
         let sharer_last_trade = await flamitradeModel.getLastUserTrade(shared_user);
-        if(sharer_last_trade?.created_at.toDateString() === new Date().toDateString()) return res.status(401).json({ message: "La personne avec qui tu échange a déjà fait un échange aujourd'hui.", error: 401 });
+        if(sharer_last_trade?.created_at.toDateString() === new Date().toDateString()) return res.status(409).json({ message: "La personne avec qui tu échange a déjà fait un échange aujourd'hui.", error: 409 });
 
         let user_last_trade = await flamitradeModel.getLastUserTrade(userdata);
-        if(user_last_trade?.created_at.toDateString() === new Date().toDateString()) return res.status(401).json({ message: "Tu as déjà fait un échange aujourd'hui.", error: 401 });
+        if(user_last_trade?.created_at.toDateString() === new Date().toDateString()) return res.status(409).json({ message: "Tu as déjà fait un échange aujourd'hui.", error: 409 });
+
+        let sharer_search_flami = await flamitradeModel.findOne({ $where: () => 
+           Object.values(this.flamis).includes(shared_flami._id) && 
+           Object.values(this.owners).includes(userdata._id)
+        });
+
+        if(sharer_search_flami) return res.status(409).json({ message: "Tu as déjà reçu ce Flami précedement.", error: 409 });
+        
+        let user_search_flami = await flamitradeModel.findOne({ $where: () => 
+            Object.values(this.flamis).includes(flami._id) && 
+            Object.values(this.owners).includes(shared_user_id)
+         });
+        
+        if(sharer_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
 
         await flamitradeModel.create({
             owners: {
