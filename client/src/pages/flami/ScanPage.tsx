@@ -25,10 +25,21 @@ const ScanPage = () => {
     onSuccess: (position) => {console.log(position.coords); setCoords(position.coords)},
   });
 
-  let shareFlami = useCallback(
+  const shareFlami = useCallback(
     (data: string) => {
-      const { id, location } = JSON.parse(data);
-      console.log(coords)
+      const { id, location, expires } = JSON.parse(data);
+
+      if(expires < new Date().getTime()) {
+          toast.error("Ce QR Code a expiré.", {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
+          return;
+      }
+
       APIHandler<{ message: string }>(
         "/my/flami/share",
         false,
@@ -70,12 +81,11 @@ const ScanPage = () => {
           border: "4px solid #ff9900",
           borderRadius: "12px",
         }}
-        delay={500}
+        delay={2000}
         facingMode="environment"
         onScan={(result) => {
           if (!!result && token) {
             shareFlami(result);
-            shareFlami = () => null;
           }
         }}
         onError={(error) => console.error(error)}

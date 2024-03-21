@@ -75,6 +75,7 @@ const SharePage = () => {
               size={400}
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
+                expires: new Date().getTime() + (60 * 1000 * 10),
                 id: flami?.my_flami.owner,
                 location: {
                   latitude: coords?.latitude || null,
