@@ -12,22 +12,55 @@ const userController = {
       data: {
         name: userdata.name,
         email: userdata.email,
-        badges: userdata.badges
-          .slice(Math.max(0, userdata.badges.length - 3))
-          .map((id) => json[id] || json[0]),
-        created_at: new Date(userdata.date).toDateString(),
+        badges: userdata.badges.map((item) => json[item.id])
+        .sort((a, b) => a.created_at < b.created_at ? 1 : -1)
+        .slice(0, 3),
+        created_at: new Date(userdata.created_at).toDateString(),
       },
+    });
+  },
+  getCosmetics: async (req, res) => {
+    let userdata = res.locals.user;
+
+    let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+
+    let sorted_cosmetics = {
+      head: [],
+      back: [],
+      hands: [],
+      feet: []
+    }
+
+    let items = userdata.owned_cosmetics.map(item => {
+      let jitem = json[item.id];
+      if(jitem) sorted_cosmetics[jitem.category]?.push(jitem)
+    });
+
+    return res.status(200).json({
+      data: {
+        cosmetics: sorted_cosmetics
+      }
     });
   },
   getBadges: async (req, res) => {
     let userdata = res.locals.user;
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let json = JSON.parse(content);
+
+    let badges = { sport: [], etape: [] }
+
+    Object.values(json).map(item => {
+      userdata.badges.findIndex((badge) => badge.id === item.id) !== -1 ? item.owned = true : item.owned = false;
+      badges[item.type].push(item);
+      return item;
+    })
+
     return res.status(200).json({
-      data: json.map((item, id) => {
-        userdata.badges.includes(id) ? item.owned = true : item.owned = false
-        return item;
-      })
+      data: {
+        badges_sports: badges["sport"],
+        badges_etapes: badges["etape"]
+      }
     });
   },
   updateAccount: async (req, res) => {
@@ -36,12 +69,10 @@ const userController = {
 
     let patch = {};
 
-    if (
-      password &&
+    if (password &&
       String(password).match(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-      )
-    )
+      ))
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
     if (name) patch.name = name;
     if (email) patch.email = email;

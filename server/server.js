@@ -17,11 +17,12 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
+
 app.use("/api/auth", authRoutes);
 app.use("/api/my/flami", auth.require, flamiRoutes);
 app.use("/api/my", auth.require, userRoutes);
 app.use("/api/user/:name", auth.require, usersRoutes);
-app.use("/api", auth.require, miscRoutes);
+app.use("/api/misc", miscRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server started on port ${process.env.PORT}`);

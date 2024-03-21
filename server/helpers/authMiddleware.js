@@ -29,7 +29,7 @@ const auth = {
         };
       }
 
-      if (!user.isVerified) {
+      if (!user.is_verified) {
         throw {
           code: 403,
           message: "L'utilisateur n'est pas vérifié.",

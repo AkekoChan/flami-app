@@ -7,38 +7,37 @@ const flamiShema = new mongoose.Schema({
   owner_id: {
     type: mongoose.Types.ObjectId
   },
-  current_sharer_id: {
+  keeper_id: {
     type: mongoose.Types.ObjectId,
   },
   date: {
     type: Date,
     default: Date.now
   },
-  cosmetics: {
-    type: Array,
-    default: []
-  },
-  location: {
-    lat: Number,
-    long: Number
-  },
+  cosmetics: [
+    { id: { type: String } }
+  ],
   stats: {
     strength: {
       type: Number,
-      default: 1
+      default: 1,
+      max: 10
     },
     speed: {
       type: Number,
-      default: 1
+      default: 1,
+      max: 10
     },
     dexterity: {
       type: Number,
-      default: 1
+      default: 1,
+      max: 10
     }
   },
   stamina: {
     type: Number,
-    default: 3
+    default: 3,
+    max: 3
   },
   last_action_time: {
     type: Date

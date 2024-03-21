@@ -1,86 +1,146 @@
-[
-    {
-        "name": "Départ de la flamme",
-        "url": "/assets/img/badges/depart_marseille.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Prologue - Grande arrivée de la flamme à Marseille",
-        "region": "PACA"
-    },
-    {
-        "name": "Marseille",
-        "url": "/assets/img/badges/marseille_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Marseille est reconnue comme une plaque tournante du transit méditerranéen pour les voyageurs et les marchandises. Son héritage maritime, qui remonte à l'Antiquité sous le nom de Massalia, en est la preuve. La richesse de la ville est toujours tangible aujourd'hui, notamment dans son vieux quartier du Panier, qui existe depuis les premiers jours de la ville et offre une véritable immersion dans le passé.",
-        "region": "PACA"
-    },
-    {
-        "name": "Toulon",
-        "url": "/assets/img/badges/toulon_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "La ville de Toulon cache un hommage insolite et secret dans sa cuisine : le Chanteclair, un gâteau délicieux. Ce dessert, à base de meringue, crème chantilly, crème pâtissière glacée, praliné et moka, est orné d'un coq. Il tire son nom d'une pièce de théâtre de 1910 de Edmond Rostand, mettant en scène un coq de basse-cour. Cette histoire d'une vanité perdue et retrouvée résonne encore aujourd'hui à travers cette pâtisserie toulonnaise.",
-        "region": "PACA"
-    },
-    {
-        "name": "Manosque",
-        "url": "/assets/img/badges/manosque_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Chaque année depuis 1999, Manosque organise le Festival des Correspondances, dédié à la littérature. Cet événement met en avant les grands auteurs tout en encourageant les nouveaux écrivains. Il propose des lectures publiques et des rencontres croisées, favorisant les échanges entre la littérature et d'autres formes artistiques pour des créations originales. Le festival attire plus de 16 000 personnes chaque année et dure plusieurs jours.",
-        "region": "PACA"
-    },
-    {
-        "name": "Arles",
-        "url": "/assets/img/badges/arles_blason.svg",
-        "url_cover": "/assets/img/badges/paca_cover.svg",
-        "description": "Au coeur de la ville d'Arles se trouve un amphithéâtre romain, l'un des mieux conservé au monde, et cela est dû au fait qu'il est toujours un lieu très attractif de par son activité. ici, le taureau Camargue est à l'honneur, et de véritable corrida française s'organise régulièrement, où les jeunes gens de la région affrontent les taureaux pour décrocher les cocardes des cornes de la bête. Les taureaux aussi sont récompensés, et les meilleurs sont immortalisés par le biais de titres et de statues commémoratives.",
-        "region": "PACA"
-    },
-    {
-        "name": "Montpellier",
-        "url": "/assets/img/badges/montpellier_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Bastia",
-        "url": "/assets/img/badges/placeholder.svg",
-        "url_cover": "/assets/img/badges/placeholder.svg",
-        "description": "",
-        "region": "Corse"
-    },
-    {
-        "name": "Perpignan",
-        "url": "/assets/img/badges/perpignan_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Carcassonne",
-        "url": "/assets/img/badges/carcassonne_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Toulouse",
-        "url": "/assets/img/badges/toulouse_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Auch",
-        "url": "/assets/img/badges/auch_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    },
-    {
-        "name": "Tarbes",
-        "url": "/assets/img/badges/tarbes_blason.svg",
-        "url_cover": "/assets/img/badges/occitanie_cover.svg",
-        "description": "",
-        "region": "Occitanie"
-    }
-]
+{
+  "etapes_depart_marseille": {
+    "name": "Départ de la flamme",
+    "url": "/assets/img/badges/depart_marseille.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Prologue - Grande arrivée de la flamme à Marseille",
+    "region": "PACA",
+    "type": "etape",
+    "id": "etapes_depart_marseille",
+    "step": 0
+  },
+  "etapes_marseille": {
+    "name": "Marseille",
+    "url": "/assets/img/badges/marseille_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Marseille est reconnue comme une plaque tournante du transit méditerranéen pour les voyageurs et les marchandises. Son héritage maritime, qui remonte à l'Antiquité sous le nom de Massalia, en est la preuve. La richesse de la ville est toujours tangible aujourd'hui, notamment dans son vieux quartier du Panier, qui existe depuis les premiers jours de la ville et offre une véritable immersion dans le passé.",
+    "region": "PACA",
+    "type": "etape",
+    "id": "etapes_marseille",
+    "step": 1
+  },
+  "etapes_toulon": {
+    "name": "Toulon",
+    "url": "/assets/img/badges/toulon_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "La ville de Toulon cache un hommage insolite et secret dans sa cuisine : le Chanteclair, un gâteau délicieux. Ce dessert, à base de meringue, crème chantilly, crème pâtissière glacée, praliné et moka, est orné d'un coq. Il tire son nom d'une pièce de théâtre de 1910 de Edmond Rostand, mettant en scène un coq de basse-cour. Cette histoire d'une vanité perdue et retrouvée résonne encore aujourd'hui à travers cette pâtisserie toulonnaise.",
+    "region": "PACA",
+    "type": "etape",
+    "id": "etapes_toulon",
+    "step": 2
+  },
+  "etapes_manosque": {
+    "name": "Manosque",
+    "url": "/assets/img/badges/manosque_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Chaque année depuis 1999, Manosque organise le Festival des Correspondances, dédié à la littérature. Cet événement met en avant les grands auteurs tout en encourageant les nouveaux écrivains. Il propose des lectures publiques et des rencontres croisées, favorisant les échanges entre la littérature et d'autres formes artistiques pour des créations originales. Le festival attire plus de 16 000 personnes chaque année et dure plusieurs jours.",
+    "region": "PACA",
+    "type": "etape",
+    "id": "etapes_manosque",
+    "step": 3
+  },
+  "etapes_arles": {
+    "name": "Arles",
+    "url": "/assets/img/badges/arles_blason.svg",
+    "url_cover": "/assets/img/badges/paca_cover.svg",
+    "description": "Au coeur de la ville d'Arles se trouve un amphithéâtre romain, l'un des mieux conservé au monde, et cela est dû au fait qu'il est toujours un lieu très attractif de par son activité. ici, le taureau Camargue est à l'honneur, et de véritable corrida française s'organise régulièrement, où les jeunes gens de la région affrontent les taureaux pour décrocher les cocardes des cornes de la bête. Les taureaux aussi sont récompensés, et les meilleurs sont immortalisés par le biais de titres et de statues commémoratives.",
+    "region": "PACA",
+    "type": "etape",
+    "id": "etapes_arles",
+    "step": 4
+  },
+  "etapes_montpellier": {
+    "name": "Montpellier",
+    "url": "/assets/img/badges/montpellier_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "La ville de Montpellier comporte beaucoup de sites et monument historiques en son sein, mais la faculté de médecine qui s'y trouve est des plus intéressante de par son héritage historique. En effet il s'agit de l'école de médecine la plus ancienne et toujours en activité du monde, et fut le premier à instaurer des éléments d'apprentissages médical bien établi aujourd'hui comme des cours d'anatomie poussée, elle fut aussi la première à instaurer un amphithéâtre dédié à l'examen posthume de corps humains, ce qui était considéré comme un affront à l'église, bien en place à l'époque.",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_montpellier",
+    "step": 5
+  },
+  "etapes_bastia": {
+    "name": "Bastia",
+    "url": "/assets/img/badges/placeholder.svg",
+    "url_cover": "/assets/img/badges/placeholder.svg",
+    "description": "",
+    "region": "Corse",
+    "type": "etape",
+    "id": "etapes_bastia",
+    "step": 6
+  },
+  "etapes_perpignan": {
+    "name": "Perpignan",
+    "url": "/assets/img/badges/perpignan_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_perpignan",
+    "step": 7
+  },
+  "etapes_carcassonne": {
+    "name": "Carcassonne",
+    "url": "/assets/img/badges/carcassonne_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_carcassonne",
+    "step": 8
+  },
+  "etapes_toulouse": {
+    "name": "Toulouse",
+    "url": "/assets/img/badges/toulouse_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_toulouse",
+    "step": 9
+  },
+  "etapes_auch": {
+    "name": "Auch",
+    "url": "/assets/img/badges/auch_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_auch",
+    "step": 10
+  },
+  "etapes_tarbes": {
+    "name": "Tarbes",
+    "url": "/assets/img/badges/tarbes_blason.svg",
+    "url_cover": "/assets/img/badges/occitanie_cover.svg",
+    "description": "",
+    "region": "Occitanie",
+    "type": "etape",
+    "id": "etapes_tarbes",
+    "step": 11
+  },
+  "sport_course_bronze": {
+    "name": "Course (Bronze)",
+    "url": "/assets/img/badges/Bronze-course.svg",
+    "url_cover": "/assets/img/badges/Bronze-course.svg",
+    "description": "",
+    "type": "sport",
+    "id": "sport_course_bronze"
+  },
+  "sport_course_argent": {
+    "name": "Course (Argent)",
+    "url": "/assets/img/badges/Argent-course.svg",
+    "url_cover": "/assets/img/badges/Argent-course.svg",
+    "description": "",
+    "type": "sport",
+    "id": "sport_course_argent"
+  },
+  "sport_course_or": {
+    "name": "Course (Or)",
+    "url": "/assets/img/badges/Or-course.svg",
+    "url_cover": "/assets/img/badges/Or-course.svg",
+    "description": "",
+    "type": "sport",
+    "id": "sport_course_or"
+  }
+}

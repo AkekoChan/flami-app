@@ -44,7 +44,9 @@ const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
 
     if (targetValueLength === 1) {
       const newValue =
-        value.trim().substring(0, index) + targetValue + value.trim().substring(index + 1);
+        value.trim().substring(0, index) +
+        targetValue +
+        value.trim().substring(index + 1);
 
       onChange(newValue.replace(/\s/g, ""));
 
@@ -117,7 +119,7 @@ const OtpInput = ({ value, valueLength, onChange }: OtpInputProps) => {
           pattern="\d{1}"
           maxLength={valueLength}
           value={digit}
-          className="h-16 rounded-xl bg-alabaster-600 border-alabaster-400 border-3 outline-none text-center text-2xl focus:border-tree-poppy-500 p-4"
+          className="h-16 rounded-xl bg-alabaster-600 border-alabaster-400 border-3 outline-none text-center text-2xl focus:border-tree-poppy-500"
           onChange={(e) => handleChange(e, index)}
           onKeyDown={handleKeyDown}
           onFocus={handleFocus}

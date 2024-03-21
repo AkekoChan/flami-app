@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import auth from "../helpers/authMiddleware.js";
 import userModel from "../models/user.model.js";
+import { readFile } from "fs/promises";
 
 const authController = {
   token: async (req, res) => {
@@ -47,6 +48,11 @@ const authController = {
       userdata.password,
       bcrypt.genSaltSync(11)
     );
+
+    let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+
+    userdata.owned_cosmetics = Object.values(json).map(item => { return { id: item.id }});
 
     let new_user = new userModel(userdata);
 
@@ -96,7 +102,7 @@ const authController = {
           .json({ message: "E-mail ou mot de passe incorrect.", error: 404 });
       }
 
-      if (!user.isVerified) {
+      if (!user.is_verified) {
         return res
           .status(403)
           .json({ message: "Code de vérification non vérifié.", error: 403 });

@@ -1,7 +1,7 @@
 import { createContext } from "react";
-import { SignupBody } from "../interfaces/api-body/signup-body";
-import { User } from "../interfaces/user.interface";
-import { SigninBody } from "../interfaces/api-body/signin-body";
+import { SignupBody } from "../../interfaces/api-body/signup-body";
+import { User } from "../../interfaces/user.interface";
+import { SigninBody } from "../../interfaces/api-body/signin-body";
 
 export interface AuthContextType {
   signin: (body: SigninBody) => void;

@@ -1,38 +1,44 @@
-[
-    {
+{
+    "BoxeGants": {
         "name": "Gants de boxe",
         "description": "Des gants de boxe d'une grande qualité, donné aux utilisateurs aimant le sport de combat.",
-        "url": "/assets/img/cosmetics/boxes-gloves.png",
-        "place": 2
+        "url": "/assets/img/cosmetics/BoxeGants.png",
+        "category": "hands",
+        "id": "BoxeGants"
     },
-    {
+    "Chaussures": {
         "name": "Turbo-Chaussures",
         "description": "Des baskets qui courts vite, donné aux utilisateurs aimant le sport de course.",
-        "url": "/assets/img/cosmetics/turbo-chaussures.png",
-        "place": 4
+        "url": "/assets/img/cosmetics/Chaussures.png",
+        "category": "feet",
+        "id": "Chaussures"
     },
-    {
+    "Lunettes": {
         "name": "Bonnet de bain et lunettes de plongé",
         "description": "Quelle allure ! Donné aux utilisateurs aimant le sport aquatique.",
-        "url": "/assets/img/cosmetics/bonnetbain.png",
-        "place": 1
+        "url": "/assets/img/cosmetics/Lunettes.png",
+        "category": "head",
+        "id": "Lunettes"
     },
-    {
+    "Basket": {
         "name": "Ballon de basket-ball",
         "description": "Un ballon de basket-ball bien gonflé, donné aux utilisateurs aimant le sport collectif.",
-        "url": "/assets/img/cosmetics/basket-ball.png",
-        "place": 3
+        "url": "/assets/img/cosmetics/Basket.png",
+        "category": "hands",
+        "id": "Basket"
     },
-    {
+    "Volley": {
         "name": "Ballon de volley-ball",
         "description": "Un ballon de volley-ball bien gonflé, donné aux utilisateurs aimant le sport de plage.",
-        "url": "/assets/img/cosmetics/volley-ball.png",
-        "place": 3
+        "url": "/assets/img/cosmetics/Volley.png",
+        "category": "hands",
+        "id": "Volley"
     },
-    {
+    "Haltere": {
         "name": "Altère pesant son poids",
         "description": "Une altère d'au moins 200kg, donné aux utilisateurs aimant le sport de force.",
-        "url": "/assets/img/cosmetics/altere.png",
-        "place": 3
+        "url": "/assets/img/cosmetics/Haltere.png",
+        "category": "hands",
+        "id": "Haltere"
     }
-]
+}
