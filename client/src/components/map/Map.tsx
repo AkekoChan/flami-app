@@ -42,13 +42,11 @@ const Map = ({
     iconSize: [40, 40],
   });
 
-  const [geolocalisation, setGeolocation] = useState(
-    currentStep
-    ? new LatLng(
-        currentStep.geolocalisation.latitude,
-        currentStep.geolocalisation.longitude
-      )
-    : new LatLng(43.282, 5.405));
+  const [geolocalisation, setGeolocation] = useState(new LatLng(43.282, 5.405));
+
+  useEffect(() => {
+    if(currentStep) setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude))
+  }, [currentStep, setGeolocation])
 
   const MapRecenter = ({
     lat,

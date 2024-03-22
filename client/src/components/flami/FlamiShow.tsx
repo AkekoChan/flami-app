@@ -9,11 +9,11 @@ const FlamiShow = ({ flami }: { flami: FlamiData }) => {
 
   useEffect(() => {
     setCurrentAnimation("Jump");
-    setCurrentKeptAnimation("Atchoum");
+    setCurrentKeptAnimation("Jump");
     setTimeout(() => {
       setCurrentAnimation("Idle");
       setCurrentKeptAnimation("Idle");
-    }, 3200);
+    }, 1300);
   }, [setCurrentAnimation]);
 
   return (
