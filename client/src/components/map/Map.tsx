@@ -8,12 +8,13 @@ import {
 } from "react-leaflet";
 import { Icon, LatLng } from "leaflet";
 import { Step } from "../../interfaces/step.interface";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { GenericResponse } from "../../interfaces/api-response/generic-response";
+import { SearchIcon } from "react-line-awesome";
 
 const Map = ({
   currentStep,
@@ -41,12 +42,13 @@ const Map = ({
     iconSize: [40, 40],
   });
 
-  const geolocalisation = currentStep
+  const [geolocalisation, setGeolocation] = useState(
+    currentStep
     ? new LatLng(
         currentStep.geolocalisation.latitude,
         currentStep.geolocalisation.longitude
       )
-    : new LatLng(43.282, 5.405);
+    : new LatLng(43.282, 5.405));
 
   const MapRecenter = ({
     lat,
@@ -66,7 +68,17 @@ const Map = ({
   };
 
   return (
-    <div className="h-96 rounded-2xl overflow-hidden">
+    <div className="h-96 rounded-2xl overflow-hidden relative">
+      { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
+        setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
+      }}>
+        <SearchIcon role="decoration"/> Etape actuelle
+      </Button>) : null }
+      { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
+        setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
+      }}>
+        <SearchIcon role="decoration"/> Mon Flami
+      </Button>) : null }
       <MapContainer
         center={geolocalisation}
         zoom={12}
@@ -79,6 +91,7 @@ const Map = ({
           lng={geolocalisation.lng}
           zoomLevel={12}
         />
+
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
 
         {steps &&
@@ -112,8 +125,8 @@ const Map = ({
                         },
                       });
                     })}>Récupérer le badge</Button>
-                  ) : null
-                }
+                    ) : null
+                  }
               </Popup>
             </Marker>
           ))}
