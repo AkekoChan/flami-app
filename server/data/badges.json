@@ -819,11 +819,11 @@
         "name": "Course (Bronze)",
         "url": "\/assets\/img\/badges\/Bronze-course.svg",
         "url_cover": "\/assets\/img\/badges\/Bronze-course.svg",
-        "description": "",
+        "description": "Victoire de compétition de course.",
         "type": "sport",
         "id": "sport_course_bronze",
-        "description_region": "",
-        "region": "Course"
+        "description_region": "Victoire de compétition de course.",
+        "region": "Course (Bronze)"
     },
     "sport_course_argent": {
         "name": "Course (Argent)",
@@ -832,8 +832,8 @@
         "description": "Victoire de compétition de course.",
         "type": "sport",
         "id": "sport_course_argent",
-        "description_region": "",
-        "region": "Course"
+        "description_region": "Victoire de compétition de course.",
+        "region": "Course (Argent)"
     },
     "sport_course_or": {
         "name": "Course (Or)",
@@ -842,7 +842,7 @@
         "description": "Victoire de compétition de course.",
         "type": "sport",
         "id": "sport_course_or",
-        "description_region": "",
-        "region": "Course"
+        "description_region": "Victoire de compétition de course.",
+        "region": "Course (Or)"
     }
 }
