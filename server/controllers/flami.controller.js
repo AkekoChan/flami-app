@@ -100,17 +100,21 @@ const flamiController = {
         let user_last_trade = await flamitradeModel.getLastUserTrade(userdata);
         if(user_last_trade?.created_at.toDateString() === new Date().toDateString()) return res.status(409).json({ message: "Tu as déjà fait un échange aujourd'hui.", error: 409 });
 
-        let sharer_search_flami = await flamitradeModel.findOne({ $where: () => 
-           Object.values(this.flamis).includes(shared_flami._id) && 
-           Object.values(this.owners).includes(userdata._id)
-        });
+        let sharer_search_flami = await flamitradeModel.findOne({
+            $and: [
+                { $or: [{'flamis.flasher': shared_flami._id}, {'flamis.sender': shared_flami._id}] },
+                { $or: [{'owners.flasher': userdata._id}, {'owners.sender': userdata._id}] }
+            ]
+        })
 
         if(sharer_search_flami) return res.status(409).json({ message: "Tu as déjà reçu ce Flami précédement.", error: 409 });
         
-        let user_search_flami = await flamitradeModel.findOne({ $where: () => 
-            Object.values(this.flamis).includes(flami._id) && 
-            Object.values(this.owners).includes(shared_user_id)
-         });
+        let user_search_flami = await flamitradeModel.findOne({
+            $and: [
+                { $or: [{'flamis.flasher': flami._id}, {'flamis.sender': flami._id}] },
+                { $or: [{'owners.flasher': shared_user_id}, {'owners.sender': shared_user_id}] }
+            ]
+        })
         
         if(sharer_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
 
