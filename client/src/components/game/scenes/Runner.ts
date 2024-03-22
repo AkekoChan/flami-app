@@ -270,5 +270,11 @@ export class Runner extends Phaser.Scene {
         this.scrollSpeed = 0;
       },
     });
+
+    this.finishRace = () => null;
+
+    setTimeout(() => {
+      window.location.href = `/flami/train/${this.timerInterval}`;
+    }, 2000);
   }
 }

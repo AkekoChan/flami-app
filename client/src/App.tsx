@@ -22,6 +22,7 @@ import CosmeticPage from "./pages/flami/CosmeticPage";
 import LegalNoticesPage from "./pages/legal/LegalNoticesPage";
 import ThanksPage from "./pages/legal/ThanksPage";
 import { useTheme } from "./hooks/useTheme";
+import TrainFlami from "./pages/activities/TrainFlami";
 
 const TOAST_LIMIT = 2;
 
@@ -47,8 +48,9 @@ const App = () => {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="account" element={<AccountPage />} />
           <Route path="badges" element={<AllBadgesPage />} />
-          <Route path="training" element={<TrainingPage />} />
           <Route path="cosmetics" element={<CosmeticPage />} />
+          <Route path="training" element={<TrainingPage />} />
+          <Route path="flami/train/:time" element={<TrainFlami />} />
           <Route path="legal-notices" element={<LegalNoticesPage />} />
           <Route path="thanks" element={<ThanksPage />} />
         </Route>
