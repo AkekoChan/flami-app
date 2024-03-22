@@ -57,6 +57,10 @@ const CosmeticPage = () => {
           token
         ).then((res) => {
           setFlami(res.data.my_flami);
+          setCurrentAnimation("Atchoum");
+          setTimeout(() => {
+            setCurrentAnimation("Idle");
+          }, 1);
         });
       } else {
         if (flami?.cosmetics.findIndex((item) => item.id === id) === -1) {
