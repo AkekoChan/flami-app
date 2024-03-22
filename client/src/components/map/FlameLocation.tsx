@@ -17,10 +17,9 @@ const FlameLocation = ({
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-alabaster-400">
-              Territoire
-              <br /> de l'étape
+              Département
             </p>
-            <p className="font-bold">{currentFlameLocation?.territoire}</p>
+            <p className="font-bold">{`${currentFlameLocation?.territoire} (${currentFlameLocation?.departement})`}</p>
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-alabaster-400">Prochaine étape</p>

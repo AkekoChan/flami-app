@@ -8,12 +8,12 @@ const FlamiShow = ({ flami }: { flami: FlamiData }) => {
   const [currentKeptAnimation, setCurrentKeptAnimation] = useState("Idle");
 
   useEffect(() => {
-    setCurrentAnimation("Jump");
-    setCurrentKeptAnimation("Jump");
+    setCurrentAnimation("Atchoum");
+    setCurrentKeptAnimation("Atchoum");
     setTimeout(() => {
       setCurrentAnimation("Idle");
       setCurrentKeptAnimation("Idle");
-    }, 1300);
+    }, 1);
   }, [setCurrentAnimation]);
 
   return (
