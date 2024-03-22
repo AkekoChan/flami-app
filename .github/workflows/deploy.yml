@@ -23,12 +23,6 @@ jobs:
           cd client
           npm install
           npm run build
-      
-      - name: 🔨 Build Backend
-        run: |
-          cd server
-          npm install
-          npm run build
 
       - name: 📂 Sync files
         uses: AkekoChan/flami-app@v1.0.0
