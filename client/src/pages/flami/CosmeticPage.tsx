@@ -12,6 +12,8 @@ import feet from "../../../public/assets/img/icons/shoes.svg";
 import back from "../../../public/assets/img/icons/bag.svg";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
+import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();
@@ -20,6 +22,12 @@ const CosmeticPage = () => {
   const { token } = useAuth();
   const [displayIndex, setDisplayIndex] = useState(0);
   const [displayIcon, setDisplayIcon] = useState(head);
+
+  const Variants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    shown: { opacity: 0.5, scale: 1, filter: "grayscale(75%)" },
+    owned: { opacity: 1, scale: 1 },
+  };
 
   const getFlami = useCallback(() => {
     APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
@@ -41,19 +49,56 @@ const CosmeticPage = () => {
     });
   }, [token]);
 
+  const [currentAnimation, setCurrentAnimation] = useState("Idle");
+
   const changeCosmetic = useCallback(
-    (id: string) => {
-      APIHandler<FlamiData>(
-        "/my/flami/equip",
-        false,
-        "PATCH",
-        { cosmetic_id: id },
-        token
-      ).then((res) => {
-        setFlami(res.data.my_flami);
-      });
+    (id: string, category: string) => {
+      if (
+        flami?.cosmetics.findIndex((item) => item.category === category) === -1
+      ) {
+        APIHandler<FlamiData>(
+          "/my/flami/equip",
+          false,
+          "PATCH",
+          { cosmetic_id: id },
+          token
+        ).then((res) => {
+          setFlami(res.data.my_flami);
+          setCurrentAnimation("Atchoum");
+          setTimeout(() => {
+            setCurrentAnimation("Idle");
+          }, 1);
+        });
+      } else {
+        if (flami?.cosmetics.findIndex((item) => item.id === id) === -1) {
+          toast.error(
+            "Impossible d'équiper plusieures cosmétiques du même type.",
+            {
+              style: {
+                background: "#3D3D3D",
+                color: "#FAFAFA",
+                borderRadius: "12px",
+              },
+            }
+          );
+        } else {
+          APIHandler<FlamiData>(
+            "/my/flami/equip",
+            false,
+            "PATCH",
+            { cosmetic_id: id },
+            token
+          ).then((res) => {
+            setFlami(res.data.my_flami);
+            setCurrentAnimation("Atchoum");
+            setTimeout(() => {
+              setCurrentAnimation("Idle");
+            }, 1);
+          });
+        }
+      }
     },
-    [token]
+    [token, flami, setCurrentAnimation]
   );
 
   const selectIconDisplay = useCallback(() => {
@@ -78,7 +123,7 @@ const CosmeticPage = () => {
         setDisplayIcon(head);
         break;
     }
-  }, [displayIndex]);
+  }, [displayIndex, setDisplayIcon]);
 
   const selectDisplayCosmetics = useCallback(() => {
     switch (displayIndex) {
@@ -109,14 +154,16 @@ const CosmeticPage = () => {
     getCosmetics();
   }, [getFlami, getCosmetics]);
 
-  console.log(displayIndex);
-  console.log(displayCosmetic);
-  console.log(displayIcon);
+  // console.log(displayIndex);
+  // console.log(displayCosmetic);
+  // console.log(displayIcon);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
-      {flami ? <MyFlamiDisplay animation="Idle" myFlami={flami} /> : null}
+      {flami ? (
+        <MyFlamiDisplay animation={currentAnimation} myFlami={flami} />
+      ) : null}
       <div className="grid grid-cols-3 gap-4 w-full">
         <Button
           variant={"secondary"}
@@ -159,25 +206,31 @@ const CosmeticPage = () => {
           cosmetic &&
           flami?.cosmetics.findIndex((item) => item.id === cosmetic.id) ===
             -1 ? (
-            <Button
+            <motion.button
+              variants={Variants}
+              initial="hidden"
+              animate="owned"
               key={index}
-              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
+              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
               onClick={() => {
-                changeCosmetic(cosmetic.id);
+                changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
-              <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
-            </Button>
+              <img className="" src={cosmetic.url} alt={cosmetic.name} />
+            </motion.button>
           ) : (
-            <Button
+            <motion.button
+              variants={Variants}
+              initial="hidden"
+              animate="owned"
               key={index}
-              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
+              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
               onClick={() => {
-                changeCosmetic(cosmetic.id);
+                changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
-            </Button>
+            </motion.button>
           )
         )}
       </div>

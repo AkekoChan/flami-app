@@ -21,11 +21,14 @@ import TrainingPage from "./pages/activities/TrainingPage";
 import CosmeticPage from "./pages/flami/CosmeticPage";
 import LegalNoticesPage from "./pages/legal/LegalNoticesPage";
 import ThanksPage from "./pages/legal/ThanksPage";
+import { useTheme } from "./hooks/useTheme";
+import TrainFlami from "./pages/activities/TrainFlami";
 
 const TOAST_LIMIT = 2;
 
 const App = () => {
   const { toasts } = useToasterStore();
+  const {showNav} = useTheme()
 
   useEffect(() => {
     toasts
@@ -35,7 +38,7 @@ const App = () => {
   }, [toasts]);
 
   return (
-    <main className="p-8 min-h-dvh font-roboto max-w-lg mx-auto grid">
+    <main className={`${showNav ? "p-8" : ""  } min-h-dvh font-roboto max-w-lg mx-auto grid`}>
       <Routes>
         <Route path="/" element={<ProtectedRoute />}>
           <Route index element={<FlamiPage />} />
@@ -45,8 +48,9 @@ const App = () => {
           <Route path="profile" element={<ProfilePage />} />
           <Route path="account" element={<AccountPage />} />
           <Route path="badges" element={<AllBadgesPage />} />
-          <Route path="training" element={<TrainingPage />} />
           <Route path="cosmetics" element={<CosmeticPage />} />
+          <Route path="training" element={<TrainingPage />} />
+          <Route path="flami/train/:time" element={<TrainFlami />} />
           <Route path="legal-notices" element={<LegalNoticesPage />} />
           <Route path="thanks" element={<ThanksPage />} />
         </Route>

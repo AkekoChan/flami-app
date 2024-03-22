@@ -8,6 +8,8 @@ import { useNavigate } from "react-router";
 import { useTheme } from "../../hooks/useTheme";
 import FlamiDisplay from "../../components/flami/FlamiDisplay";
 import FlamiStats from "../../components/flami/FlamiStats";
+import { GenericResponse } from "../../interfaces/api-response/generic-response";
+import toast from "react-hot-toast";
 
 const FlamiPage = () => {
   const { token } = useAuth();
@@ -60,7 +62,25 @@ const FlamiPage = () => {
               Entrainements
             </Button>
             <Button
-              onClick={() => navigate("/competition")}
+              onClick={() => {
+                if(!flami?.my_flami) return;
+                let level = flami.my_flami.stats.speed < 3 ? 'bronze' : flami.my_flami.stats.speed > 7 ? 'or' : 'argent';
+                APIHandler<GenericResponse>(
+                  `/misc/g/badge/sport_course_${level}`,
+                  false,
+                  "GET",
+                  undefined,
+                  token
+                ).then(() => {
+                  toast.success(`Tu as récuperé le badge de course en ${level}.`, {
+                    style: {
+                      background: "#3D3D3D",
+                      color: "#FAFAFA",
+                      borderRadius: "12px",
+                    },
+                  });
+                });
+              }}
               className="bg-alabaster-900 col-span-2 border-tree-poppy-300 shadow-tree-poppy-300 border-3 flex flex-col items-center gap-2 rounded-xl hover:brightness-90 active:shadow-none active:translate-y-1"
             >
               <img

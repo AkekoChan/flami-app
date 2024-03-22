@@ -39,9 +39,9 @@ const MapPage = () => {
   };
 
   const handleCurrentStep = () => {
-    APIHandler<Step>(`/etape/4`, true).then((res) => {
+    APIHandler<Step>(`/etape/15`, true).then((res) => {
       setCurrentFlameLocation(res.data);
-      handleNextStep(res.data.etape_numero);
+      handleNextStep(res.data.etape_numero + 1);
     });
   };
 

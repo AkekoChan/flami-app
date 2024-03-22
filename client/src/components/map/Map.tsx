@@ -8,12 +8,13 @@ import {
 } from "react-leaflet";
 import { Icon, LatLng } from "leaflet";
 import { Step } from "../../interfaces/step.interface";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui";
 import { APIHandler } from "../../utils/api/api-handler";
 import { useAuth } from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { GenericResponse } from "../../interfaces/api-response/generic-response";
+import { SearchIcon } from "react-line-awesome";
 
 const Map = ({
   currentStep,
@@ -41,12 +42,11 @@ const Map = ({
     iconSize: [40, 40],
   });
 
-  const geolocalisation = currentStep
-    ? new LatLng(
-        currentStep.geolocalisation.latitude,
-        currentStep.geolocalisation.longitude
-      )
-    : new LatLng(43.282, 5.405);
+  const [geolocalisation, setGeolocation] = useState(new LatLng(43.282, 5.405));
+
+  useEffect(() => {
+    if(currentStep) setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude))
+  }, [currentStep, setGeolocation])
 
   const MapRecenter = ({
     lat,
@@ -66,7 +66,20 @@ const Map = ({
   };
 
   return (
-    <div className="h-96 rounded-2xl overflow-hidden">
+    <div className="h-96 rounded-2xl overflow-hidden relative">
+
+      { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
+        setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
+      }}>
+        <SearchIcon className="mr-1" role="decoration"/> Etape actuelle
+      </Button>) : null }
+      
+      { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
+        setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
+      }}>
+        <SearchIcon className="mr-1" role="decoration"/> Mon Flami
+      </Button>) : null }
+
       <MapContainer
         center={geolocalisation}
         zoom={12}
@@ -79,6 +92,7 @@ const Map = ({
           lng={geolocalisation.lng}
           zoomLevel={12}
         />
+
         <TileLayer url="https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png" />
 
         {steps &&
@@ -98,12 +112,12 @@ const Map = ({
               key={index}
             >
               <Popup>
-                <b className="text-alabaster-50">Étape n°{marker.etape}</b>
-                <p>{marker.date}</p>
-                <p>{marker.ville}</p>
+                <b className="text-alabaster-50 text-base">Étape n°{marker.etape}</b>
+                <p className="text-sm">{marker.date}</p>
+                <p className="text-sm">{marker.ville}</p>
                 {
                   currentStep && currentStep?.etape_numero === marker.etape_numero ? (
-                    <Button onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etapes_${marker.ville.toLowerCase()}`, false, "GET", undefined, token).then(res => {
+                    <Button className="pb-1 text-alabaster-50" onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etape_${marker.etape_numero}`, false, "GET", undefined, token).then(res => {
                       toast.success(`${res.data.message}`, {
                         style: {
                           background: "#3D3D3D",
@@ -111,9 +125,11 @@ const Map = ({
                           borderRadius: "12px",
                         },
                       });
-                    })}>Récupérer le badge</Button>
-                  ) : null
-                }
+                    })}>
+                      Récupérer le badge
+                    </Button>
+                    ) : null
+                  }
               </Popup>
             </Marker>
           ))}

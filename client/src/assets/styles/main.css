@@ -95,14 +95,14 @@ main .leaflet-popup {
   border-radius: 8px !important;
 }
 
-.badge-display {
+.badge-cover {
   transition: 1s cubic-bezier(.62,-0.02,0,1.08);
   transform: rotateY(0deg);
   transform-style: preserve-3d;
   user-select: none;
 }
 
-.badge-display img.side-cover {
+.badge-cover img.side-cover {
   transform: rotateY(0deg) translateZ(-1px);
 }
 
