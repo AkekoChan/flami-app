@@ -7,6 +7,8 @@ const config: Phaser.Types.Core.GameConfig = {
   scale: {
     mode: Phaser.Scale.RESIZE,
   },
+  width: window.innerWidth,
+  height: window.innerHeight,
   parent: "game-container",
   scene: [Runner],
 };
