@@ -1,6 +1,6 @@
 import Router from "express";
 import authController from "../controllers/auth.controller.js";
-import forgetPasswordController from "../controllers/forgetpassword.controller.js";
+import forgetPasswordController from "../controllers/forgetPassword.controller.js";
 import auth from "../helpers/authMiddleware.js";
 import otpController from "../controllers/otp.controller.js";
 import ExpressBrute from "express-brute";
