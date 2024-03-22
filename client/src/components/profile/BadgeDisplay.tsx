@@ -25,8 +25,8 @@ const BadgeDisplay = ({ badge }: { badge: Badge }) => {
           alt={`Badge de ${badge.name}`}
         />
       </div>
-      <p className="text-2xl mb-4 font-bold text-center">{side ? badge.region : badge.name}</p>
-      <p className="text-m w-90 text-center">{side ? badge.description_region : badge.description}</p>
+      <p className="text-3xl mt-4 mb-4 font-bold text-center">{side ? badge.region : badge.name}</p>
+      <p className="text-base w-90 text-center">{side ? badge.description_region : badge.description}</p>
     </div>
   );
 };

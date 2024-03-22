@@ -67,16 +67,19 @@ const Map = ({
 
   return (
     <div className="h-96 rounded-2xl overflow-hidden relative">
+
       { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
         setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
       }}>
         <SearchIcon className="mr-1" role="decoration"/> Etape actuelle
       </Button>) : null }
+      
       { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
         setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
       }}>
         <SearchIcon className="mr-1" role="decoration"/> Mon Flami
       </Button>) : null }
+
       <MapContainer
         center={geolocalisation}
         zoom={12}
@@ -109,12 +112,12 @@ const Map = ({
               key={index}
             >
               <Popup>
-                <b className="text-alabaster-50">Étape n°{marker.etape}</b>
-                <p>{marker.date}</p>
-                <p>{marker.ville}</p>
+                <b className="text-alabaster-50 text-base">Étape n°{marker.etape}</b>
+                <p className="text-sm">{marker.date}</p>
+                <p className="text-sm">{marker.ville}</p>
                 {
                   currentStep && currentStep?.etape_numero === marker.etape_numero ? (
-                    <Button onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etape_${marker.etape_numero}`, false, "GET", undefined, token).then(res => {
+                    <Button className="pb-1 text-alabaster-50" onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etape_${marker.etape_numero}`, false, "GET", undefined, token).then(res => {
                       toast.success(`${res.data.message}`, {
                         style: {
                           background: "#3D3D3D",
@@ -122,7 +125,9 @@ const Map = ({
                           borderRadius: "12px",
                         },
                       });
-                    })}>Récupérer le badge</Button>
+                    })}>
+                      Récupérer le badge
+                    </Button>
                     ) : null
                   }
               </Popup>
