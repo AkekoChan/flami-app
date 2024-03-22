@@ -7,7 +7,7 @@ name: 🚀 Deploy website on
 jobs:
   web-deploy:
     name: 🎉 Deploy
-    runs-on: unbuntu-lastest
+    runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get lastest code
         uses: actions/checkout@v3
