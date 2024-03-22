@@ -17,7 +17,7 @@ router.get("/g/badge/:id", auth.require, async (req, res) => {
 
     await userdata.save();
     return res.status(201).json({data: {
-        message: "Tu as reçu le badge de cet étape."
+        message: "Tu as reçu le badge de cette étape."
     }});
 });
 

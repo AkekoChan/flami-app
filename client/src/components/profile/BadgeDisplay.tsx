@@ -7,25 +7,26 @@ const BadgeDisplay = ({ badge }: { badge: Badge }) => {
   const medalDing = new Audio(ding);
 
   return (
-    <div
-      className={`w-60 relative cursor-pointer badge-display badge-${
+    <div className={"w-full relative badge-display flex flex-col items-center"}>
+      <div className={`w-60 cursor-pointer badge-cover badge-${
         side ? "reverse" : "front"
-      }`}
-      onClick={() => {
+      }`} onClick={() => {
         setSide(!side);
         medalDing.play();
-      }}
-    >
-      <img
-        className="w-full relative side-cover"
-        src={badge.url_cover}
-        alt={`Badge de ${badge.region}`}
-      />
-      <img
-        className="w-full absolute top-0"
-        src={badge.url}
-        alt={`Badge de ${badge.name}`}
-      />
+      }}>
+        <img
+          className="w-full relative side-cover"
+          src={badge.url_cover}
+          alt={`Badge de ${badge.region}`}
+        />
+        <img
+          className="w-full absolute top-0"
+          src={badge.url}
+          alt={`Badge de ${badge.name}`}
+        />
+      </div>
+      <p className="text-2xl mb-4 font-bold text-center">{side ? badge.region : badge.name}</p>
+      <p className="text-m w-90 text-center">{side ? badge.description_region : badge.description}</p>
     </div>
   );
 };

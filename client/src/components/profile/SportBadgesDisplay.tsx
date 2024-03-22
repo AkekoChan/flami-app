@@ -26,8 +26,6 @@ const SportBadgesDisplay = ({ badges }: { badges: Badge[] | undefined }) => {
             className="text-3xl text-alabaster-50 cursor-pointer px-2 py-1 hover:bg-alabaster-300/20 rounded-xl ease-out duration-100 place-self-end"
           />
           <BadgeDisplay badge={infoBadge}></BadgeDisplay>
-          <p className="text-2xl font-bold text-center">{infoBadge.name}</p>
-          <p className="text-sm text-center">{infoBadge.description}</p>
         </section>
       ) : (
         <section className="w-full flex flex-col gap-4">

@@ -67,15 +67,15 @@ const Map = ({
 
   return (
     <div className="h-96 rounded-2xl overflow-hidden relative">
-      { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
+      { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
         setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
       }}>
-        <SearchIcon role="decoration"/> Etape actuelle
+        <SearchIcon className="mr-1" role="decoration"/> Etape actuelle
       </Button>) : null }
       { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
         setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
       }}>
-        <SearchIcon role="decoration"/> Mon Flami
+        <SearchIcon className="mr-1" role="decoration"/> Mon Flami
       </Button>) : null }
       <MapContainer
         center={geolocalisation}
@@ -114,7 +114,7 @@ const Map = ({
                 <p>{marker.ville}</p>
                 {
                   currentStep && currentStep?.etape_numero === marker.etape_numero ? (
-                    <Button onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etapes_${marker.ville.toLowerCase()}`, false, "GET", undefined, token).then(res => {
+                    <Button onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etape_${marker.etape_numero}`, false, "GET", undefined, token).then(res => {
                       toast.success(`${res.data.message}`, {
                         style: {
                           background: "#3D3D3D",
