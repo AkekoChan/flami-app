@@ -14,7 +14,7 @@ if (process.env.ENVIRONMENT == "dev") {
   store = new ExpressBrute.MemoryStore(); // stores state locally, don't use this in production
 } else {
   // stores state with memcached
-  store = new MemcachedStore(["127.0.0.1"], {
+  store = new MemcachedStore(["127.0.0.1:11211"], {
     prefix: "NoConflicts",
   });
 }
@@ -38,21 +38,21 @@ let handleStoreError = function (error) {
 };
 
 let bruteforce = new ExpressBrute(store, {
-  freeRetries: 1000,
+  freeRetries: 5,
   minWait: 5 * 60 * 1000, // 5 minutes
   maxWait: 10 * 60 * 1000, // 1 hour,
   failCallback: failCallback,
   handleStoreError: handleStoreError,
 });
 
-router.post("/signin", bruteforce.prevent, authController.signin);
-router.post("/signup", bruteforce.prevent, authController.signup);
+router.post("/signin", authController.signin);
+router.post("/signup", authController.signup);
 
 router.get("/token", auth.require, authController.token);
 
-router.post("/send-otp", bruteforce.prevent, otpController.sendOTP);
-router.post("/verify-otp", bruteforce.prevent, otpController.verifyOTP);
-router.post("/forget-password", bruteforce.prevent, forgetPasswordController.forgetPassword);
-router.post("/reset-password/:token", bruteforce.prevent, forgetPasswordController.resetPassword);
+router.post("/send-otp", otpController.sendOTP);
+router.post("/verify-otp", otpController.verifyOTP);
+router.post("/forget-password", forgetPasswordController.forgetPassword);
+router.post("/reset-password/:token", forgetPasswordController.resetPassword);
 
 export default router;

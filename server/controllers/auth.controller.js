@@ -112,7 +112,7 @@ const authController = {
 
       if (isValid) {
         let token = auth.encode({ email: user.email });
-        req.brute.reset(); // reset brute counter
+        // req.brute.reset();
         return res.status(200).json({
           data: {
             message: "Bienvenue sur l'application Flami !",

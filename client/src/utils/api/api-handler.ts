@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 
 type HTTPMethod = "GET" | "POST" | "PATCH";
 
-const apiURLFlami = "http://localhost:3001/api";
+const apiURLFlami = "https://flami-api.onrender.com/api";
 const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
 
 export const APIHandler = <T>(
@@ -47,8 +47,8 @@ export const APIHandler = <T>(
             },
           });
         });
-        
-        if(res.status === 401) {
+
+        if (res.status === 401) {
           localStorage.clear();
           window.location.pathname = "/sign-in";
         }
