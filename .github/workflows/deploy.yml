@@ -31,7 +31,7 @@ jobs:
           npm run build
 
       - name: 📂 Sync files
-        uses: AkekoChan/flami-app@v1
+        uses: AkekoChan/flami-app@v1.0.0
         with:
           server: ${{ secrets.GIT_CPANEL_SERVER }}
           username: ${{ secrets.GIT_CPANEL_USER }}
