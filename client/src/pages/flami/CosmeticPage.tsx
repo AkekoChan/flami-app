@@ -13,6 +13,7 @@ import back from "../../../public/assets/img/icons/bag.svg";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();
@@ -21,6 +22,12 @@ const CosmeticPage = () => {
   const { token } = useAuth();
   const [displayIndex, setDisplayIndex] = useState(0);
   const [displayIcon, setDisplayIcon] = useState(head);
+
+  const Variants = {
+    hidden: { opacity: 0, scale: 0.5 },
+    shown: { opacity: 0.5, scale: 1, filter: "grayscale(75%)" },
+    owned: { opacity: 1, scale: 1 },
+  };
 
   const getFlami = useCallback(() => {
     APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
@@ -116,7 +123,7 @@ const CosmeticPage = () => {
         setDisplayIcon(head);
         break;
     }
-  }, [displayIndex]);
+  }, [displayIndex, setDisplayIcon]);
 
   const selectDisplayCosmetics = useCallback(() => {
     switch (displayIndex) {
@@ -199,25 +206,31 @@ const CosmeticPage = () => {
           cosmetic &&
           flami?.cosmetics.findIndex((item) => item.id === cosmetic.id) ===
             -1 ? (
-            <Button
+            <motion.button
+              variants={Variants}
+              initial="hidden"
+              animate="owned"
               key={index}
-              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
+              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
               onClick={() => {
                 changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
-              <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
-            </Button>
+              <img className="" src={cosmetic.url} alt={cosmetic.name} />
+            </motion.button>
           ) : (
-            <Button
+            <motion.button
+              variants={Variants}
+              initial="hidden"
+              animate="owned"
               key={index}
-              className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
+              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
               onClick={() => {
                 changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
-            </Button>
+            </motion.button>
           )
         )}
       </div>
