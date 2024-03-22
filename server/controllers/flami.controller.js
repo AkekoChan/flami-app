@@ -116,7 +116,7 @@ const flamiController = {
             ]
         })
         
-        if(sharer_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
+        if(user_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
 
         await flamitradeModel.create({
             owners: {
