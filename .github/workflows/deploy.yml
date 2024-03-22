@@ -23,13 +23,11 @@ jobs:
           npm install
           npm run build
 
-      - name: 🔨 Build BackEnd
-        run: |
-          cd server
-          npm install
-          npm run start
-
       - name: 📁 Sync File
       uses: AkekoChan/flami-app
       with:
-      server:
+        server: ${{ secrets.GIT_CPANEL_SERVER }}
+        username: ${{ secrets.GIT_CPANEL_USER }}
+        password: ${{ secrets.GIT_CPANEL_PWD }}
+        protocol: ${{ secrets.GIT_CPANEL_PROTOCOL }}
+        local-dir: ./build/
