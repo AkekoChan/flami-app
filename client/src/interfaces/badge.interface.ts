@@ -6,8 +6,9 @@ export interface Badges {
 export interface Badge {
   name: string;
   url: string;
-  url_cover: string;
+  url_cover?: string;
   description: string;
+  description_region?: string;
   owned?: boolean;
   region?: string;
 }
