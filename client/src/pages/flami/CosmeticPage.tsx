@@ -12,6 +12,7 @@ import feet from "../../../public/assets/img/icons/shoes.svg";
 import back from "../../../public/assets/img/icons/bag.svg";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
+import toast from "react-hot-toast";
 
 const CosmeticPage = () => {
   const [flami, setFlami] = useState<Flami>();
@@ -42,18 +43,45 @@ const CosmeticPage = () => {
   }, [token]);
 
   const changeCosmetic = useCallback(
-    (id: string) => {
-      APIHandler<FlamiData>(
-        "/my/flami/equip",
-        false,
-        "PATCH",
-        { cosmetic_id: id },
-        token
-      ).then((res) => {
-        setFlami(res.data.my_flami);
-      });
+    (id: string, category: string) => {
+      if (
+        flami?.cosmetics.findIndex((item) => item.category === category) === -1
+      ) {
+        APIHandler<FlamiData>(
+          "/my/flami/equip",
+          false,
+          "PATCH",
+          { cosmetic_id: id },
+          token
+        ).then((res) => {
+          setFlami(res.data.my_flami);
+        });
+      } else {
+        if (flami?.cosmetics.findIndex((item) => item.id === id) === -1) {
+          toast.error(
+            "Impossible d'équiper plusieures cosmétiques du même type.",
+            {
+              style: {
+                background: "#3D3D3D",
+                color: "#FAFAFA",
+                borderRadius: "12px",
+              },
+            }
+          );
+        } else {
+          APIHandler<FlamiData>(
+            "/my/flami/equip",
+            false,
+            "PATCH",
+            { cosmetic_id: id },
+            token
+          ).then((res) => {
+            setFlami(res.data.my_flami);
+          });
+        }
+      }
     },
-    [token]
+    [token, flami]
   );
 
   const selectIconDisplay = useCallback(() => {
@@ -109,9 +137,9 @@ const CosmeticPage = () => {
     getCosmetics();
   }, [getFlami, getCosmetics]);
 
-  console.log(displayIndex);
-  console.log(displayCosmetic);
-  console.log(displayIcon);
+  // console.log(displayIndex);
+  // console.log(displayCosmetic);
+  // console.log(displayIcon);
 
   return (
     <section className="flex flex-col gap-6 mb-24">
@@ -163,7 +191,7 @@ const CosmeticPage = () => {
               key={index}
               className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
               onClick={() => {
-                changeCosmetic(cosmetic.id);
+                changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
@@ -173,7 +201,7 @@ const CosmeticPage = () => {
               key={index}
               className="flex gap-2 items-center flex-col py-6 px-4 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
               onClick={() => {
-                changeCosmetic(cosmetic.id);
+                changeCosmetic(cosmetic.id, cosmetic.category);
               }}
             >
               <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
