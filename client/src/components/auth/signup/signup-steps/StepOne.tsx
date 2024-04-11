@@ -120,7 +120,7 @@ const StepOne = ({
               type="submit"
               disabled={clickedIndex === -1}
             >
-              Continuer
+              Continue
             </Button>
           </div>
         </Reveal>

@@ -191,7 +191,7 @@ const ResetPasswordForm = () => {
             type="submit"
             disabled={!(isValid && dirty)}
           >
-            Envoyer
+            Confirme la réinitialisation
           </Button>
         </Form>
       )}

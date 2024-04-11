@@ -74,7 +74,7 @@ const ScanPage = () => {
 
   return (
     <div className="flex flex-col gap-8">
-      <TopBar title="Scanner un QR code" hasReturn={true} prevPage="/share" />
+      <TopBar title="Scanne un QR code" hasReturn={true} prevPage="/share" />
       <QrReader
         style={{
           objectFit: "cover",
@@ -91,7 +91,7 @@ const ScanPage = () => {
         onError={(error) => console.error(error)}
       />
       <span className="text-alabaster-50">
-        Centrez le QR code de votre ami dans le carré et attendez qu'il soit
+        Centre le QR code de ton ami dans le carré et attends qu'il soit
         détecté.
       </span>
     </div>

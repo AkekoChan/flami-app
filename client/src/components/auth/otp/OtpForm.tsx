@@ -107,10 +107,10 @@ const OtpForm = () => {
             type="submit"
             disabled={!(formik.isValid && formik.dirty)}
           >
-            Valider
+            Valide le code
           </Button>
           <Button variant="tertiary" type="button" onClick={handleResendOtp}>
-            Renvoyer code de validation
+            Reçois un nouveau code
           </Button>
         </div>
       </div>

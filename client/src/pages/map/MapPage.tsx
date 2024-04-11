@@ -118,14 +118,14 @@ const MapPage = () => {
         />
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
-            <h2 className="text-2xl font-bold">Où est la flamme?</h2>
+            <h2 className="text-2xl font-bold">Où est la flamme ?</h2>
             <FlameLocation
               currentFlameLocation={currentFlameLocation}
               nextFlameLocation={nextFlameLocation}
             />
           </div>
           <div className="flex flex-col gap-4">
-            <h2 className="text-2xl font-bold">Où est mon Flami?</h2>
+            <h2 className="text-2xl font-bold">Où est ton Flami ?</h2>
             {flamiLocation !== null ? (
               <FlamiLocation location={flamiLocation} />
             ) : (

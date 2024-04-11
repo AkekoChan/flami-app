@@ -33,11 +33,11 @@ const FlamiPage = () => {
 
   return (
     <div className="flex flex-col gap-8 mb-24">
-      <TopBar title="Mon Flami" hasReturn={false} prevPage="" />
+      <TopBar title="Ton Flami" hasReturn={false} prevPage="" />
       { flami ? <FlamiDisplay flami={flami} /> : null }
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
-          <h2 className="text-2xl font-bold">Mes activités</h2>
+          <h2 className="text-2xl font-bold">Tes activités</h2>
           <div className="grid grid-cols-2 grid-rows-2 gap-y-3 gap-x-2">
             <Button
               onClick={() => navigate("/cosmetics")}
@@ -64,7 +64,7 @@ const FlamiPage = () => {
             <Button
               onClick={() => {
                 if(!flami?.my_flami) return;
-                let level = flami.my_flami.stats.speed < 3 ? 'bronze' : flami.my_flami.stats.speed > 7 ? 'or' : 'argent';
+                const level = flami.my_flami.stats.speed < 3 ? 'bronze' : flami.my_flami.stats.speed > 7 ? 'or' : 'argent';
                 APIHandler<GenericResponse>(
                   `/misc/g/badge/sport_course_${level}`,
                   false,

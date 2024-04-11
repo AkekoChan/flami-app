@@ -74,7 +74,7 @@ const ForgetPasswordForm = () => {
             type="submit"
             disabled={!(isValid && dirty)}
           >
-            Envoyer
+            Reçois ton lien
           </Button>
         </Form>
       )}

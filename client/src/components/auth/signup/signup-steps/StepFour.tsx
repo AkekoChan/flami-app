@@ -300,7 +300,7 @@ const StepFour = ({
                   type="submit"
                   disabled={!(isValid && dirty)}
                 >
-                  Terminer l'inscription
+                  Termine ton inscription
                 </Button>
               </div>
             </div>

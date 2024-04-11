@@ -77,7 +77,7 @@ const Map = ({
       { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
         setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
       }}>
-        <SearchIcon className="mr-1" role="decoration"/> Mon Flami
+        <SearchIcon className="mr-1" role="decoration"/> Ton Flami
       </Button>) : null }
 
       <MapContainer
@@ -126,7 +126,7 @@ const Map = ({
                         },
                       });
                     })}>
-                      Récupérer le badge
+                      Récupère le badge
                     </Button>
                     ) : null
                   }

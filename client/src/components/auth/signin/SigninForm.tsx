@@ -127,10 +127,10 @@ const SigninForm = () => {
               type="submit"
               disabled={!(isValid && dirty)}
             >
-              Se connecter
+              Connecte-toi
             </Button>
             <LinkComponent variant={"secondary"} to="/sign-up">
-              Se créer un compte
+              Crée ton compte
             </LinkComponent>
             <p className="text-center">
               Tu as oublié ton mot de passe ?{" "}

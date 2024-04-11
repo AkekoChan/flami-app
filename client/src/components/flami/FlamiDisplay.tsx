@@ -21,7 +21,7 @@ const FlamiDisplay = ({ flami }: { flami: FlamiData }) => {
         type="button"
         onClick={() => navigate("/share")}
       >
-        Partager
+        Partage Flami
       </Button>
     </div>
   );

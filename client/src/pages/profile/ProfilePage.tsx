@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
   return (
     <div className="flex flex-col gap-8 mb-24">
-      <TopBar title="Mon profil" hasReturn={false} prevPage="" />
+      <TopBar title="Ton profil" hasReturn={false} prevPage="" />
       <div className="flex flex-col gap-6">
         {user && (
           <div className="flex flex-col gap-2">
@@ -39,15 +39,15 @@ const ProfilePage = () => {
         )}
         <div className="flex flex-col gap-2">
           <LinkComponent variant={"primary"} to={"/account"}>
-            Modifier mon compte
+            Modifie ton compte
           </LinkComponent>
           <Button variant={"tertiary"} onClick={signout}>
-            Se déconnecter
+            Déconnecte-toi
           </Button>
         </div>
       </div>
       <div className="flex flex-col gap-6">
-        <h3 className="text-2xl font-bold">Mes badges</h3>
+        <h3 className="text-2xl font-bold">Tes badges</h3>
         <div className="grid grid-cols-3 items-center">
           {user && user.badges?.length !== 0 ? (
             user.badges?.map((badge: Badge) => (
@@ -64,7 +64,7 @@ const ProfilePage = () => {
           )}
         </div>
         <LinkComponent to={"/badges"} variant={"primary"}>
-          Voir tous mes badges
+          Vois tous tes badges
         </LinkComponent>
       </div>
     </div>

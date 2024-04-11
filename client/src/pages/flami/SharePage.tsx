@@ -42,7 +42,7 @@ const SharePage = () => {
 
   return (
     <div className="flex flex-col gap-8 mb-24">
-      <TopBar title="Partager Flami" hasReturn={true} prevPage="/" />
+      <TopBar title="Partage Flami" hasReturn={true} prevPage="/" />
       <div className="flex flex-col gap-8">
         {flami ? (
           <MyFlamiDisplay
@@ -55,7 +55,7 @@ const SharePage = () => {
             {flami?.kept_flami ? (
               <>
                 <span>
-                  Relaie le{" "}
+                  Partage le{" "}
                   <span className="text-2xl text-tree-poppy-500">
                     {flami?.kept_flami.name}
                   </span>
@@ -95,7 +95,7 @@ const SharePage = () => {
             type="button"
             onClick={() => navigate("/share/scan")}
           >
-            Scanner le QR code d'un ami
+            Scanne le QR code d'un ami
           </Button>
         </div>
       </div>

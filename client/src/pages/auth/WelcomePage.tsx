@@ -24,11 +24,11 @@ const WelcomePage = () => {
       </div>
       <div className="flex flex-col gap-4">
         <LinkComponent variant={"primary"} to="/sign-up">
-          Créer son compte
+          Crée ton compte
         </LinkComponent>
         {canInstall || !isInstalled ? (
           <Button variant={"secondary"} onClick={handleInstallPrompt}>
-            Télécharger l'application
+            Télécharge l'application
           </Button>
         ) : (
           ""
