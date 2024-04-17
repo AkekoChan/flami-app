@@ -1,15 +1,15 @@
 import { useCallback, useEffect, useState } from "react";
-import { AuthContext, AuthContextType } from "./authContext";
-import { SignupBody } from "../../interfaces/api-body/signup-body";
-import { APIHandler } from "../../utils/api/api-handler";
-import { AuthResponse } from "../../interfaces/api-response/auth-reponse";
-import { useNavigate } from "react-router";
-import { GenericResponse } from "../../interfaces/api-response/generic-response";
 import toast from "react-hot-toast";
-import { User } from "../../interfaces/user.interface";
+import { useNavigate } from "react-router";
 import { SigninBody } from "../../interfaces/api-body/signin-body";
-import { RefreshTokenResponse } from "../../interfaces/api-response/refresh-token-response";
+import { SignupBody } from "../../interfaces/api-body/signup-body";
+import { AuthResponse } from "../../interfaces/api-response/auth-reponse";
 import { ErrorResponse } from "../../interfaces/api-response/error-response";
+import { GenericResponse } from "../../interfaces/api-response/generic-response";
+import { RefreshTokenResponse } from "../../interfaces/api-response/refresh-token-response";
+import { User } from "../../interfaces/user.interface";
+import { APIHandler } from "../../utils/api/api-handler";
+import { AuthContext, AuthContextType } from "./authContext";
 
 interface AuthContextProviderInterface {
   children: React.ReactNode;
@@ -84,7 +84,7 @@ export const AuthContextProvider = ({
         if (data.error) {
           setToken(null);
           localStorage.clear();
-          navigate("/sign-in");
+          // navigate("/sign-in");
         }
       });
   };

@@ -3,9 +3,9 @@ import { useState } from "react";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { Button, LinkComponent } from "../../ui";
-import { SigninBody } from "../../../interfaces/api-body/signin-body";
 import { useAuth } from "../../../hooks/useAuth";
+import { SigninBody } from "../../../interfaces/api-body/signin-body";
+import { Button, LinkComponent } from "../../ui";
 
 const SigninForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -22,7 +22,7 @@ const SigninForm = () => {
           .trim(),
         password: Yup.string()
           .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
             "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
           )
           .required("Le mot de passe est obligatoire.")

@@ -15,9 +15,10 @@ const ThanksPage = () => {
         </p>
         <ul className="max-w-md space-y-1 text-alabaster-400 list-disc list-inside ps-4">
           <li>Mme Chaulet</li>
+          <li>M. Bariet</li>
+          <li>M. Burn</li>
           <li>Mme Delayre</li>
           <li>M. Gaillard</li>
-          <li>M. Bariet</li>
           <li>M. Bachir</li>
         </ul>
         <p className="text-lg text-alabaster-50">

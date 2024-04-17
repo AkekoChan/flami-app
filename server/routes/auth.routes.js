@@ -1,10 +1,10 @@
 import Router from "express";
-import authController from "../controllers/auth.controller.js";
-import forgetPasswordController from "../controllers/forgetPassword.controller.js";
-import auth from "../helpers/authMiddleware.js";
-import otpController from "../controllers/otp.controller.js";
 import ExpressBrute from "express-brute";
 import MemcachedStore from "express-brute-memcached";
+import authController from "../controllers/auth.controller.js";
+import forgetPasswordController from "../controllers/forgetPassword.controller.js";
+import otpController from "../controllers/otp.controller.js";
+import auth from "../helpers/authMiddleware.js";
 
 const router = Router();
 

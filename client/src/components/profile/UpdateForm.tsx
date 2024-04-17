@@ -1,22 +1,22 @@
 import { Field, Form, Formik } from "formik";
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
+import { useNavigate } from "react-router";
 import * as Yup from "yup";
-import { Button } from "../ui";
 import { useAuth } from "../../hooks/useAuth";
-import { User } from "../../interfaces/user.interface";
-import { APIHandler } from "../../utils/api/api-handler";
 import { UpdateAccountBody } from "../../interfaces/api-body/update-account-body";
 import { AuthResponse } from "../../interfaces/api-response/auth-reponse";
-import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
+import { User } from "../../interfaces/user.interface";
+import { APIHandler } from "../../utils/api/api-handler";
+import { Button } from "../ui";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().trim(),
   email: Yup.string().email("Le format de l'e-mail est incorrect.").trim(),
   password: Yup.string()
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
       "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
     )
     .trim(),

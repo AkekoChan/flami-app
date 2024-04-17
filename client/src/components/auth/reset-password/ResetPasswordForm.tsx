@@ -1,15 +1,15 @@
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
-import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
-import * as Yup from "yup";
-import { Button } from "../../ui";
-import { useLocation } from "react-router-dom";
-import { APIHandler } from "../../../utils/api/api-handler";
-import { ResetPasswordBody } from "../../../interfaces/api-body/reset-password-body";
-import { ResetPasswordResponse } from "../../../interfaces/api-response/reset-password-response";
 import toast from "react-hot-toast";
+import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
+import { useLocation } from "react-router-dom";
+import * as Yup from "yup";
 import { useAuth } from "../../../hooks/useAuth";
+import { ResetPasswordBody } from "../../../interfaces/api-body/reset-password-body";
 import { SigninBody } from "../../../interfaces/api-body/signin-body";
+import { ResetPasswordResponse } from "../../../interfaces/api-response/reset-password-response";
+import { APIHandler } from "../../../utils/api/api-handler";
+import { Button } from "../../ui";
 
 interface FormValues {
   password: string;
@@ -63,7 +63,7 @@ const ResetPasswordForm = () => {
         password: Yup.string()
           .required("Le mot de passe est obligatoire.")
           .matches(
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+            /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
             "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
           )
           .trim(),

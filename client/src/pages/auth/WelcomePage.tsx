@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import { Button, LinkComponent } from "../../components/ui";
 import { usePwa } from "@dotmind/react-use-pwa";
 import { useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Button, LinkComponent } from "../../components/ui";
 
 const WelcomePage = () => {
   const { installPrompt, isInstalled, canInstall } = usePwa();
@@ -11,6 +11,8 @@ const WelcomePage = () => {
       installPrompt();
     }
   }, [canInstall, installPrompt]);
+
+  console.log(!isInstalled);
 
   return (
     <section className="flex flex-col justify-center gap-8 h-full">
@@ -26,12 +28,12 @@ const WelcomePage = () => {
         <LinkComponent variant={"primary"} to="/sign-up">
           Crée ton compte
         </LinkComponent>
-        {canInstall || !isInstalled ? (
+        {isInstalled ? (
+          ""
+        ) : (
           <Button variant={"secondary"} onClick={handleInstallPrompt}>
             Télécharge l'application
           </Button>
-        ) : (
-          ""
         )}
 
         <p className="text-center">

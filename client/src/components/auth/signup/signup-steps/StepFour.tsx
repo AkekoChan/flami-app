@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { ArrowLeftIcon, EyeIcon, EyeSlashIcon } from "react-line-awesome";
 import * as Yup from "yup";
-import { Button, Reveal } from "../../../ui";
-import { SignupBody } from "../../../../interfaces/api-body/signup-body";
 import { useAuth } from "../../../../hooks/useAuth";
+import { SignupBody } from "../../../../interfaces/api-body/signup-body";
+import { Button, Reveal } from "../../../ui";
 
 const lastStepValidationSchema = Yup.object().shape({
   name: Yup.string().required("Le nom est obligatoire.").trim(),
@@ -16,7 +16,7 @@ const lastStepValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Le mot de passe est obligatoire.")
     .matches(
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
       "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
     )
     .trim(),

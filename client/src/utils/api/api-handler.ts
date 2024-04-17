@@ -1,10 +1,11 @@
+import toast from "react-hot-toast";
 import { ApiResponse } from "../../interfaces/api-response/api-response";
 import { ErrorResponse } from "../../interfaces/api-response/error-response";
-import toast from "react-hot-toast";
 
 type HTTPMethod = "GET" | "POST" | "PATCH";
 
-const apiURLFlami = "https://flami-api.onrender.com/api";
+// const apiURLFlami = "https://flami-api.onrender.com/api";
+const apiURLFlami = "http://localhost:3001/api";
 const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
 
 export const APIHandler = <T>(

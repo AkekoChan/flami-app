@@ -2,8 +2,8 @@ import { Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "react-line-awesome";
-import { Button, Reveal } from "../../../ui";
 import { SignupBody } from "../../../../interfaces/api-body/signup-body";
+import { Button, Reveal } from "../../../ui";
 
 const choices = {
   fav_sport: [

@@ -3,8 +3,9 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "react-line-awesome";
 import { useNavigate } from "react-router";
-import { Button, Reveal } from "../../../ui";
 import { SignupBody } from "../../../../interfaces/api-body/signup-body";
+import Tooltip from "../../../tooltip/Tooltip";
+import { Button, Reveal } from "../../../ui";
 
 const choices = {
   fav_sport: [
@@ -89,6 +90,10 @@ const StepOne = ({
             Quel est ton sport préféré ?
           </h1>
           <div className="flex flex-col gap-6">
+            <Tooltip
+              text="En choisissant un sport parmi cette liste, 
+          tu recevras une cosmétique spéciale."
+            />
             <ul className="grid grid-cols-2 gap-x-2 gap-y-4">
               {choices.fav_sport.map((choice, index) => (
                 <li key={index}>
