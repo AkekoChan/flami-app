@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
-import { NavLink } from "../ui";
 import { useTheme } from "../../hooks/useTheme";
+import { NavLink } from "../ui";
 
 const Navigation = () => {
   const location = useLocation();
@@ -19,6 +19,7 @@ const Navigation = () => {
             <NavLink
               to="/profile"
               aria-label="Page du profil"
+              id="profile"
               className={`${
                 currentLocation === "profile"
                   ? "border-3 border-tree-poppy-500 bg-tree-poppy-500/20 transition-none"
@@ -45,6 +46,7 @@ const Navigation = () => {
             <NavLink
               to="/map"
               aria-label="Page du parcours"
+              id="map"
               className={`${
                 currentLocation === "map"
                   ? "border-3 border-tree-poppy-500 bg-tree-poppy-500/20 transition-none"

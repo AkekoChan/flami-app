@@ -1,10 +1,16 @@
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Flami } from "../../interfaces/flami.interface";
 
-const MyFlamiDisplay = ({ myFlami, animation = "Idle" }: { myFlami: Flami, animation: string }) => {
+const MyFlamiDisplay = ({
+  myFlami,
+  animation = "Idle",
+}: {
+  myFlami: Flami;
+  animation: string;
+}) => {
   return (
     <div className="flex justify-around relative">
-      <div className="relative">
+      <div className="relative" id="your-flami">
         <img
           loading="lazy"
           src={`/assets/img/animations/${animation}Anim.gif`}

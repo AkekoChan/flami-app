@@ -96,7 +96,7 @@ main .leaflet-popup {
 }
 
 .badge-cover {
-  transition: 1s cubic-bezier(.62,-0.02,0,1.08);
+  transition: 1s cubic-bezier(0.62, -0.02, 0, 1.08);
   transform: rotateY(0deg);
   transform-style: preserve-3d;
   user-select: none;
@@ -121,4 +121,73 @@ main .leaflet-popup {
   100% {
     transform: translateX(-300%);
   }
+}
+
+/* .driver-popover-arrow {
+  border: 5px solid #656565;
+} */
+
+.driver-popover {
+  color: #fafafa;
+  background-color: #656565;
+  border-radius: 0.75rem;
+}
+
+.driver-popover .driver-popover-title {
+  font-size: 1.25rem;
+}
+
+.driver-popover .driver-popover-title,
+.driver-popover .driver-popover-description,
+.driver-popover .driver-popover-progress-text {
+  color: #fafafa;
+}
+
+.driver-popover button {
+  flex: 1;
+  text-align: center;
+  background-color: #ff9900;
+  color: #292929;
+  border: 2px solid #ff9900;
+  text-shadow: none;
+  font-size: 14px;
+  padding: 0.5rem 0.75rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 0.75rem;
+}
+
+.driver-popover button:hover {
+  filter: brightness(90%);
+  background-color: #ff9900;
+}
+
+.driver-popover button:focus {
+  background-color: #ffbd1b;
+  border: 2px solid #ffbd1b;
+}
+
+.driver-popover .driver-popover-navigation-btns {
+  justify-content: space-between;
+  gap: 3px;
+}
+
+.driver-popover .driver-popover-close-btn {
+  display: none !important;
+}
+
+.driver-popover .driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: #656565;
+}
+
+.driver-popover .driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: #656565;
+}
+
+.driver-popover .driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: #656565;
+}
+
+.driver-popover .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-bottom-color: #656565;
 }
