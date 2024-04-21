@@ -21,10 +21,6 @@ const SigninForm = () => {
           .required("L'e-mail est obligatoire.")
           .trim(),
         password: Yup.string()
-          .matches(
-            /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
-            "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
-          )
           .required("Le mot de passe est obligatoire.")
           .trim(),
       })}
