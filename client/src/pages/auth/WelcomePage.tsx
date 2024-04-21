@@ -12,11 +12,14 @@ const WelcomePage = () => {
     }
   }, [canInstall, installPrompt]);
 
-  console.log(!isInstalled);
-
   return (
     <section className="flex flex-col justify-center gap-8 h-full">
       <div className="flex flex-col gap-4">
+        <img
+          src="/assets/img/animations/CoucouAnim.gif"
+          className="relative z-10 w-full max-h-60 object-cover"
+          alt="Flami qui te dit bonjour avec sa main."
+        />
         <h1 className="text-2xl font-bold text-center">
           Bienvenue à toi sur Flami !
         </h1>

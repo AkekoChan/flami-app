@@ -2,8 +2,8 @@ import { Form, Formik } from "formik";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "react-line-awesome";
-import { Button, Reveal } from "../../../ui";
 import { SignupBody } from "../../../../interfaces/api-body/signup-body";
+import { Button, Reveal } from "../../../ui";
 
 const choices = {
   fav_sport: [
@@ -87,6 +87,11 @@ const StepThree = ({
           </div>
         </div>
         <Reveal className="flex flex-col gap-8">
+          <img
+            src="/assets/img/animations/ThinkAnim.gif"
+            className="relative z-10 w-full max-h-60 object-cover"
+            alt="Flami qui te dit bonjour avec sa main."
+          />
           <h1 className="text-2xl font-bold text-center">
             Que veux-tu faire sur l'application ?
           </h1>
