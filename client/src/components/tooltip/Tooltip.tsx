@@ -15,7 +15,7 @@ const Tooltip = ({ text }: { text: string }) => {
         onBlur={() => setShowTooltip(false)}
         aria-describedby="tooltip"
       >
-        ?
+        ?<span className="sr-only">Besoin d'aide ?</span>
       </div>
       {showTooltip && (
         <span

@@ -4,7 +4,7 @@ import { Button } from "../../components/ui";
 import { FlamiData } from "../../interfaces/flami.interface";
 import FlamiShow from "./FlamiShow";
 
-const driverObj = driver({
+const driver1 = driver({
   nextBtnText: "Suivant",
   prevBtnText: "Précédant",
   doneBtnText: "Terminé",
@@ -69,7 +69,7 @@ const FlamiDisplay = ({ flami }: { flami: FlamiData }) => {
       <Button
         variant={"secondary"}
         type="button"
-        onClick={() => driverObj.drive()}
+        onClick={() => driver1.drive()}
       >
         Besoin d'aide ?
       </Button>
