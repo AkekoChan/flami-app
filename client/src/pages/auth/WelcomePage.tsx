@@ -17,7 +17,7 @@ const WelcomePage = () => {
       <div className="flex flex-col gap-4">
         <img
           src="/assets/img/animations/CoucouAnim.gif"
-          className="relative z-10 w-full max-h-60 object-cover"
+          className="w-full max-h-60 object-contain"
           alt="Flami qui te dit bonjour avec sa main."
         />
         <h1 className="text-2xl font-bold text-center">
