@@ -12,37 +12,6 @@ import { useTheme } from "../../hooks/useTheme";
 import { FlamiData } from "../../interfaces/flami.interface";
 import { APIHandler } from "../../utils/api/api-handler";
 
-const driver2 = driver({
-  nextBtnText: "Suivant",
-  prevBtnText: "Précédant",
-  doneBtnText: "Terminé",
-  steps: [
-    {
-      popover: {
-        title: "Comment partager un Flami ?",
-        description:
-          "Avant d'effectuer un échange, assure-toi d'avoir bien accepté la géolocalisation et l'usage de la caméra. Sans cela, tu ne pourras pas effectuer d'échange.",
-      },
-    },
-    {
-      element: ".share-qrcode",
-      popover: {
-        title: "Partager, c'est simple !",
-        description:
-          "Voici ton QR Code d'échange ! Lors de ton premier échange, c'est ton Flami qui sera échangé et tu recevras celui de ton ami. Ensuite, tu pourras partager ce nouveau Flami avec quelqu'un d'autre et en recevoir un nouveau en échange. Partager son QR Code est on ne peut plus simple, découvre comment à l'étape suivante !",
-      },
-    },
-    {
-      element: ".share-btn",
-      popover: {
-        title: `Scanner, c'est la clé !`,
-        description:
-          "Pour échanger des Flamis, rien de plus simple ! Il suffit que toi ou ton ami avec qui tu souhaites partager ton Flami cliquiez sur ce bouton et accediez au scan du QR Code.",
-      },
-    },
-  ],
-});
-
 const SharePage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
@@ -58,6 +27,37 @@ const SharePage = () => {
       }
     );
   }, [token]);
+
+  const driver2 = driver({
+    nextBtnText: "Suivant",
+    prevBtnText: "Précédant",
+    doneBtnText: "Terminé",
+    steps: [
+      {
+        popover: {
+          title: "Comment partager un Flami ?",
+          description:
+            "Avant d'effectuer un échange, assure-toi d'avoir bien accepté la géolocalisation et l'usage de la caméra. Sans cela, tu ne pourras pas effectuer d'échange.",
+        },
+      },
+      {
+        element: ".share-qrcode",
+        popover: {
+          title: "Partager, c'est simple !",
+          description:
+            "Voici ton QR Code d'échange ! Lors de ton premier échange, c'est ton Flami qui sera échangé et tu recevras celui de ton ami. Ensuite, tu pourras partager ce nouveau Flami avec quelqu'un d'autre et en recevoir un nouveau en échange. Partager son QR Code est on ne peut plus simple, découvre comment à l'étape suivante !",
+        },
+      },
+      {
+        element: ".share-btn",
+        popover: {
+          title: `Scanner, c'est la clé !`,
+          description:
+            "Pour échanger des Flamis, rien de plus simple ! Il suffit que toi ou ton ami avec qui tu souhaites partager ton Flami cliquiez sur ce bouton et accediez au scan du QR Code.",
+        },
+      },
+    ],
+  });
 
   useEffect(() => {
     getFlami();
