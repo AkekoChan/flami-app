@@ -33,7 +33,7 @@ router.get("/g/cosmetic/:id", auth.require, async (req, res) => {
     }
 
     await userdata.save();
-    return res.status(201).json({ data: { message: "done" }});
+    return res.status(201).json({ data: { message: "Tu as reçu le cosmetique !" }});
 });
 
 export default router;

@@ -73,7 +73,7 @@ const ScanPage = () => {
   );
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Scanne un QR code" hasReturn={true} prevPage="/share" />
       <QrReader
         style={{

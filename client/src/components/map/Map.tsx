@@ -146,7 +146,7 @@ const Map = ({
           })}
         >
           <Popup>
-            <span className="text-alabaster-50"><b>Ton Flami</b></span>
+            <span className="text-alabaster-50"><b>Ton Flami se trouve ici</b></span>
           </Popup>
         </Marker> : null}
         {flamiTrailPath ? <Polyline pathOptions={{ color: "red", dashArray: "10,25", weight: 2 }} positions={flamiTrailPath} /> : null}

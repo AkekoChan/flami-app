@@ -14,7 +14,7 @@ const Navigation = () => {
       }`}
     >
       <nav>
-        <ul className="grid grid-cols-3 mx-auto w-full">
+        <ul className="grid grid-cols-4 mx-auto w-full">
           <li className="inline-flex items-center justify-center">
             <NavLink
               to="/profile"
@@ -54,6 +54,20 @@ const Navigation = () => {
               }`}
             >
               <img src="/assets/img/icons/map.svg" alt="" />
+            </NavLink>
+          </li>
+          <li className="inline-flex items-center justify-center">
+            <NavLink
+              to="/collection"
+              aria-label="Page de collection des Flamis"
+              id="flamis"
+              className={`${
+                currentLocation === "collection"
+                  ? "border-3 border-tree-poppy-500 bg-tree-poppy-500/20 transition-none"
+                  : ""
+              }`}
+            >
+              <img src="/assets/img/icons/flame_collection.svg" alt="" />
             </NavLink>
           </li>
         </ul>

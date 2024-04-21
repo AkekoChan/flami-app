@@ -46,21 +46,29 @@ const userController = {
   getBadges: async (req, res) => {
     let userdata = res.locals.user;
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
-    let json = JSON.parse(content);
+    let badges = JSON.parse(content);
 
-    let badges = { sport: [], etape: [] }
-
-    Object.values(json).map(item => {
-      userdata.badges.findIndex((badge) => badge.id === item.id) !== -1 ? item.owned = true : item.owned = false;
-      badges[item.type].push(item);
-      return item;
-    })
+    userdata.badges.forEach(badge => {
+      badges[badge.id].owned = true;
+    });
 
     return res.status(200).json({
-      data: {
-        badges_sports: badges["sport"],
-        badges_etapes: badges["etape"]
-      }
+      data: Object.values(badges)
+    });
+  },
+  getBadge: async (req, res) => {
+    let userdata = res.locals.user;
+    let content = await readFile("./data/badges.json", { encoding: "utf8" });
+    let badges = JSON.parse(content);
+    let badge = Object.values(badges).find(badge => badge.id === req.params.badge);
+
+    if(!userdata.badges.find(b => b.id === badge.id)) return res.status(403).json({
+      message: `Tu ne possède pas ce badge.`,
+      error: 403
+    });
+
+    return res.status(200).json({
+      data: badge
     });
   },
   updateAccount: async (req, res) => {

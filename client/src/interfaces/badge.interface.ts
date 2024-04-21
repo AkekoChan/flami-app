@@ -1,8 +1,3 @@
-export interface Badges {
-  badges_sports: Badge[],
-  badges_etapes: Badge[]
-} 
-
 export interface Badge {
   name: string;
   url: string;
@@ -11,4 +6,5 @@ export interface Badge {
   description_region?: string;
   owned?: boolean;
   region?: string;
+  id: string;
 }

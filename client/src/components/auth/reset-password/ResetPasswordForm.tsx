@@ -2,7 +2,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { EyeIcon, EyeSlashIcon } from "react-line-awesome";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import { useAuth } from "../../../hooks/useAuth";
 import { ResetPasswordBody } from "../../../interfaces/api-body/reset-password-body";
@@ -18,7 +18,6 @@ interface FormValues {
 
 const ResetPasswordForm = () => {
   const auth = useAuth();
-  const location = useLocation();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
@@ -27,8 +26,7 @@ const ResetPasswordForm = () => {
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    const pathnameSplit = location.pathname.split("/");
-    const token = pathnameSplit[2];
+    const token = useParams();
     const resetPasswordBody: ResetPasswordBody = {
       password: values.password,
     };

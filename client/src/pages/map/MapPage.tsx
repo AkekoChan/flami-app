@@ -6,8 +6,8 @@ import Map from "../../components/map/Map";
 import FlameLocation from "../../components/map/FlameLocation";
 import FlamiLocation from "../../components/map/FlamiLocation";
 import { useAuth } from "../../hooks/useAuth";
-import { FlamiData } from "../../interfaces/flami.interface";
 import { useTheme } from "../../hooks/useTheme";
+import { Flami } from "../../interfaces/flami.interface";
 
 const MapPage = () => {
   const { token } = useAuth();
@@ -46,25 +46,27 @@ const MapPage = () => {
   };
 
   const getFlamiLocation = useCallback(() => {
-    APIHandler<FlamiData>(
+    APIHandler<Flami[]>(
       "/my/flami?trail",
       false,
       "GET",
       undefined,
       token
     ).then(async (res) => {
+      if(!res.data || !res.data[0]) return;
+      let flami = res.data[0];
       if (
-        !res.data.my_flami?.location?.latitude ||
-        !res.data.my_flami?.location?.longitude
+        !flami.location?.latitude ||
+        !flami.location?.longitude
       ) {
         return setFlamiLocation(null);
       } else {
         setFlamiTrail(
-          res.data.my_flami?.trail?.map((e) => [e.latitude, e.longitude])
+          flami.trail?.map((e) => [e.latitude, e.longitude])
         );
-        setFlamiPosition(res.data.my_flami?.location);
+        setFlamiPosition(flami.location);
         await fetch(
-          `https://api-adresse.data.gouv.fr/reverse/?lat=${res.data.my_flami.location.latitude}&lon=${res.data.my_flami.location.longitude}`
+          `https://api-adresse.data.gouv.fr/reverse/?lat=${flami.location.latitude}&lon=${flami.location.longitude}`
         )
           .then((res) =>
             res.json().then((data) => {

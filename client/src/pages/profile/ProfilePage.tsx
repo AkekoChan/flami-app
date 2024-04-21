@@ -7,11 +7,14 @@ import { User } from "../../interfaces/user.interface";
 import { getReadableDate } from "../../utils/getReadableDate";
 import { Badge } from "../../interfaces/badge.interface";
 import { useTheme } from "../../hooks/useTheme";
+import { useNavigate } from "react-router";
 
 const ProfilePage = () => {
   const { signout, token } = useAuth();
   const { setShowNav } = useTheme();
   const [user, setUser] = useState<User>();
+
+  const navigate = useNavigate();
 
   setShowNav(true);
   const getUser = useCallback(() => {
@@ -54,9 +57,10 @@ const ProfilePage = () => {
               // <BadgeDisplay badge={badge} key={badge.name}></BadgeDisplay>
               <img
                 key={badge.name}
-                className="w-full top-0"
+                className="w-full top-0 cursor-pointer rounded-lg hover:bg-alabaster-800"
                 src={badge.url}
                 alt={`Badge de ${badge.name}`}
+                onClick={() => navigate(`/badge/${badge.id}`)}
               />
             ))
           ) : (

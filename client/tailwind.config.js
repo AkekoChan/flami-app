@@ -92,6 +92,12 @@ export default {
         90: "90%",
         auto: "auto"
       },
+      minWidth: {
+        "1/2": "50%"
+      },
+      minHeight: {
+        "badge": "240px"
+      },
       margin: {
         "auto-h": "auto 0",
         "auto-v": "0 auto"

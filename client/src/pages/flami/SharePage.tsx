@@ -4,26 +4,26 @@ import { useCallback, useEffect, useState } from "react";
 import { useGeolocated } from "react-geolocated";
 import QRCode from "react-qr-code";
 import { useNavigate } from "react-router";
-import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
 import TopBar from "../../components/topbar/TopBar";
 import { Button } from "../../components/ui";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
-import { FlamiData } from "../../interfaces/flami.interface";
+import { Flami } from "../../interfaces/flami.interface";
 import { APIHandler } from "../../utils/api/api-handler";
+import FlamiDisplay from "../../components/flami/FlamiDisplay";
 
 const SharePage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
-  const [flami, setFlami] = useState<FlamiData>();
+  const [flami, setFlami] = useState<Flami>();
   const navigate = useNavigate();
 
   setShowNav(true);
 
   const getFlami = useCallback(() => {
-    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<Flami[]>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
-        setFlami(res.data);
+        setFlami(res.data[1] ?? res.data[0]);
       }
     );
   }, [token]);
@@ -87,28 +87,18 @@ const SharePage = () => {
             ?<span className="sr-only">Besoin d'aide ?</span>
           </button>
           {flami ? (
-            <MyFlamiDisplay
+            <FlamiDisplay
               animation="Idle"
-              myFlami={flami.kept_flami || flami.my_flami}
+              isSelf={true}
+              flami={flami}
             />
           ) : null}
         </div>
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
-            {flami?.kept_flami ? (
-              <>
-                <span>
-                  Partage le{" "}
-                  <span className="text-2xl text-tree-poppy-500">
-                    {flami?.kept_flami.name}
-                  </span>
-                </span>
-              </>
-            ) : (
               <div>
-                <span className="text-tree-poppy-500">Partage ton Flami</span>
+                <span className="text-tree-poppy-500">Partage {flami?.name || "un Flami"}</span>
               </div>
-            )}
             <span>En faisant scanner ce QR code à un ami.</span>
           </div>
           <div
@@ -120,7 +110,7 @@ const SharePage = () => {
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
                 expires: new Date().getTime() + 60 * 1000 * 10,
-                id: flami?.my_flami.owner,
+                id: flami?.owner,
                 location: {
                   latitude: coords?.latitude || null,
                   longitude: coords?.longitude || null,

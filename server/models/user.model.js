@@ -10,7 +10,7 @@ const userSchema = new mongoose.Schema({
   flami_id: {
     type: mongoose.Types.ObjectId
   },
-  kept_flami_id: {
+  traded_flami_id: {
     type: mongoose.Types.ObjectId
   },
   badges: [

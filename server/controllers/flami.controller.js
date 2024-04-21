@@ -8,6 +8,10 @@ const flamiController = {
         let userdata = res.locals.user;
         let cosmetic_id = req.body.cosmetic_id;
         let flami = await flamiModel.findOne({ _id: userdata.flami_id });
+
+        let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+        let json = JSON.parse(content);
+
         if(userdata.owned_cosmetics.findIndex(e => e.id === cosmetic_id) === -1) return res.status(404).json({
             error: 404,
             message: "Tu ne possède pas ce cosmétique."
@@ -20,13 +24,22 @@ const flamiController = {
         }
 
         await flami.save();
-        return flamiController.getFlami(req, res);
+        return res.status(200).json({
+            data: {
+                name: `Ton Flami`,
+                cosmetics: flami.cosmetics.map(item => json[item.id]),
+                _id: flami.id,
+                owner: flami.owner_id,
+            }
+        });
     },
     getFlami: async (req, res) => {
         let userdata = res.locals.user;
         let flami = await flamiModel.findOne({ _id: userdata.flami_id });
-        let kept_flami = userdata.kept_flami_id ? await flamiModel.findOne({ _id: userdata.kept_flami_id }) : null;
+        let traded_flami = userdata.traded_flami_id ? await flamiModel.findOne({ _id: userdata.traded_flami_id }) : null;
         let trade = await flamitradeModel.getLastUserTrade(userdata);
+
+        if(traded_flami) traded_flami.owner_name = (await userModel.findById(traded_flami.owner_id))?.name;
         
         let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
         let json = JSON.parse(content);
@@ -40,25 +53,24 @@ const flamiController = {
         }
 
         return res.status(200).json({
-            data: {
-                my_flami: {
-                    name: flami.name,
-                    stats: flami.stats,
+            data: [
+                {
+                    name: `Ton Flami`,
                     cosmetics: flami.cosmetics.map(item => json[item.id]),
                     location: trade?.flamis_positions.get(flami.id),
                     _id: flami.id,
                     owner: flami.owner_id,
-                    trail: trailing
+                    trail: trailing,
+                    last_trade: trade?.created_at || null
                 },
-                kept_flami: kept_flami ? {
-                    name: kept_flami.name,
-                    cosmetics: kept_flami.cosmetics.map(item => json[item.id]),
-                    location: trade?.flamis_positions.get(kept_flami.id),
-                    _id: kept_flami.id,
-                    owner: kept_flami.owner_id
-                } : null,
-                last_trade_date: trade?.created_at || null
-            }
+                traded_flami ? {
+                    name: `Flami de ${traded_flami.owner_name}`,
+                    cosmetics: traded_flami.cosmetics.map(item => json[item.id]),
+                    location: trade?.flamis_positions.get(traded_flami.id),
+                    _id: traded_flami.id,
+                    owner: traded_flami.owner_id
+                } : null
+            ]
         });
     },
     share: async (req, res) => {
@@ -144,23 +156,6 @@ const flamiController = {
         return res.status(202).json({
             data: {
                 message: `Tu as bien reçu le ${shared_flami.name} !`
-            }
-        });
-    },
-    competition: (req, res) => {
-
-    },
-    training: async (req, res) => {
-        let userdata = res.locals.user;
-        const { worked_stat } = req.body;
-
-        const f = await flamiModel.findOne({ _id: userdata.flami_id });
-        f["stats"][worked_stat]++;
-        f.save();
-
-        return res.status(202).json({
-            data: {
-                message: `Flami a gagner en ${worked_stat} !`
             }
         });
     }

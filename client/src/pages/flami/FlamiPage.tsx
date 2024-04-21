@@ -1,25 +1,26 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "framer-motion";
 import FlamiDisplay from "../../components/flami/FlamiDisplay";
 import TopBar from "../../components/topbar/TopBar";
 import { Button } from "../../components/ui";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
-import { FlamiData } from "../../interfaces/flami.interface";
 import { APIHandler } from "../../utils/api/api-handler";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
+import { Flami } from "../../interfaces/flami.interface";
 
 const FlamiPage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
-  const [flami, setFlami] = useState<FlamiData>();
+  const [flami, setFlami] = useState<Flami[]>();
   const navigate = useNavigate();
 
   setShowNav(true);
 
   const getFlami = useCallback(() => {
-    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<Flami[]>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
         setFlami(res.data);
       }
@@ -44,7 +45,7 @@ const FlamiPage = () => {
         },
       },
       {
-        element: "#share-flami",
+        element: "#shared-flami",
         popover: {
           title: "Partage ton Flami avec le monde !",
           description: `Prépare ton Flami pour une aventure extraordinaire !
@@ -87,10 +88,23 @@ const FlamiPage = () => {
   });
 
   return (
-    <div className="flex flex-col gap-8 mb-24">
+    <div className="flex flex-col mb-24 gap-8">
       <TopBar title="Ton Flami" hasReturn={false} prevPage="" />
-      {flami ? <FlamiDisplay flami={flami} /> : null}
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col">
+        <div className="flex gap-2">
+          {flami
+            ? flami.map((flami, k) =>
+                flami ? (
+                  <FlamiDisplay
+                    isSelf={k === 0}
+                    flami={flami}
+                    animation="Idle"
+                    key={k}
+                  ></FlamiDisplay>
+                ) : null
+              )
+            : null}
+        </div>
         <Button
           variant={"secondary"}
           type="button"
@@ -98,14 +112,33 @@ const FlamiPage = () => {
         >
           Besoin d'aide ?
         </Button>
+      </div>
+      <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-4">
           <h2 className="text-2xl font-bold">Tes activités</h2>
-          <div className="grid grid-rows-2 gap-y-3 grid-cols-1">
+          <div className="flex flex-col w-full gap-y-3 items-center">
+            <span className="w-full">
+              Partage un Flami encore 3 fois pour obtenir une récompense !
+            </span>
+            <div className="w-full bg-alabaster-300 rounded-xl h-4">
+              <motion.div
+                initial={{ width: "0%" }}
+                animate={{
+                  width: `${(3 || 0) * 10}%`,
+                }}
+                className="bg-midnight-moss-500 h-4 rounded-xl relative"
+              >
+                <div className="h-1.5 rounded-xl w-90 absolute top-1 left-1/2 -translate-x-1/2 bg-midnight-moss-400 "></div>
+              </motion.div>
+            </div>
+          </div>
+          <div className="grid grid-rows-2 gap-y-4 grid-cols-1">
             <Button
               disabled={
-                flami?.last_trade_date &&
-                new Date(flami.last_trade_date).toDateString() ===
-                  new Date().toDateString()
+                (flami?.[0]?.last_trade &&
+                  new Date(flami[0].last_trade).toDateString() ===
+                    new Date().toDateString()) ||
+                false
               }
               id="share-flami"
               className="bg-alabaster-900 col-span-2 border-tree-poppy-300 shadow-tree-poppy-300 border-3 flex flex-col items-center gap-2 rounded-xl hover:brightness-90 active:shadow-none active:translate-y-1 disabled:bg-alabaster-600 disabled:text-alabaster-300 disabled:shadow-none disabled:hover:brightness-100 disabled:active:translate-y-0"

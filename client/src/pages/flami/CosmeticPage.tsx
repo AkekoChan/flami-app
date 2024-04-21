@@ -11,7 +11,7 @@ import hands from "../../../public/assets/img/icons/boxing_glove.svg";
 import feet from "../../../public/assets/img/icons/shoes.svg";
 import back from "../../../public/assets/img/icons/bag.svg";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
-import MyFlamiDisplay from "../../components/flami/myFlamiDisplay";
+import MyFlamiDisplay from "../../components/flami/FlamiDisplay";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
 
