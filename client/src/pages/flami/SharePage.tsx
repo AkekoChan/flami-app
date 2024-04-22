@@ -97,7 +97,13 @@ const SharePage = () => {
         <div className="w-100 flex gap-8 items-center">
           <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
               <div>
-                <span className="text-tree-poppy-500">Partage {flami?.name || "un Flami"}</span>
+                {
+                  flami?.self ? (
+                    <span className="text-tree-poppy-500">Partage ton Flami</span>
+                  ) : (
+                    <span className="text-tree-poppy-500">Partage le {flami?.name || "Flami"}</span>
+                  )
+                }
               </div>
             <span>En faisant scanner ce QR code à un ami.</span>
           </div>

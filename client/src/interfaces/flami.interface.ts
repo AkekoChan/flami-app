@@ -15,4 +15,5 @@ export interface Flami {
     longitude: number;
     _id: string;
   }> | null
+  self: boolean;
 }

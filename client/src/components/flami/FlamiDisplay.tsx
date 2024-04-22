@@ -13,11 +13,16 @@ const FlamiDisplay = ({
 }) => {
   const [loading, setLoading] = useState(true);
   return (
-    <div className="data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative" data-loading={loading}>
-      <div className="relative" id={isSelf ? "your-flami"  : "shared-flami"}>
-        <span className="text-alabaster-50 bg-alabaster-600 left-1/2 -translate-x-1/2 w-max px-6 py-2 rounded-3xl absolute top-0 text-center">
-          {flami.name}
-        </span>
+    <div
+      className="data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative"
+      data-loading={loading}
+    >
+      <div className="relative" id={isSelf ? "your-flami" : "shared-flami"}>
+        {!isSelf ? (
+          <span className="text-alabaster-50 bg-alabaster-600 left-1/2 -translate-x-1/2 w-max px-6 py-2 rounded-3xl absolute top-0 text-center">
+            {flami.name}
+          </span>
+        ) : null}
         <img
           loading="lazy"
           src={`/assets/img/animations/${animation}Anim.gif`}

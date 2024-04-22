@@ -26,10 +26,11 @@ const flamiController = {
         await flami.save();
         return res.status(200).json({
             data: {
-                name: `Ton Flami`,
+                name: `Flami de ${userdata.name}`,
                 cosmetics: flami.cosmetics.map(item => json[item.id]),
                 _id: flami.id,
                 owner: flami.owner_id,
+                self: true
             }
         });
     },
@@ -55,20 +56,22 @@ const flamiController = {
         return res.status(200).json({
             data: [
                 {
-                    name: `Ton Flami`,
+                    name: `Flami de ${userdata.name}`,
                     cosmetics: flami.cosmetics.map(item => json[item.id]),
                     location: trade?.flamis_positions.get(flami.id),
                     _id: flami.id,
                     owner: flami.owner_id,
                     trail: trailing,
-                    last_trade: trade?.created_at || null
+                    last_trade: trade?.created_at || null,
+                    self: true
                 },
                 traded_flami ? {
                     name: `Flami de ${traded_flami.owner_name}`,
                     cosmetics: traded_flami.cosmetics.map(item => json[item.id]),
                     location: trade?.flamis_positions.get(traded_flami.id),
                     _id: traded_flami.id,
-                    owner: traded_flami.owner_id
+                    owner: traded_flami.owner_id,
+                    self: false
                 } : null
             ]
         });
