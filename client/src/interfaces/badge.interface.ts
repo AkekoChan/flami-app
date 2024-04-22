@@ -7,4 +7,6 @@ export interface Badge {
   owned?: boolean;
   region?: string;
   id: string;
+  oneSided: boolean;
+  type: string;
 }

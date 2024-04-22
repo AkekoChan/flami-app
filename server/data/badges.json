@@ -1,4 +1,36 @@
 {
+    "collector_bronze": {
+        "name": "Collectionneur de Bronze",
+        "oneSided": true,
+        "url": "\/assets\/img\/badges\/collector_bronze.svg",
+        "description": "Tu commences ta collection de badges de villes étapes ! Nous t'offrons ce badge en guise de récompense pour avoir collectionné au moins 20 badges !",
+        "type": "collector",
+        "id": "collector_bronze"
+    },
+    "collector_silver": {
+        "name": "Collectionneur d'Argent",
+        "oneSided": true,
+        "url": "\/assets\/img\/badges\/collector_silver.svg",
+        "description": "Ta collection de badges avance bien ! Nous sommes fiers de ton avancée, nous t'offrons ce badge en guise de récompense pour avoir collectionné au moins 40 badges !",
+        "type": "collector",
+        "id": "collector_silver"
+    },
+    "collector_gold": {
+        "name": "Collectionneur d'Or",
+        "oneSided": true,
+        "url": "\/assets\/img\/badges\/collector_gold.svg",
+        "description": "Wow ! Tu as été très régulier pour récupérer les badges des villes étapes ! Impressionnant ! Nous t'offrons ce badge en guise de récompense pour avoir collectionné au moins 60 badges !",
+        "type": "collector",
+        "id": "collector_gold"
+    },
+    "collector_diamond": {
+        "name": "Collectionneur de Diamant",
+        "oneSided": true,
+        "url": "\/assets\/img\/badges\/collector_diamond.svg",
+        "description": "Tu as collectionné tous les 64 badges des villes étapes ! Clairement un pro ! Ce badge t'est donné pour avoir complété à 100% ta collection de badges !",
+        "type": "collector",
+        "id": "collector_diamond"
+    },
     "etape_0": {
         "name": "Marseille",
         "url": "\/assets\/img\/badges\/depart_marseille.svg",

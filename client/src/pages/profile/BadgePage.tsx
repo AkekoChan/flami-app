@@ -18,17 +18,13 @@ const BadgePage = () => {
   const navigate = useNavigate();
 
   const getBadge = useCallback(() => {
-    APIHandler<Badge>(
-      `/my/badge/${badgeId}`,
-      false,
-      "GET",
-      undefined,
-      token
-    ).then((res) => {
-      setBadge(res.data);
-    }).catch(() => {
-      return navigate("/badges")
-    });
+    APIHandler<Badge>(`/my/badge/${badgeId}`, false, "GET", undefined, token)
+      .then((res) => {
+        setBadge(res.data);
+      })
+      .catch(() => {
+        return navigate("/badges");
+      });
   }, [token]);
 
   useEffect(() => {
@@ -49,10 +45,11 @@ const BadgePage = () => {
       >
         <div
           data-loading={loading}
-          className={`w-60 cursor-pointer badge-cover badge-${
+          className={`w-60 cursor-pointer relative badge-cover badge-${
             side ? "reverse" : "front"
           } data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse min-h-badge rounded-lg`}
           onClick={() => {
+            if (!badge || badge?.oneSided) return;
             setSide(!side);
             medalDing.play();
           }}
@@ -60,18 +57,23 @@ const BadgePage = () => {
           {badge ? (
             <>
               <img
-                className="w-full relative"
+                className="w-full h-full relative"
                 src={badge.url}
                 alt={`Badge de ${badge.region}`}
-                onLoad={() => { setLoading(false); setSide(false); }}
+                onLoad={() => {
+                  setLoading(false);
+                  setSide(false);
+                }}
                 loading="eager"
               />
-              <img
-                className="w-full absolute top-0 side-cover"
-                src={badge.url_cover}
-                alt={`Badge de ${badge.name}`}
-                loading="eager"
-              />
+              {!badge.oneSided ? (
+                <img
+                  className="w-full h-full absolute top-0 side-cover"
+                  src={badge.url_cover}
+                  alt={`Badge de ${badge.name}`}
+                  loading="eager"
+                />
+              ) : null}
             </>
           ) : null}
         </div>

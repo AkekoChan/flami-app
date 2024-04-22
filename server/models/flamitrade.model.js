@@ -38,6 +38,14 @@ const flamiTradeShema = new mongoose.Schema({
                 ]
             }).sort({created_at: -1})
         },
+        getAllUserTrade (user) {
+            return this.find({
+                $or: [
+                  {"owners.flasher": user._id},
+                  {"owners.sender": user._id}
+                ]
+            }).sort({created_at: -1})
+        },
         getFlamiTrailing (flami) {
             return this.find({
                 $or: [

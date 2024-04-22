@@ -28,6 +28,13 @@ router.get("/g/cosmetic/:id", auth.require, async (req, res) => {
         userdata.badges.push({
             id: id
         });
+
+        let collector_badges = { 20: "bronze", 40: "silver", 60: "gold", 64: "diamond" };
+        if(collector_badges[userdata.badges.length]) {
+            userdata.badges.push({
+                id: `collector_${collector_badges[userdata.badges.length]}`
+            });
+        }
     } else {
         return res.status(409).json({ error: 409, message: "Tu possède déjà ce cosmetique." });
     }
