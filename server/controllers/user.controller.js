@@ -32,9 +32,13 @@ const userController = {
       feet: []
     }
 
-    let items = userdata.owned_cosmetics.map(item => {
-      let jitem = json[item.id];
-      if(jitem) sorted_cosmetics[jitem.category]?.push(jitem)
+    // userdata.owned_cosmetics = Object.values(json).map(e => ({ id: e.id }));
+    // await userdata.save();
+
+    Object.values(json).forEach(cosmetic => {
+      let owned = userdata.owned_cosmetics.find(c => c.id === cosmetic.id);
+      cosmetic["owned"] = !!owned;
+      owned ? sorted_cosmetics[cosmetic.category].unshift(cosmetic) : sorted_cosmetics[cosmetic.category].push(cosmetic)
     });
 
     return res.status(200).json({

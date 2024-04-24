@@ -1,6 +1,8 @@
+import { Cosmetic } from "./cosmetic.interface";
+
 export interface CosmeticList {
-  head: [];
-  hands: [];
-  feet: [];
-  back: [];
+  head: Cosmetic[];
+  hands: Cosmetic[];
+  feet: Cosmetic[];
+  back: Cosmetic[];
 }

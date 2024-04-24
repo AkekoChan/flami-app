@@ -10,11 +10,14 @@ import { APIHandler } from "../../utils/api/api-handler";
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 import { Flami } from "../../interfaces/flami.interface";
+import { Palier } from "../../interfaces/palier.interface";
+import toast from "react-hot-toast";
 
 const FlamiPage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
   const [flami, setFlami] = useState<Flami[]>();
+  const [palier, setPalier] = useState<Palier>();
   const navigate = useNavigate();
 
   setShowNav(true);
@@ -25,10 +28,27 @@ const FlamiPage = () => {
         setFlami(res.data);
       }
     );
+    APIHandler<Palier>("/my/flami/paliers", false, "GET", undefined, token).then(
+      (res) => {
+        setPalier(res.data);
+        if(res.data.message) {
+          toast.success(`${res.data.message}`, {
+            style: {
+              background: "#3D3D3D",
+              color: "#FAFAFA",
+              borderRadius: "12px",
+            },
+          });
+        } 
+      }
+    );
   }, [token]);
 
+  const [animation, setAnimation] = useState('Idle');
   useEffect(() => {
     getFlami();
+    setAnimation("Atchoum");
+    setTimeout(() => setAnimation("Idle"), 10);
   }, [getFlami]);
 
   const driver1 = driver({
@@ -96,9 +116,9 @@ const FlamiPage = () => {
             ? flami.map((flami, k) =>
                 flami ? (
                   <FlamiDisplay
-                    isSelf={k === 0}
+                    isSelf={flami.self}
                     flami={flami}
-                    animation="Idle"
+                    animation={animation}
                     key={k}
                   ></FlamiDisplay>
                 ) : null
@@ -117,14 +137,22 @@ const FlamiPage = () => {
         <div className="flex flex-col gap-4">
           <h2 className="text-2xl font-bold">Tes activités</h2>
           <div className="flex flex-col w-full gap-y-3 items-center">
-            <span className="w-full">
-              Partage un Flami encore 3 fois pour obtenir une récompense !
-            </span>
+            {
+              palier ? (
+                <span className="w-full">
+                  Partage Flami encore <b>{palier.next_palier - palier.current_palier}</b> fois pour obtenir une récompense !
+                </span>
+              ) : (
+                <span className="w-full">
+                  Partage Flami pour obtenir des récompenses !
+                </span>
+              )
+            }
             <div className="w-full bg-alabaster-300 rounded-xl h-4">
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{
-                  width: `${(3 || 0) * 10}%`,
+                  width: `${palier ? (palier.current_palier * 100 / palier.next_palier) : 0}%`,
                 }}
                 className="bg-midnight-moss-500 h-4 rounded-xl relative"
               >

@@ -7,6 +7,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  trade_palier: {
+    type: Number,
+    default: 0
+  },
   flami_id: {
     type: mongoose.Types.ObjectId
   },
@@ -68,7 +72,6 @@ const userSchema = new mongoose.Schema({
 userSchema.post('validate', async function () {
   if(await this.constructor.findByEmail(this.email)) return;
   let flami = await flamiModel.create({
-    name: `Flami de ${this.name}`,
     owner_id: this._id,
     cosmetics: [
       {
@@ -77,6 +80,7 @@ userSchema.post('validate', async function () {
       }
     ]
   });
+  
   this.flami_id = flami._id;
 });
 

@@ -85,7 +85,10 @@ export default {
         "midnight-300": "0px 4px 0px #92c68f",
       },
       borderWidth: {
-        3: "3px",
+        3: "3px"
+      },
+      gridTemplateColumns: {
+        "1/2/1": "1fr 3fr 1fr"
       },
       width: {
         100: "100%",

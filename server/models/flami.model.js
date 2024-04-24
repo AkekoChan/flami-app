@@ -13,10 +13,7 @@ const flamiShema = new mongoose.Schema({
   },
   cosmetics: [
     { id: { type: String } }
-  ],
-  last_action_time: {
-    type: Date
-  }
+  ]
 });
 
 export default mongoose.model("Flami", flamiShema);

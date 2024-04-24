@@ -17,7 +17,7 @@ const FlamiDisplay = ({
       className="data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative"
       data-loading={loading}
     >
-      <div className="relative" id={isSelf ? "your-flami" : "shared-flami"}>
+      <div className="relative" key={flami?._id} id={isSelf ? "your-flami" : "shared-flami"}>
         {!isSelf ? (
           <span className="text-alabaster-50 bg-alabaster-600 left-1/2 -translate-x-1/2 w-max px-6 py-2 rounded-3xl absolute top-0 text-center">
             {flami.name}
@@ -34,7 +34,7 @@ const FlamiDisplay = ({
           <img
             loading="lazy"
             key={cosmetic.name}
-            className="absolute top-0 z-20"
+            className={`absolute top-0 ${cosmetic.category === "back" ? "z-0" : (cosmetic.category === "head" ? "z-20" : "z-10")}`}
             src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}${animation}.gif`}
             alt={cosmetic.name}
           />

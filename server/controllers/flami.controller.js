@@ -31,7 +31,7 @@ const flamiController = {
                 _id: flami.id,
                 owner: flami.owner_id,
                 self: true
-            }
+            },
         });
     },
     getFlami: async (req, res) => {
@@ -76,6 +76,48 @@ const flamiController = {
             ]
         });
     },
+    getPaliers: async (req, res) => {
+        let userdata = res.locals.user;
+        let user_palier = userdata.trade_palier;
+        let user_trades = await flamitradeModel.getAllUserTrade(userdata);
+        let message = null;
+
+        let paliers = [ 3, 5, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100 ];
+        if(user_palier < user_trades.length) {
+            if(paliers.includes(user_trades.length)) {
+                let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+                let json = JSON.parse(content);
+                let shuffled = json
+                    .map(value => ({ value, sort: Math.random() }))
+                    .sort((a, b) => a.sort - b.sort)
+                    .map(({ value }) => value);
+                let cosm = shuffled.filter(cosmetic => !userdata.owned_cosmetics.find(cosm => cosm.id === cosmetic.id));
+                if(cosm) {
+                    userdata.owned_cosmetics.push({
+                        id: cosm.id
+                    });
+
+                    message = `Tu as reçu une cosmétique ${cosm.name} !`
+                }
+            }
+            userdata.trade_palier = user_trades.length;
+        }
+
+        let closest_palier = paliers.filter((v, k) => v > user_trades.length && paliers[k+1] > user_trades.length)[0] || null;
+
+        if(!closest_palier) {
+            closest_palier = (user_trades.length - user_trades.length % 10) + 10;
+        }
+
+        await userdata.save();
+        return res.status(200).json({
+            data: {
+                message: message,
+                next_palier: closest_palier,
+                current_palier: userdata.trade_palier
+            }
+        });
+    },
     share: async (req, res) => {
         // ? IN THIS CONTEXT YOU ARE THE FLASHER !!
 
@@ -92,8 +134,8 @@ const flamiController = {
             });
         }
 
-        let shared_flami = await flamiModel.findOne({ _id: shared_user.kept_flami_id || shared_user.flami_id });
-        let flami = await flamiModel.findOne({ _id: userdata.kept_flami_id || flami_id });
+        let shared_flami = await flamiModel.findOne({ _id: shared_user.traded_flami_id || shared_user.flami_id });
+        let flami = await flamiModel.findOne({ _id: userdata.traded_flami_id || flami_id });
 
         if(!shared_flami || !flami) {
             return res.status(404).json({
@@ -127,7 +169,7 @@ const flamiController = {
             Object.values(this.owners).includes(shared_user_id)
          });
         
-        if(sharer_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
+        if(user_search_flami) return res.status(409).json({ message: "La personne avec qui tu échange as déjà reçu ce Flami précedement.", error: 409 });
 
         await flamitradeModel.create({
             owners: {
@@ -150,15 +192,15 @@ const flamiController = {
             }
         });
 
-        await flamiModel.updateOne({ owner_id: userdata._id }, { keeper_id: shared_user._id });
-        await flamiModel.updateOne({ owner_id: shared_user._id }, { keeper_id: userdata._id });
+        await flamiModel.updateOne({ owner_id: userdata._id }, { trader_id: shared_user._id });
+        await flamiModel.updateOne({ owner_id: shared_user._id }, { trader_id: userdata._id });
 
-        await userModel.updateOne({ _id: userdata._id }, { kept_flami_id: shared_flami._id });
-        await userModel.updateOne({ _id: shared_user._id }, { kept_flami_id: flami._id });
+        await userModel.updateOne({ _id: userdata._id }, { traded_flami_id: shared_flami._id });
+        await userModel.updateOne({ _id: shared_user._id }, { traded_flami_id: flami._id });
 
         return res.status(202).json({
             data: {
-                message: `Tu as bien reçu le ${shared_flami.name} !`
+                message: `Tu as bien reçu le Flami de ${shared_user.name} !`
             }
         });
     }

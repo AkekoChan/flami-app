@@ -4,4 +4,5 @@ export interface Cosmetic {
   description: string;
   url: string;
   id: string;
+  owned: boolean;
 }

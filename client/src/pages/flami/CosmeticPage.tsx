@@ -2,37 +2,32 @@ import { useCallback, useEffect, useState } from "react";
 import TopBar from "../../components/topbar/TopBar";
 import { useAuth } from "../../hooks/useAuth";
 import { APIHandler } from "../../utils/api/api-handler";
-import { Flami, FlamiData } from "../../interfaces/flami.interface";
+import { Flami } from "../../interfaces/flami.interface";
+import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
+import FlamiDisplay from "../../components/flami/FlamiDisplay";
 import { Button } from "../../components/ui";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
-import head from "../../../public/assets/img/icons/face.svg";
-import hands from "../../../public/assets/img/icons/boxing_glove.svg";
-import feet from "../../../public/assets/img/icons/shoes.svg";
-import back from "../../../public/assets/img/icons/bag.svg";
-import { CosmeticList } from "../../interfaces/cosmeticList.interface";
-import MyFlamiDisplay from "../../components/flami/FlamiDisplay";
 import toast from "react-hot-toast";
-import { motion } from "framer-motion";
 
 const CosmeticPage = () => {
-  const [flami, setFlami] = useState<Flami>();
-  const [cosmetics, setCosmetics] = useState<CosmeticList>();
-  const [displayCosmetic, setDisplayCosmetic] = useState<Cosmetic[]>();
   const { token } = useAuth();
-  const [displayIndex, setDisplayIndex] = useState(0);
-  const [displayIcon, setDisplayIcon] = useState(head);
+  const [flami, setFlami] = useState<Flami>();
 
-  const Variants = {
-    hidden: { opacity: 0, scale: 0.5 },
-    shown: { opacity: 0.5, scale: 1, filter: "grayscale(75%)" },
-    owned: { opacity: 1, scale: 1 },
-  };
+  const [cosmetics, setCosmetics] = useState<CosmeticList>();
+
+  const [cosmeticList, setCosmeticList] = useState<{
+    type: String;
+    list: Cosmetic[];
+  }>({ type: "head", list: [] });
+
+  const [wornCosmetics, setWornCosmetics] = useState<Cosmetic[]>();
 
   const getFlami = useCallback(() => {
-    APIHandler<FlamiData>("/my/flami", false, "GET", undefined, token).then(
+    APIHandler<Flami[]>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
-        setFlami(res.data.my_flami);
+        setFlami(res.data[0]);
+        setWornCosmetics(res.data[0].cosmetics);
       }
     );
   }, [token]);
@@ -46,193 +41,130 @@ const CosmeticPage = () => {
       token
     ).then((res) => {
       setCosmetics(res.data.cosmetics);
+      setCosmeticList({
+        type: "head",
+        list: res.data.cosmetics.head,
+      });
     });
   }, [token]);
-
-  const [currentAnimation, setCurrentAnimation] = useState("Idle");
-
-  const changeCosmetic = useCallback(
-    (id: string, category: string) => {
-      if (
-        flami?.cosmetics.findIndex((item) => item.category === category) === -1
-      ) {
-        APIHandler<FlamiData>(
-          "/my/flami/equip",
-          false,
-          "PATCH",
-          { cosmetic_id: id },
-          token
-        ).then((res) => {
-          setFlami(res.data.my_flami);
-          setCurrentAnimation("Atchoum");
-          setTimeout(() => {
-            setCurrentAnimation("Idle");
-          }, 1);
-        });
-      } else {
-        if (flami?.cosmetics.findIndex((item) => item.id === id) === -1) {
-          toast.error(
-            "Impossible d'équiper plusieures cosmétiques du même type.",
-            {
-              style: {
-                background: "#3D3D3D",
-                color: "#FAFAFA",
-                borderRadius: "12px",
-              },
-            }
-          );
-        } else {
-          APIHandler<FlamiData>(
-            "/my/flami/equip",
-            false,
-            "PATCH",
-            { cosmetic_id: id },
-            token
-          ).then((res) => {
-            setFlami(res.data.my_flami);
-            setCurrentAnimation("Atchoum");
-            setTimeout(() => {
-              setCurrentAnimation("Idle");
-            }, 1);
-          });
-        }
-      }
-    },
-    [token, flami, setCurrentAnimation]
-  );
-
-  const selectIconDisplay = useCallback(() => {
-    switch (displayIndex) {
-      case 0:
-        setDisplayIcon(head);
-        break;
-
-      case 1:
-        setDisplayIcon(hands);
-        break;
-
-      case 2:
-        setDisplayIcon(feet);
-        break;
-
-      case 3:
-        setDisplayIcon(back);
-        break;
-
-      default:
-        setDisplayIcon(head);
-        break;
-    }
-  }, [displayIndex, setDisplayIcon]);
-
-  const selectDisplayCosmetics = useCallback(() => {
-    switch (displayIndex) {
-      case 0:
-        setDisplayCosmetic(cosmetics?.head);
-        break;
-
-      case 1:
-        setDisplayCosmetic(cosmetics?.hands);
-        break;
-
-      case 2:
-        setDisplayCosmetic(cosmetics?.feet);
-        break;
-
-      case 3:
-        setDisplayCosmetic(cosmetics?.back);
-        break;
-
-      default:
-        setDisplayCosmetic(cosmetics?.head);
-        break;
-    }
-  }, [setDisplayCosmetic, displayIndex, cosmetics]);
 
   useEffect(() => {
     getFlami();
     getCosmetics();
   }, [getFlami, getCosmetics]);
 
-  // console.log(displayIndex);
-  // console.log(displayCosmetic);
-  // console.log(displayIcon);
+  function equipCosmetic(cosmetic: Cosmetic) {
+    console.log(cosmetic);
+    if (!wornCosmetics) return;
+    if (
+      wornCosmetics.findIndex((item) => item.category === cosmetic.category && item.id !== cosmetic.id) !== -1
+    )
+      return toast.error(
+        "Impossible d'équiper plusieures cosmétiques du même type.",
+        {
+          style: {
+            background: "#3D3D3D",
+            color: "#FAFAFA",
+            borderRadius: "12px",
+          },
+        }
+      );
+    APIHandler<Flami>(
+      "/my/flami/equip",
+      false,
+      "PATCH",
+      { cosmetic_id: cosmetic.id },
+      token
+    ).then((res) => {
+      setFlami(res.data);
+      setWornCosmetics(res.data.cosmetics);
+      setAnimation("Atchoum");
+      setTimeout(() => setAnimation("Idle"), 10);
+    });
+  }
+
+  const [animation, setAnimation] = useState("Idle");
+  const [currentList, setCurrentList] = useState<number>(0);
+  function showCosmeticList(i: number) {
+    if (!cosmetics) return;
+    let lists = {
+      head: cosmetics.head,
+      hands: cosmetics.hands,
+      feet: cosmetics.feet,
+      back: cosmetics.back,
+    };
+    let l = currentList + i;
+    l =
+      l < 0
+        ? Object.keys(lists).length - 1
+        : l > Object.keys(lists).length - 1
+        ? 0
+        : l;
+    setCurrentList(l);
+    console.log(l);
+    setCosmeticList({
+      type: Object.keys(lists)[l],
+      list: Object.values(lists)[l],
+    });
+  }
+
+  const variants = {
+    owned:
+      "rounded-md bg-alabaster-400 border-4 border-alabaster-500 w-24 h-24 px-2 py-2",
+    equipped:
+      "rounded-md bg-alabaster-400 border-4 border-tree-poppy-500 w-24 h-24 px-2 py-2",
+    unowned:
+      "rounded-md bg-alabaster-700 border-4 border-alabaster-500 w-24 h-24 px-2 py-2 cursor-not-allowed opacity-60",
+  };
 
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
       {flami ? (
-        <MyFlamiDisplay animation={currentAnimation} myFlami={flami} />
+        <FlamiDisplay isSelf={true} animation={animation} flami={flami} />
       ) : null}
-      <div className="grid grid-cols-3 gap-4 w-full">
-        <Button
-          variant={"secondary"}
-          className="scale-75"
-          onClick={() => {
-            selectDisplayCosmetics();
-            selectIconDisplay();
-            if (displayIndex <= 0) {
-              setDisplayIndex(3);
-            } else {
-              setDisplayIndex(displayIndex - 1);
-            }
-          }}
+      <div className="grid grid-cols-1/2/1 gap-4 w-full mb-12">
+        <button
+          onClick={() => showCosmeticList(-1)}
+          className="rounded-md bg-alabaster-700 hover:bg-alabaster-900 hover:border-tree-poppy-500 focus:bg-alabaster-900 focus:border-tree-poppy-500 border-4 border-alabaster-500 px-2 py-2"
         >
-          <ArrowLeftIcon className="text-3xl text-alabaster-50" />
-        </Button>
-        <img
-          src={displayIcon}
-          alt="Cosmetic icon"
-          className="w-full scale-75 h-full"
-        />
-        <Button
-          variant={"secondary"}
-          className="scale-75"
-          onClick={() => {
-            selectDisplayCosmetics();
-            selectIconDisplay();
-            if (displayIndex >= 3) {
-              setDisplayIndex(0);
-            } else {
-              setDisplayIndex(displayIndex + 1);
-            }
-          }}
+          <ArrowLeftIcon className="text-xl"></ArrowLeftIcon>
+        </button>
+        <div className="flex justify-center">
+          <img
+            className="h-12"
+            src={`/assets/img/icons/cosmetics/${cosmeticList.type}.png`}
+          />
+        </div>
+        <button
+          onClick={() => showCosmeticList(1)}
+          className="rounded-md bg-alabaster-700 hover:bg-alabaster-900 hover:border-tree-poppy-500 focus:bg-alabaster-900 focus:border-tree-poppy-500 border-4 border-alabaster-500 px-2 py-2"
         >
-          <ArrowRightIcon className="text-3xl text-alabaster-50" />
-        </Button>
+          <ArrowRightIcon className="text-xl"></ArrowRightIcon>
+        </button>
       </div>
-      <div className="grid grid-cols-3 gap-x-6 gap-y-4">
-        {displayCosmetic?.map((cosmetic: Cosmetic, index) =>
-          cosmetic &&
-          flami?.cosmetics.findIndex((item) => item.id === cosmetic.id) ===
-            -1 ? (
-            <motion.button
-              variants={Variants}
-              initial="hidden"
-              animate="owned"
-              key={index}
-              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl border-alabaster-400 cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press text-center"
-              onClick={() => {
-                changeCosmetic(cosmetic.id, cosmetic.category);
-              }}
-            >
-              <img className="" src={cosmetic.url} alt={cosmetic.name} />
-            </motion.button>
-          ) : (
-            <motion.button
-              variants={Variants}
-              initial="hidden"
-              animate="owned"
-              key={index}
-              className="flex gap-2 items-center flex-col p-6 border-3 rounded-xl cursor-pointer hover:brightness-90 active:translate-y-1 active:shadow-tree-poppy-500-press active:border-tree-poppy-500 text-center border-tree-poppy-500"
-              onClick={() => {
-                changeCosmetic(cosmetic.id, cosmetic.category);
-              }}
-            >
-              <img className="w-full" src={cosmetic.url} alt={cosmetic.name} />
-            </motion.button>
-          )
-        )}
+      <div className="grid grid-cols-3 place-items-center gap-x-6 gap-y-4">
+        {cosmeticList?.list.map((cosmetic) => (
+          <button
+            onClick={
+              cosmetic.owned ? () => equipCosmetic(cosmetic) : () => null
+            }
+            className={
+              cosmetic.owned
+                ? wornCosmetics?.find((cosm) => cosm.id === cosmetic.id)
+                  ? variants.equipped
+                  : variants.owned
+                : variants.unowned
+            }
+            key={cosmetic.id}
+          >
+            <img
+              className="object-contain w-full h-full"
+              src={cosmetic.url}
+              loading="eager"
+            />
+          </button>
+        ))}
       </div>
     </section>
   );
