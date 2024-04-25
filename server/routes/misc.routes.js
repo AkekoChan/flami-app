@@ -19,7 +19,7 @@ router.get("/g/badge/:id", auth.require, async (req, res) => {
             });
         }
     } else {
-        return res.status(409).json({ error: 409, message: "Tu possède déjà ce badge." });
+        return res.status(409).json({ error: 409, message: "Tu possèdes déjà ce badge." });
     }
 
     await userdata.save();
