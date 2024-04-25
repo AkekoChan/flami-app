@@ -152,7 +152,7 @@ const FlamiPage = () => {
               <motion.div
                 initial={{ width: "0%" }}
                 animate={{
-                  width: `${palier ? (palier.current_palier * 100 / palier.next_palier) : 0}%`,
+                  width: `${palier ? Math.min(75, (100 / (palier.next_palier - palier.current_palier))) : 0}%`,
                 }}
                 className="bg-midnight-moss-500 h-4 rounded-xl relative"
               >

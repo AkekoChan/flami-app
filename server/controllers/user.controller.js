@@ -2,6 +2,8 @@ import userModel from "../models/user.model.js";
 import auth from "../helpers/authMiddleware.js";
 import bcrypt from "bcryptjs";
 import { readFile } from "fs/promises";
+import flamiModel from "../models/flami.model.js";
+import flamitradeModel from "../models/flamitrade.model.js";
 
 const userController = {
   getProfile: async (req, res) => {
@@ -12,9 +14,10 @@ const userController = {
       data: {
         name: userdata.name,
         email: userdata.email,
-        badges: userdata.badges.map((item) => json[item.id])
-        .sort((a, b) => a.created_at < b.created_at ? 1 : -1)
-        .slice(0, 3),
+        badges: userdata.badges
+          .map((item) => json[item.id])
+          .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
+          .slice(0, 3),
         created_at: new Date(userdata.created_at).toDateString(),
       },
     });
@@ -29,22 +32,24 @@ const userController = {
       head: [],
       back: [],
       hands: [],
-      feet: []
-    }
+      feet: [],
+    };
 
     // userdata.owned_cosmetics = Object.values(json).map(e => ({ id: e.id }));
     // await userdata.save();
 
-    Object.values(json).forEach(cosmetic => {
-      let owned = userdata.owned_cosmetics.find(c => c.id === cosmetic.id);
+    Object.values(json).forEach((cosmetic) => {
+      let owned = userdata.owned_cosmetics.find((c) => c.id === cosmetic.id);
       cosmetic["owned"] = !!owned;
-      owned ? sorted_cosmetics[cosmetic.category].unshift(cosmetic) : sorted_cosmetics[cosmetic.category].push(cosmetic)
+      owned
+        ? sorted_cosmetics[cosmetic.category].unshift(cosmetic)
+        : sorted_cosmetics[cosmetic.category].push(cosmetic);
     });
 
     return res.status(200).json({
       data: {
-        cosmetics: sorted_cosmetics
-      }
+        cosmetics: sorted_cosmetics,
+      },
     });
   },
   getBadges: async (req, res) => {
@@ -52,27 +57,51 @@ const userController = {
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let badges = JSON.parse(content);
 
-    userdata.badges.forEach(badge => {
+    userdata.badges.forEach((badge) => {
       badges[badge.id].owned = true;
     });
 
     return res.status(200).json({
-      data: Object.values(badges)
+      data: Object.values(badges),
+    });
+  },
+  getFlamiCollection: async (req, res) => {
+    let userdata = res.locals.user;
+    let user_trades = await flamitradeModel.getAllUserTrade(userdata);
+
+    const flami_collection = [];
+
+    for (let index = 0; index < user_trades.length; index++) {
+      const trade = user_trades[index];
+      if (trade.owners.flasher.equals(userdata._id)) {
+        let f = await flamiModel.findOne({ _id: trade.flamis.sender });
+        flami_collection.push(f);
+      } else if (trade.owners.sender.equals(userdata._id)) {
+        let f = await flamiModel.findOne({ _id: trade.flamis.flasher });
+        flami_collection.push(f);
+      }
+    }
+
+    return res.status(200).json({
+      data: flami_collection,
     });
   },
   getBadge: async (req, res) => {
     let userdata = res.locals.user;
     let content = await readFile("./data/badges.json", { encoding: "utf8" });
     let badges = JSON.parse(content);
-    let badge = Object.values(badges).find(badge => badge.id === req.params.badge);
+    let badge = Object.values(badges).find(
+      (badge) => badge.id === req.params.badge
+    );
 
-    if(!userdata.badges.find(b => b.id === badge.id)) return res.status(403).json({
-      message: `Tu ne possède pas ce badge.`,
-      error: 403
-    });
+    if (!userdata.badges.find((b) => b.id === badge.id))
+      return res.status(403).json({
+        message: `Tu ne possède pas ce badge.`,
+        error: 403,
+      });
 
     return res.status(200).json({
-      data: badge
+      data: badge,
     });
   },
   updateAccount: async (req, res) => {
@@ -81,10 +110,12 @@ const userController = {
 
     let patch = {};
 
-    if (password &&
+    if (
+      password &&
       String(password).match(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-      ))
+      )
+    )
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
     if (name) patch.name = name;
     if (email) patch.email = email;

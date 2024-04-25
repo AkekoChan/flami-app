@@ -29,11 +29,11 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   disabled,
   ...props
-}) => (
-  <button
+}) =>
+  (<button
     className={button({ className, variant })}
     type={type}
     disabled={disabled}
+
     {...props}
-  />
-);
+  />);

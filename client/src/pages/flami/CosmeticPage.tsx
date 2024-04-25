@@ -6,7 +6,7 @@ import { Flami } from "../../interfaces/flami.interface";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import FlamiDisplay from "../../components/flami/FlamiDisplay";
-import { Button } from "../../components/ui";
+import { motion } from "framer-motion";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import toast from "react-hot-toast";
 
@@ -57,7 +57,9 @@ const CosmeticPage = () => {
     console.log(cosmetic);
     if (!wornCosmetics) return;
     if (
-      wornCosmetics.findIndex((item) => item.category === cosmetic.category && item.id !== cosmetic.id) !== -1
+      wornCosmetics.findIndex(
+        (item) => item.category === cosmetic.category && item.id !== cosmetic.id
+      ) !== -1
     )
       return toast.error(
         "Impossible d'équiper plusieures cosmétiques du même type.",
@@ -145,7 +147,7 @@ const CosmeticPage = () => {
       </div>
       <div className="grid grid-cols-3 place-items-center gap-x-6 gap-y-4">
         {cosmeticList?.list.map((cosmetic) => (
-          <button
+          <motion.button
             onClick={
               cosmetic.owned ? () => equipCosmetic(cosmetic) : () => null
             }
@@ -163,7 +165,7 @@ const CosmeticPage = () => {
               src={cosmetic.url}
               loading="eager"
             />
-          </button>
+          </motion.button>
         ))}
       </div>
     </section>

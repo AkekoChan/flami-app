@@ -5,6 +5,7 @@ const router = Router();
 
 router.get("/profile", userController.getProfile);
 router.get("/badges", userController.getBadges);
+router.get("/collection", userController.getFlamiCollection);
 router.get("/badge/:badge", userController.getBadge);
 router.get("/cosmetics", userController.getCosmetics);
 router.patch("/account", userController.updateAccount);

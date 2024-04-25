@@ -6,7 +6,7 @@ import {
   TileLayer,
   useMap,
 } from "react-leaflet";
-import { Icon, LatLng } from "leaflet";
+import { DivIcon, Icon, LatLng } from "leaflet";
 import { Step } from "../../interfaces/step.interface";
 import { useEffect, useState } from "react";
 import { Button } from "../ui";
@@ -15,19 +15,24 @@ import { useAuth } from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import { GenericResponse } from "../../interfaces/api-response/generic-response";
 import { SearchIcon } from "react-line-awesome";
+import { renderToString } from "react-dom/server";
+import FlamiDisplay from "../flami/FlamiDisplay";
+import { Flami } from "../../interfaces/flami.interface";
 
 const Map = ({
   currentStep,
   steps,
   polylinePath,
   flamiTrailPath,
-  flamiPosition
+  flamiPosition,
+  flami
 }: {
   currentStep: Step | undefined;
   steps: Step[];
   polylinePath: [number, number][];
   flamiTrailPath: [number, number][];
   flamiPosition: { latitude: number, longitude: number }
+  flami: Flami|undefined
 }) => {
   const { token } = useAuth();
   const polylineOptions = { color: "orange", dashArray: "10,25", weight: 3 };
@@ -134,20 +139,17 @@ const Map = ({
             </Marker>
           ))}
         <Polyline pathOptions={polylineOptions} positions={polylinePath} />
-        {flamiPosition ? <Marker
+        {flamiPosition && flami ? <Marker
           zIndexOffset={100}
           position={[
             flamiPosition.latitude,
             flamiPosition.longitude,
           ]}
-          icon={new Icon({
-            iconUrl: "/assets/img/animations/IdleAnim.gif",
-            iconSize: [55, 55],
+          icon={new DivIcon({
+            className: 'flami-icon-marker',
+            html: renderToString(<FlamiDisplay isSelf={true} animation="Idle" flami={flami}></FlamiDisplay>)
           })}
         >
-          <Popup>
-            <span className="text-alabaster-50"><b>Ton Flami se trouve ici</b></span>
-          </Popup>
         </Marker> : null}
         {flamiTrailPath ? <Polyline pathOptions={{ color: "red", dashArray: "10,25", weight: 2 }} positions={flamiTrailPath} /> : null}
       </MapContainer>

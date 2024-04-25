@@ -87,17 +87,17 @@ const flamiController = {
             if(paliers.includes(user_trades.length)) {
                 let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
                 let json = JSON.parse(content);
-                let shuffled = json
+                let shuffled = Object.values(json)
                     .map(value => ({ value, sort: Math.random() }))
                     .sort((a, b) => a.sort - b.sort)
                     .map(({ value }) => value);
                 let cosm = shuffled.filter(cosmetic => !userdata.owned_cosmetics.find(cosm => cosm.id === cosmetic.id));
-                if(cosm) {
+                if(cosm[0]) {
                     userdata.owned_cosmetics.push({
-                        id: cosm.id
+                        id: cosm[0].id
                     });
 
-                    message = `Tu as reçu une cosmétique ${cosm.name} !`
+                    message = `Tu as reçu une cosmétique ${cosm[0].name} !`
                 }
             }
             userdata.trade_palier = user_trades.length;

@@ -70,6 +70,16 @@
   font-size: 1.2rem;
 }
 
+.flami-icon-marker {
+  width: 4.3rem !important;
+  height: 4.3rem !important;
+  pointer-events: none !important;
+}
+
+.flami-icon-marker > :first-child {
+  transform: translate(-50%, -50%);
+}
+
 .leaflet-container {
   height: 100% !important;
 }

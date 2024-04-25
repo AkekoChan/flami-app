@@ -18,6 +18,7 @@ const MapPage = () => {
   const [flamiLocation, setFlamiLocation] = useState<any>(null);
   const [flamiTrail, setFlamiTrail] = useState<any>([]);
   const [flamiPosition, setFlamiPosition] = useState<any>(null);
+  const [flami, setFlami] = useState<Flami>();
   const polylinePath: [number, number][] = [];
 
   setShowNav(true);
@@ -39,7 +40,7 @@ const MapPage = () => {
   };
 
   const handleCurrentStep = () => {
-    APIHandler<Step>(`/etape/15`, true).then((res) => {
+    APIHandler<Step>(`/etape/actuelle`, true).then((res) => {
       setCurrentFlameLocation(res.data);
       handleNextStep(res.data.etape_numero + 1);
     });
@@ -61,6 +62,7 @@ const MapPage = () => {
       ) {
         return setFlamiLocation(null);
       } else {
+        setFlami(flami);
         setFlamiTrail(
           flami.trail?.map((e) => [e.latitude, e.longitude])
         );
@@ -117,6 +119,7 @@ const MapPage = () => {
           polylinePath={polylinePath}
           flamiTrailPath={flamiTrail}
           flamiPosition={flamiPosition}
+          flami={flami}
         />
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-4">
