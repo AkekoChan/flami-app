@@ -71,14 +71,27 @@ const userController = {
 
     const flami_collection = [];
 
+    let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+    let json = JSON.parse(content);
+
     for (let index = 0; index < user_trades.length; index++) {
       const trade = user_trades[index];
+      let flami;
       if (trade.owners.flasher.equals(userdata._id)) {
-        let f = await flamiModel.findOne({ _id: trade.flamis.sender });
-        flami_collection.push(f);
+        flami = await flamiModel.findOne({ _id: trade.flamis.sender });
       } else if (trade.owners.sender.equals(userdata._id)) {
-        let f = await flamiModel.findOne({ _id: trade.flamis.flasher });
-        flami_collection.push(f);
+        flami = await flamiModel.findOne({ _id: trade.flamis.flasher });
+      }
+
+      if(flami) {
+        flami.owner_name = (await userModel.findById(flami.owner_id))?.name
+        flami_collection.push({
+          name: `Flami de ${flami.owner_name}`,
+          cosmetics: flami.cosmetics.map(item => json[item.id]),
+          _id: flami.id,
+          owner: flami.owner_id,
+          self: false
+        });
       }
     }
 
