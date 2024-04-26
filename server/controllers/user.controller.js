@@ -1,9 +1,9 @@
-import userModel from "../models/user.model.js";
-import auth from "../helpers/authMiddleware.js";
 import bcrypt from "bcryptjs";
 import { readFile } from "fs/promises";
+import auth from "../helpers/authMiddleware.js";
 import flamiModel from "../models/flami.model.js";
 import flamitradeModel from "../models/flamitrade.model.js";
+import userModel from "../models/user.model.js";
 
 const userController = {
   getProfile: async (req, res) => {
@@ -83,14 +83,14 @@ const userController = {
         flami = await flamiModel.findOne({ _id: trade.flamis.flasher });
       }
 
-      if(flami) {
-        flami.owner_name = (await userModel.findById(flami.owner_id))?.name
+      if (flami) {
+        flami.owner_name = (await userModel.findById(flami.owner_id))?.name;
         flami_collection.push({
           name: `Flami de ${flami.owner_name}`,
-          cosmetics: flami.cosmetics.map(item => json[item.id]),
+          cosmetics: flami.cosmetics.map((item) => json[item.id]),
           _id: flami.id,
           owner: flami.owner_id,
-          self: false
+          self: false,
         });
       }
     }
@@ -109,7 +109,7 @@ const userController = {
 
     if (!userdata.badges.find((b) => b.id === badge.id))
       return res.status(403).json({
-        message: `Tu ne possède pas ce badge.`,
+        message: `Tu ne possèdes pas ce badge.`,
         error: 403,
       });
 

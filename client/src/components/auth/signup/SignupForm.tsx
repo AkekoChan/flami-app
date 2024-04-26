@@ -1,9 +1,9 @@
 import { useState } from "react";
+import { SignupBody } from "../../../interfaces/api-body/signup-body";
 import StepFour from "./signup-steps/StepFour";
 import StepOne from "./signup-steps/StepOne";
 import StepThree from "./signup-steps/StepThree";
 import StepTwo from "./signup-steps/StepTwo";
-import { SignupBody } from "../../../interfaces/api-body/signup-body";
 
 const SignupForm = () => {
   const [data, setData] = useState<SignupBody>({
