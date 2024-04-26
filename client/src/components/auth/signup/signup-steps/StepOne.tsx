@@ -20,6 +20,15 @@ const choices = {
   intent: ["Participer", "Me divertir", "Apprendre", "Autre"],
 };
 
+const imgPaths = [
+  "FlamiCombat.png",
+  "FlamiRun.png",
+  "FlamiAquatique.png",
+  "FlamiCollectif.png",
+  "FlamiPlage.png",
+  "FlamiForce.png",
+];
+
 const StepOne = ({
   nextStep,
   data,
@@ -115,6 +124,11 @@ const StepOne = ({
                         : "shadow-secondary"
                     }`}
                   >
+                    <img
+                      src={`/assets/img/static/${imgPaths[index]}`}
+                      className="w-full max-h-24 object-contain"
+                      alt="Flami qui te dit bonjour avec sa main."
+                    />
                     {choice}
                   </div>
                 </li>
