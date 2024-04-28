@@ -33,10 +33,13 @@ const CollectionPage = () => {
               key={i}
               loading="lazy"
               src={`/assets/img/icons/flami.png`}
-              className="relative z-10 w-full scale-65 translate-y-2 max-h-60 grayscale opacity-30"
+              className={`relative z-10 w-full scale-65 translate-y-2 max-h-60 grayscale ${i > 3 ? `opacity-${30 - (i - 3) * 5}` : "opacity-30"}`}
               alt="Flami"
             />)
           )
+        }
+        {
+          <span className="h-0 opacity-25 opacity-20 opacity-15 opacity-10 opacity-0"></span>
         }
       </div>
     </section>
