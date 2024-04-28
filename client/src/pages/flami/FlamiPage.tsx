@@ -65,7 +65,7 @@ const FlamiPage = () => {
         },
       },
       {
-        element: "#shared-flami",
+        element: "#share-flami",
         popover: {
           title: "Partage ton Flami avec le monde !",
           description: `Prépare ton Flami pour une aventure extraordinaire !
@@ -102,6 +102,13 @@ const FlamiPage = () => {
             Le parcours quotidien de la vraie Flamme.
             Le voyage extraordinaire de ton Flami.
             Suis leurs traces et découvre des surprises passionnantes !`,
+        },
+      },
+      {
+        element: "#flamis",
+        popover: {
+          title: "Collectionne les Flamis",
+          description: `Amuse-toi à collectionner les Flamis que tu échange ! Tu pourra les admirer dans cette partie de l'application.`,
         },
       },
     ],

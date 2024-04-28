@@ -27,9 +27,9 @@ import ThanksPage from "./pages/legal/ThanksPage";
 import CollectionPage from "./pages/flami/CollectionPage";
 import BadgePage from "./pages/profile/BadgePage";
 
-import click1 from "../public/assets/sound/click-1.mp3";
-import click2 from "../public/assets/sound/click-2.mp3";
-import click3 from "../public/assets/sound/click-3.mp3";
+// import click1 from "../public/assets/sound/click-1.mp3";
+// import click2 from "../public/assets/sound/click-2.mp3";
+// import click3 from "../public/assets/sound/click-3.mp3";
 
 const TOAST_LIMIT = 2;
 
@@ -44,10 +44,11 @@ const App = () => {
       .forEach((t) => toast.dismiss(t.id));
   }, [toasts]);
 
-  let audios = [new Audio(click1), new Audio(click2), new Audio(click3)];
+  // was supposed to play a pop sound on every button/link click
+  // let audios = [new Audio(click1), new Audio(click2), new Audio(click3)];
 
   return (
-    <main onClick={() => audios[Math.floor(Math.random() * audios.length)]?.play()} className={`${showNav ? "p-8" : ""  } min-h-dvh font-roboto max-w-lg mx-auto grid`}>
+    <main className={`${showNav ? "p-8" : ""} min-h-dvh font-roboto max-w-lg mx-auto grid`}>
       <Routes>
         <Route path="/" element={<ProtectedRoute />}>
           <Route index element={<FlamiPage />} />

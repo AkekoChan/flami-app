@@ -24,9 +24,20 @@ const CollectionPage = () => {
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Ta collection de Flamis" hasReturn={false} prevPage="" />
       <div className="grid grid-cols-3 gap-6 w-full text-xs">
-        { collection?.map(flami => (
+        { collection.length === 0 ? (<span className="absolute text-xl">Tu n'as pas encore de Flami dans ta collection !</span>) : collection?.map(flami => (
           <FlamiDisplay isSelf={false} animation="Idle" flami={flami}></FlamiDisplay>
         )) }
+        {
+          [...Array(9 -collection.length).keys()].map((i) => 
+            (<img
+              key={i}
+              loading="lazy"
+              src={`/assets/img/icons/flami.png`}
+              className="relative z-10 w-full scale-65 translate-y-2 max-h-60 grayscale opacity-30"
+              alt="Flami"
+            />)
+          )
+        }
       </div>
     </section>
   );
