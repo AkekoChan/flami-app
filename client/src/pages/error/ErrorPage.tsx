@@ -9,7 +9,7 @@ const ErrorPage = () => {
         alt="Flami qui te dit bonjour avec sa main."
       />
       <h1 className="text-2xl font-bold text-center ">Je pense que tu t'es perdu(e) ?</h1>
-      <LinkComponent to="/" variant={"primary"}>Retour à l'accueil</LinkComponent>
+      <LinkComponent to="/" variant={"primary"}>Retourne à l'accueil</LinkComponent>
     </div>
   );
 };
