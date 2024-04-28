@@ -1,4 +1,4 @@
-
+dist-server
 server/request.rest
 server/data/parse.php
 server/data/badges_backup.json
