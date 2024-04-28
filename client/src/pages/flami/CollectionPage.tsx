@@ -23,7 +23,7 @@ const CollectionPage = () => {
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Ta collection de Flamis" hasReturn={false} prevPage="" />
-      <div className="grid grid-cols-3 gap-6 w-full text-xs">
+      <div className="grid grid-cols-3 gap-6 w-full text-xs pt-4">
         { collection.length === 0 ? (<span className="absolute text-xl">Tu n'as pas encore de Flami dans ta collection !</span>) : collection?.map(flami => (
           <FlamiDisplay isSelf={false} animation="Idle" flami={flami}></FlamiDisplay>
         )) }

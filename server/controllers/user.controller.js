@@ -85,10 +85,12 @@ const userController = {
 
       if (flami) {
         flami.owner_name = (await userModel.findById(flami.owner_id))?.name;
+        flami.last_trade = trade.created_at;
         flami_collection.push({
           name: `Flami de ${flami.owner_name}`,
           cosmetics: flami.cosmetics.map((item) => json[item.id]),
           _id: flami.id,
+          last_trade: flami.last_trade,
           owner: flami.owner_id,
           self: false,
         });

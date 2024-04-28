@@ -40,6 +40,11 @@ const FlamiDisplay = ({
             alt={cosmetic.name}
           />
         ))}
+          {
+            flami.last_trade ?
+            <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">{new Date(flami.last_trade).toLocaleDateString()}</span>
+            : null
+          }
       </div>
     </div>
   );
