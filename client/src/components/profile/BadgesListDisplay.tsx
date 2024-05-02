@@ -22,7 +22,7 @@ const BadgesListDisplay = ({ badges }: { badges: Badge[] | undefined }) => {
               )
               .map((badge: Badge, index) =>
                 badge.owned ? (
-                  <div className="w-40 h-40" key={index}>
+                  <div className="" key={index}>
                     <motion.img
                       variants={badgeVariants}
                       initial="hidden"
@@ -36,7 +36,7 @@ const BadgesListDisplay = ({ badges }: { badges: Badge[] | undefined }) => {
                     />
                   </div>
                 ) : (
-                  <div className="w-40 h-40" key={index}>
+                  <div className="" key={index}>
                     <motion.img
                       variants={badgeVariants}
                       initial="hidden"
