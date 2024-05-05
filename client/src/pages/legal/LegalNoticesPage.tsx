@@ -5,6 +5,8 @@ const LegalNoticesPage = () => {
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Mentions légales" hasReturn={true} prevPage="/account" />
       <div className="flex flex-col gap-4">
+        <p className="font-bold">Créé par Théo Martin, Joshua Bienvenu et Maxence Guivier dans le cadre d'un projet Universitaire proposé par son corps enseignant
+        à l'IUT d'Angoulême, formation Métiers du Multimédia et de l'Internet, parcours Développement Web (3ème année)</p>
         <p className="font-bold">En vigueur au 22/03/2024</p>
         <p>
           Conformément aux dispositions des Articles 6-III et 19 de la Loi
