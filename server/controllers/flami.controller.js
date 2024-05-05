@@ -155,6 +155,7 @@ const flamiController = {
     let shared_flami = await flamiModel.findOne({
       _id: shared_user.traded_flami_id || shared_user.flami_id,
     });
+
     let flami = await flamiModel.findOne({
       _id: userdata.traded_flami_id || flami_id,
     });
@@ -243,11 +244,11 @@ const flamiController = {
     });
 
     await flamiModel.updateOne(
-      { owner_id: userdata._id },
+      { _id: flami._id },
       { trader_id: shared_user._id }
     );
     await flamiModel.updateOne(
-      { owner_id: shared_user._id },
+      { _id: shared_flami._id },
       { trader_id: userdata._id }
     );
 
