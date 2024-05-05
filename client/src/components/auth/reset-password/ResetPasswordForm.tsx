@@ -21,12 +21,12 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
+  const token = useParams();
 
   const handleSubmit = (
     values: FormValues,
     actions: FormikHelpers<FormValues>
   ) => {
-    const token = useParams();
     const resetPasswordBody: ResetPasswordBody = {
       password: values.password,
     };
