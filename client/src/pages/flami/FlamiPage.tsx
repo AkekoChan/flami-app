@@ -53,7 +53,7 @@ const FlamiPage = () => {
 
   const driver1 = driver({
     nextBtnText: "Suivant",
-    prevBtnText: "Précédant",
+    prevBtnText: "Précédent",
     doneBtnText: "Terminé",
     steps: [
       {

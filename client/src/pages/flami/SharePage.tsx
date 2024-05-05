@@ -30,7 +30,7 @@ const SharePage = () => {
 
   const driver2 = driver({
     nextBtnText: "Suivant",
-    prevBtnText: "Précédant",
+    prevBtnText: "Précédent",
     doneBtnText: "Terminé",
     steps: [
       {
