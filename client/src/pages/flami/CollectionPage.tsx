@@ -23,12 +23,10 @@ const CollectionPage = () => {
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Ta collection de Flamis" hasReturn={false} prevPage="" />
-      { collection.length === 0 ? (<div>
-          <span className="absolute text-xl mb-16">Tu n'as pas encore de Flamis dans ta collection !</span>
-        </div>) : null }
+      { collection.length === 0 ? (<span className="text-lg text-center mt-4">Tu n'as pas encore de Flamis dans ta collection !</span>) : null }
       <div className="grid grid-cols-3 gap-6 w-full text-xs pt-4">
         { collection?.map(flami => (
-          <FlamiDisplay isSelf={false} animation="Idle" flami={flami}></FlamiDisplay>
+          <FlamiDisplay isSelf={false} flami={flami}></FlamiDisplay>
         )) }
         {
           [...Array(9 - collection.length).keys()].map((i) => 

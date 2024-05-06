@@ -147,11 +147,11 @@ const Map = ({
           ]}
           icon={new DivIcon({
             className: 'flami-icon-marker',
-            html: renderToString(<FlamiDisplay isSelf={true} animation="Idle" flami={flami}></FlamiDisplay>)
+            html: renderToString(<FlamiDisplay isSelf={true} flami={flami}></FlamiDisplay>)
           })}
         >
         </Marker> : null}
-        {flamiTrailPath ? <Polyline pathOptions={{ color: "red", dashArray: "10,25", weight: 2 }} positions={flamiTrailPath} /> : null}
+        {flamiTrailPath ? <Polyline pathOptions={{ color: "red", dashArray: "10,15", weight: 2 }} positions={flamiTrailPath} /> : null}
       </MapContainer>
     </div>
   );

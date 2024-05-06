@@ -49,10 +49,15 @@ const authController = {
       bcrypt.genSaltSync(11)
     );
 
-    let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
-    let json = JSON.parse(content);
+    // let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
+    // let json = JSON.parse(content);
 
-    userdata.owned_cosmetics = Object.values(json).map(item => { return { id: item.id }});
+    userdata.owned_cosmetics = [
+      {
+        id: { "Sport de combat": "BoxeGants", "Sport de course": "Chaussures", "Sport aquatique": "Masque", "Sport collectif": "Basket", "Sport de plage": "Surf", "Sport de force": "Haltere" }[userdata.metadata.favorite_sport] 
+          ?? "Chaussures"
+      }
+    ];
 
     let new_user = new userModel(userdata);
 

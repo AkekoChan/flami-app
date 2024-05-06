@@ -44,11 +44,8 @@ const FlamiPage = () => {
     );
   }, [token]);
 
-  const [animation, setAnimation] = useState('Idle');
   useEffect(() => {
     getFlami();
-    setAnimation("Atchoum");
-    setTimeout(() => setAnimation("Idle"), 10);
   }, [getFlami]);
 
   const driver1 = driver({
@@ -125,7 +122,6 @@ const FlamiPage = () => {
                   <FlamiDisplay
                     isSelf={flami.self}
                     flami={flami}
-                    animation={animation}
                     key={k}
                   ></FlamiDisplay>
                 ) : null

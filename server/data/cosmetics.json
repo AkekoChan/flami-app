@@ -42,140 +42,140 @@
         "id": "Haltere"
     },
     "Arc": {
-        "name": "",
+        "name": "Arc",
         "description": "",
         "url": "/assets/img/cosmetics/Arc.png",
         "category": "hands",
         "id": "Arc"
     },
     "Ballerine": {
-        "name": "",
+        "name": "Ballerines",
         "description": "",
         "url": "/assets/img/cosmetics/Ballerine.png",
         "category": "feet",
         "id": "Ballerine"
     },
     "BaseballHat": {
-        "name": "",
+        "name": "Casquette de baseball",
         "description": "",
         "url": "/assets/img/cosmetics/BaseballHat.png",
         "category": "head",
         "id": "BaseballHat"
     },
     "Ceinture": {
-        "name": "",
+        "name": "Ceinture de Dan",
         "description": "",
         "url": "/assets/img/cosmetics/Ceinture.png",
         "category": "hands",
         "id": "Ceinture"
     },
     "ChaussureEscalade": {
-        "name": "",
+        "name": "Chaussures d'escalade",
         "description": "",
         "url": "/assets/img/cosmetics/ChaussureEscalade.png",
         "category": "feet",
         "id": "ChaussureEscalade"
     },
     "ChaussureRando": {
-        "name": "",
+        "name": "Chaussures de randonnée",
         "description": "",
         "url": "/assets/img/cosmetics/ChaussureRando.png",
         "category": "feet",
         "id": "ChaussureRando"
     },
     "Escrime": {
-        "name": "",
+        "name": "Sabre d'escrime",
         "description": "",
         "url": "/assets/img/cosmetics/Escrime.png",
         "category": "head",
         "id": "Escrime"
     },
     "Fleuret": {
-        "name": "",
+        "name": "Fleuret",
         "description": "",
         "url": "/assets/img/cosmetics/Fleuret.png",
         "category": "hands",
         "id": "Fleuret"
     },
     "GRS": {
-        "name": "",
+        "name": "GRS",
         "description": "",
         "url": "/assets/img/cosmetics/GRS.png",
         "category": "hands",
         "id": "GRS"
     },
     "Hockey": {
-        "name": "",
+        "name": "Hockey",
         "description": "",
         "url": "/assets/img/cosmetics/Hockey.png",
         "category": "hands",
         "id": "Hockey"
     },
     "Jetpack": {
-        "name": "",
+        "name": "Jetpack",
         "description": "",
         "url": "/assets/img/cosmetics/Jetpack.png",
         "category": "back",
         "id": "Jetpack"
     },
     "LunettesSoleil": {
-        "name": "",
+        "name": "Lunettes de soleil",
         "description": "",
         "url": "/assets/img/cosmetics/LunettesSoleil.png",
         "category": "head",
         "id": "LunettesSoleil"
     },
     "LunettesTir": {
-        "name": "",
+        "name": "Lunette de tir",
         "description": "",
         "url": "/assets/img/cosmetics/LunettesTir.png",
         "category": "head",
         "id": "LunettesTir"
     },
     "Masque": {
-        "name": "",
+        "name": "Masque de plongé",
         "description": "",
         "url": "/assets/img/cosmetics/Masque.png",
         "category": "head",
         "id": "Masque"
     },
     "Pirate": {
-        "name": "",
+        "name": "Bandana de pirate",
         "description": "",
         "url": "/assets/img/cosmetics/Pirate.png",
         "category": "head",
         "id": "Pirate"
     },
     "Randonnee": {
-        "name": "",
+        "name": "Sac de randonnée",
         "description": "",
         "url": "/assets/img/cosmetics/Randonnee.png",
         "category": "back",
         "id": "Randonnee"
     },
     "RaquetteTennis": {
-        "name": "",
+        "name": "Raquette de tennis",
         "description": "",
         "url": "/assets/img/cosmetics/RaquetteTennis.png",
         "category": "back",
         "id": "RaquetteTennis"
     },
     "Surf": {
-        "name": "",
+        "name": "Planche de surf",
         "description": "",
         "url": "/assets/img/cosmetics/Surf.png",
         "category": "hands",
         "id": "Surf"
     },
     "Tongue": {
-        "name": "",
+        "name": "Tongue de plage",
         "description": "",
         "url": "/assets/img/cosmetics/Tongue.png",
         "category": "feet",
         "id": "Tongue"
     },
     "Velo": {
-        "name": "",
+        "name": "Casque de vélo",
         "description": "",
         "url": "/assets/img/cosmetics/Velo.png",
         "category": "head",
