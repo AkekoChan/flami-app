@@ -13,8 +13,8 @@ const MapPage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
   const [steps, setSteps] = useState<Step[]>([]);
-  const [currentFlameLocation, setCurrentFlameLocation] = useState<Step>();
-  const [nextFlameLocation, setNextFlameLocation] = useState<Step>();
+  const [currentFlameLocation, setCurrentFlameLocation] = useState<Step|null>(null);
+  const [nextFlameLocation, setNextFlameLocation] = useState<Step|null>(null);
   const [flamiLocation, setFlamiLocation] = useState<any>(null);
   const [flamiTrail, setFlamiTrail] = useState<any>([]);
   const [flamiPosition, setFlamiPosition] = useState<any>(null);

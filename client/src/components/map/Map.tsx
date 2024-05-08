@@ -27,7 +27,7 @@ const Map = ({
   flamiPosition,
   flami
 }: {
-  currentStep: Step | undefined;
+  currentStep: Step | null;
   steps: Step[];
   polylinePath: [number, number][];
   flamiTrailPath: [number, number][];
@@ -50,7 +50,7 @@ const Map = ({
   const [geolocalisation, setGeolocation] = useState(new LatLng(43.282, 5.405));
 
   useEffect(() => {
-    if(currentStep) setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude))
+    if(currentStep !== null) setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude))
   }, [currentStep, setGeolocation])
 
   const MapRecenter = ({
@@ -73,7 +73,7 @@ const Map = ({
   return (
     <div className="h-96 rounded-2xl overflow-hidden relative">
 
-      { currentStep ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
+      { currentStep !== null ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
         setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
       }}>
         <SearchIcon className="mr-1" role="decoration"/> Etape actuelle
@@ -108,7 +108,7 @@ const Map = ({
                 marker.geolocalisation.longitude,
               ]}
               icon={
-                !currentStep
+                currentStep === null
                   ? customIconGhost
                   : currentStep.etape_numero < marker.etape_numero
                   ? customIconGhost
@@ -121,7 +121,7 @@ const Map = ({
                 <p className="text-sm">{marker.date}</p>
                 <p className="text-sm">{marker.ville}</p>
                 {
-                  currentStep && currentStep?.etape_numero === marker.etape_numero ? (
+                  currentStep !== null && currentStep.etape_numero === marker.etape_numero ? (
                     <Button className="pb-1 text-alabaster-50" onClick={() => APIHandler<GenericResponse>(`/misc/g/badge/etape_${marker.etape_numero}`, false, "GET", undefined, token).then(res => {
                       toast.success(`${res.data.message}`, {
                         style: {

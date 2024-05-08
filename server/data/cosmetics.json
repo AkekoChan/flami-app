@@ -14,7 +14,7 @@
         "id": "Chaussures"
     },
     "Lunettes": {
-        "name": "Bonnet de bain et lunettes de plongé",
+        "name": "Lunettes de plongé",
         "description": "Quelle allure ! Donné aux utilisateurs aimant le sport aquatique.",
         "url": "/assets/img/cosmetics/Lunettes.png",
         "category": "head",
@@ -35,7 +35,7 @@
         "id": "Volley"
     },
     "Haltere": {
-        "name": "Altère pesant son poids",
+        "name": "Altère",
         "description": "Une altère d'au moins 200kg, donné aux utilisateurs aimant le sport de force.",
         "url": "/assets/img/cosmetics/Haltere.png",
         "category": "hands",

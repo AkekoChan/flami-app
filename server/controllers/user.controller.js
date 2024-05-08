@@ -128,7 +128,14 @@ const userController = {
     if (name) patch.name = name;
     if (email) patch.email = email;
 
-    await userModel.updateOne({ _id: userdata._id }, patch);
+    try {
+      await userModel.updateOne({ _id: userdata._id }, patch);
+    } catch ($err) {
+      return res.status(403).json({
+        message: "Ce nom de compte ou cet e-mail est déjà attribué",
+        error: 403
+      });
+    }
 
     let token = auth.encode({ email: email || userdata.email });
     return res.status(200).json({
