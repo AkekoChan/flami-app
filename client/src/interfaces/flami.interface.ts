@@ -9,7 +9,7 @@ export interface Flami {
   };
   last_trade: Date | null;
   _id: string;
-  owner: string;
+  owner_id: string;
   trail: Array<{
     latitude: number;
     longitude: number;

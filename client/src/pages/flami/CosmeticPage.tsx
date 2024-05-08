@@ -5,7 +5,6 @@ import { APIHandler } from "../../utils/api/api-handler";
 import { Flami } from "../../interfaces/flami.interface";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
-import FlamiDisplay from "../../components/flami/FlamiDisplay";
 import { motion } from "framer-motion";
 import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import toast from "react-hot-toast";
@@ -80,13 +79,15 @@ const CosmeticPage = () => {
     ).then((res) => {
       setFlami(res.data);
       setWornCosmetics(res.data.cosmetics);
-      setAnimation("Atchoum");
+      setAnimation("Win");
       setTimeout(() => setAnimation("Idle"), 10);
     });
   }
 
+  const [loading, setLoading] = useState(false);
   const [animation, setAnimation] = useState("Idle");
   const [currentList, setCurrentList] = useState<number>(0);
+
   function showCosmeticList(i: number) {
     if (!cosmetics) return;
     let lists = {
@@ -123,7 +124,35 @@ const CosmeticPage = () => {
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
       {flami ? (
-        <FlamiDisplay isSelf={true} animation={animation} flami={flami} />
+        <div
+          className="z-20 w-full h-full data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative"
+          data-loading={loading}
+        >
+          <div className="relative h-full" key={flami?._id} id="your-flami">
+            <img
+              loading="lazy"
+              src={`/assets/img/animations/${animation}Anim.gif`}
+              onLoad={() => setLoading(false)}
+              onLoadStart={() => setLoading(true)}
+              className="relative z-10 w-full h-full max-h-60"
+              alt="Flami"
+            />
+            {flami?.cosmetics.map((cosmetic: Cosmetic) => (
+              <img
+                loading="lazy"
+                key={cosmetic.name}
+                className={`absolute top-0 h-full ${cosmetic.category === "back" ? "z-0" : (cosmetic.category === "head" ? "z-20" : "z-10")}`}
+                src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}${animation}.gif`}
+                alt={cosmetic.name}
+              />
+            ))}
+              {
+                flami.last_trade && !flami.self ?
+                <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">{new Date(flami.last_trade).toLocaleDateString()}</span>
+                : null
+              }
+          </div>
+        </div>
       ) : null}
       <div className="grid grid-cols-1/2/1 gap-4 w-full mb-12">
         <button

@@ -1,17 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { Flami } from "../../interfaces/flami.interface";
 
 const FlamiDisplay = ({
   flami,
-  animation = "Idle",
   isSelf = false,
 }: {
   flami: Flami;
-  animation: string;
   isSelf: boolean;
 }) => {
   const [loading, setLoading] = useState(false);
+  const [animation, setAnimation] = useState("Idle");
+
+  useEffect(() => {
+    setAnimation("Win");
+    setTimeout(() => setAnimation("Idle"), 10);
+  }, [setAnimation]);
+
   return (
     <div
       className="z-20 w-full h-full data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative"

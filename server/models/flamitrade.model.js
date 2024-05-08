@@ -1,21 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
 const flamiTradeShema = new mongoose.Schema({
-    owners: {
-        flasher: {
-            type: mongoose.Types.ObjectId
-        },
-        sender: {
-            type: mongoose.Types.ObjectId
-        }
+    user_id: {
+        type: mongoose.Types.ObjectId
     },
-    flamis: {
-        flasher: {
-            type: mongoose.Types.ObjectId
-        },
-        sender: {
-            type: mongoose.Types.ObjectId
-        }
+    flami_id: {
+        type: mongoose.Types.ObjectId
     },
     flamis_positions: {
         type: Map,
@@ -30,29 +20,11 @@ const flamiTradeShema = new mongoose.Schema({
     }
 }, {
     statics: {
-        getLastUserTrade (user) {
-            return this.findOne({
-                $or: [
-                  {"owners.flasher": user._id},
-                  {"owners.sender": user._id}
-                ]
-            }).sort({created_at: -1})
+        getAllUserTrade (user_id) {
+            return this.find({ user_id: user_id }).sort({created_at: -1});
         },
-        getAllUserTrade (user) {
-            return this.find({
-                $or: [
-                  {"owners.flasher": user._id},
-                  {"owners.sender": user._id}
-                ]
-            }).sort({created_at: -1})
-        },
-        getFlamiTrailing (flami) {
-            return this.find({
-                $or: [
-                  {"flamis.flasher": flami._id},
-                  {"flamis.sender": flami._id}
-                ]
-            }).sort({created_at: -1})
+        getAllFlamiTrade (flami_id) {
+            return this.find({ flami_id: flami_id }).sort({created_at: -1});
         }
     }
 });

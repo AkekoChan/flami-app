@@ -16,6 +16,7 @@ const SharePage = () => {
   const { token } = useAuth();
   const { setShowNav } = useTheme();
   const [flami, setFlami] = useState<Flami>();
+  const [userId, setUserId] = useState<string>();
   const navigate = useNavigate();
 
   setShowNav(true);
@@ -24,6 +25,7 @@ const SharePage = () => {
     APIHandler<Flami[]>("/my/flami", false, "GET", undefined, token).then(
       (res) => {
         setFlami(res.data[1] ?? res.data[0]);
+        setUserId(res.data[0]?.owner_id);
       }
     );
   }, [token]);
@@ -88,7 +90,6 @@ const SharePage = () => {
           </button>
           {flami ? (
             <FlamiDisplay
-              animation="Idle"
               isSelf={true}
               flami={flami}
             />
@@ -116,7 +117,7 @@ const SharePage = () => {
               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
               value={JSON.stringify({
                 expires: new Date().getTime() + 60 * 1000 * 10,
-                id: flami?.owner,
+                id: userId,
                 location: {
                   latitude: coords?.latitude || null,
                   longitude: coords?.longitude || null,

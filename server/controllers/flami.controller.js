@@ -32,7 +32,6 @@ const flamiController = {
         name: `Flami de ${userdata.name}`,
         cosmetics: flami.cosmetics.map((item) => json[item.id]),
         _id: flami.id,
-        owner: flami.owner_id,
         self: true,
       },
     });
@@ -40,46 +39,40 @@ const flamiController = {
   getFlami: async (req, res) => {
     let userdata = res.locals.user;
     let flami = await flamiModel.findOne({ _id: userdata.flami_id });
-    let traded_flami = userdata.traded_flami_id
-      ? await flamiModel.findOne({ _id: userdata.traded_flami_id })
-      : null;
-    let trade = await flamitradeModel.getLastUserTrade(userdata);
 
-    if (traded_flami)
-      traded_flami.owner_name = (
-        await userModel.findById(traded_flami.owner_id)
-      )?.name;
+    let trades = await flamitradeModel.getAllUserTrade(userdata._id);
+
+    let traded_flami = trades[0] ? await flamiModel.findOne({
+      _id: trades[0].flami_id,
+    }) : null;
 
     let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
     let json = JSON.parse(content);
 
     let trailing = [];
-    if (req.query.trail !== undefined) {
-      let d = await flamitradeModel.getFlamiTrailing(flami);
-      d.map((e) => {
-        trailing.push(e.flamis_positions.get(flami._id));
-      });
-    }
+    let d = await flamitradeModel.getAllFlamiTrade(flami._id);
+    d.map((e) => {
+      trailing.push(e.flamis_positions.get(flami._id));
+    });
 
     return res.status(200).json({
       data: [
         {
           name: `Flami de ${userdata.name}`,
           cosmetics: flami.cosmetics.map((item) => json[item.id]),
-          location: trade?.flamis_positions.get(flami.id),
+          location: trailing[0] || null,
           _id: flami.id,
-          owner: flami.owner_id,
+          owner_id: userdata._id,
           trail: trailing,
-          last_trade: trade?.created_at || null,
+          last_trade: trades[0]?.created_at || null,
           self: true,
         },
         traded_flami
           ? {
-              name: `Flami de ${traded_flami.owner_name}`,
+              name: `Flami de ${(await userModel.findOne({ _id: traded_flami.owner_id }))?.name}`,
               cosmetics: traded_flami.cosmetics.map((item) => json[item.id]),
-              location: trade?.flamis_positions.get(traded_flami.id),
               _id: traded_flami.id,
-              owner: traded_flami.owner_id,
+              owner_id: traded_flami.owner_id,
               self: false,
             }
           : null,
@@ -89,10 +82,10 @@ const flamiController = {
   getPaliers: async (req, res) => {
     let userdata = res.locals.user;
     let user_palier = userdata.trade_palier;
-    let user_trades = await flamitradeModel.getAllUserTrade(userdata);
+    let user_trades = await flamitradeModel.getAllUserTrade(userdata._id);
     let message = null;
 
-    let paliers = [3, 5, 10, 20, 25, 30, 40, 50, 60, 70, 80, 90, 100];
+    let paliers = [1, 3, 5, 8, 10, 14, 18, 20, 22, 25, 30, 35, 40, 45, 50, 55, 60, 64, 68, 70, 75, 80, 84, 88, 90, 100];
     if (user_palier < user_trades.length) {
       if (paliers.includes(user_trades.length)) {
         let content = await readFile("./data/cosmetics.json", {
@@ -112,9 +105,11 @@ const flamiController = {
             id: cosm[0].id,
           });
 
-          message = `Tu as reçu une cosmétique ${cosm[0].name} !`;
+          message = `Tu as reçu une cosmétique (${cosm[0].name}) !`;
         }
       }
+
+      // ! IMPORTANT UPDATE TRADE PALIER
       userdata.trade_palier = user_trades.length;
     }
 
@@ -124,7 +119,7 @@ const flamiController = {
       )[0] || null;
 
     if (!closest_palier) {
-      closest_palier = user_trades.length - (user_trades.length % 10) + 10;
+      closest_palier = user_trades.length - (user_trades.length % 10) + 8;
     }
 
     await userdata.save();
@@ -141,7 +136,6 @@ const flamiController = {
 
     let userdata = res.locals.user;
     const { shared_user_id, location, shared_location } = req.body;
-    const flami_id = userdata.flami_id;
 
     let shared_user = await userModel.findOne({ _id: shared_user_id });
 
@@ -152,12 +146,15 @@ const flamiController = {
       });
     }
 
-    let shared_flami = await flamiModel.findOne({
-      _id: shared_user.traded_flami_id || shared_user.flami_id,
-    });
+    let shared_user_trades = await flamitradeModel.getAllUserTrade(shared_user_id);
+    let user_trades = await flamitradeModel.getAllUserTrade(userdata._id);
 
     let flami = await flamiModel.findOne({
-      _id: userdata.traded_flami_id || flami_id,
+      _id: (user_trades[0]?.flami_id || userdata.flami_id),
+    });
+
+    let shared_flami = await flamiModel.findOne({
+      _id: (shared_user_trades[0]?.flami_id || shared_user.flami_id),
     });
 
     if (!shared_flami || !flami) {
@@ -167,72 +164,53 @@ const flamiController = {
       });
     }
 
-    if (shared_flami._id === flami._id) {
+    if (shared_flami._id.equals(flami._id)) {
       return res.status(404).json({
         message: `Ce sont les mêmes Flamis.`,
         error: 404,
       });
     }
 
-    let sharer_last_trade = await flamitradeModel.getLastUserTrade(shared_user);
-    if (
-      sharer_last_trade?.created_at.toDateString() === new Date().toDateString()
-    )
+    if (shared_user_trades[0]?.created_at.toDateString() === new Date().toDateString())
+      return res.status(409).json({
+        message:
+          "La personne avec qui tu échange a déjà fait un échange aujourd'hui.",
+        error: 409,
+      });
+
+    if (user_trades[0]?.created_at.toDateString() === new Date().toDateString())
+      return res.status(409).json({
+        message: "Tu as déjà fait un échange aujourd'hui.",
+        error: 409,
+      });
+
+    let sharer_search_flami = await flamitradeModel.findOne({
+      user_id: userdata._id,
+      flami_id: shared_flami._id
+    });
+
+    if (sharer_search_flami || shared_flami._id.equals(userdata.flami_id))
       return res
         .status(409)
-        .json({
-          message:
-            "La personne avec qui tu échange a déjà fait un échange aujourd'hui.",
-          error: 409,
-        });
+        .json({ message: "Tu as déjà reçu ce Flami précédement.", error: 409 });
 
-    let user_last_trade = await flamitradeModel.getLastUserTrade(userdata);
-    if (
-      user_last_trade?.created_at.toDateString() === new Date().toDateString()
-    )
-      return res
-        .status(409)
-        .json({
-          message: "Tu as déjà fait un échange aujourd'hui.",
-          error: 409,
-        });
+    let user_search_flami = await flamitradeModel.findOne({
+      user_id: shared_user._id,
+      flami_id: flami._id
+    });
 
-        let sharer_search_flami = await flamitradeModel.findOne({
-            $and: [
-                { $or: [{'flamis.flasher': shared_flami._id}, {'flamis.sender': shared_flami._id}] },
-                { $or: [{'owners.flasher': userdata._id}, {'owners.sender': userdata._id}] }
-            ]
-        })
-
-        if(sharer_search_flami) return res.status(409).json({ message: "Tu as déjà reçu ce Flami précédement.", error: 409 });
-        
-        let user_search_flami = await flamitradeModel.findOne({
-            $and: [
-                { $or: [{'flamis.flasher': flami._id}, {'flamis.sender': flami._id}] },
-                { $or: [{'owners.flasher': shared_user_id}, {'owners.sender': shared_user_id}] }
-            ]
-        })
-
-    if (user_search_flami)
-      return res
-        .status(409)
-        .json({
-          message:
-            "La personne avec qui tu échange as déjà reçu ce Flami précedement.",
-          error: 409,
-        });
+    if (user_search_flami || flami._id.equals(shared_user.flami_id))
+      return res.status(409).json({
+        message:
+          "La personne avec qui tu échange as déjà reçu ce Flami précedement.",
+        error: 409,
+      });
 
     await flamitradeModel.create({
-      owners: {
-        flasher: userdata._id,
-        sender: shared_user._id,
-      },
-      flamis: {
-        flasher: flami_id,
-        sender: shared_flami._id,
-      },
+      user_id: userdata._id,
+      flami_id: shared_flami._id,
       flamis_positions: {
-        [flami_id]: {
+        [flami._id]: {
           latitude: location.latitude,
           longitude: location.longitude,
         },
@@ -243,27 +221,24 @@ const flamiController = {
       },
     });
 
-    await flamiModel.updateOne(
-      { _id: flami._id },
-      { trader_id: shared_user._id }
-    );
-    await flamiModel.updateOne(
-      { _id: shared_flami._id },
-      { trader_id: userdata._id }
-    );
-
-    await userModel.updateOne(
-      { _id: userdata._id },
-      { traded_flami_id: shared_flami._id }
-    );
-    await userModel.updateOne(
-      { _id: shared_user._id },
-      { traded_flami_id: flami._id }
-    );
+    await flamitradeModel.create({
+      user_id: shared_user._id,
+      flami_id: flami._id,
+      flamis_positions: {
+        [flami._id]: {
+          latitude: location.latitude,
+          longitude: location.longitude,
+        },
+        [shared_flami._id]: {
+          latitude: shared_location.latitude,
+          longitude: shared_location.longitude,
+        },
+      },
+    });
 
     return res.status(202).json({
       data: {
-        message: `Tu as bien reçu le Flami de ${shared_user.name} !`,
+        message: `Tu as bien reçu le Flami de ${(await userModel.findOne({ _id: shared_flami.owner_id }))?.name} !`,
       },
     });
   },

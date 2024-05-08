@@ -67,7 +67,7 @@ const userController = {
   },
   getFlamiCollection: async (req, res) => {
     let userdata = res.locals.user;
-    let user_trades = await flamitradeModel.getAllUserTrade(userdata);
+    let user_trades = await flamitradeModel.getAllUserTrade(userdata._id);
 
     const flami_collection = [];
 
@@ -76,22 +76,14 @@ const userController = {
 
     for (let index = 0; index < user_trades.length; index++) {
       const trade = user_trades[index];
-      let flami;
-      if (trade.owners.flasher.equals(userdata._id)) {
-        flami = await flamiModel.findOne({ _id: trade.flamis.sender });
-      } else if (trade.owners.sender.equals(userdata._id)) {
-        flami = await flamiModel.findOne({ _id: trade.flamis.flasher });
-      }
+      const flami = await flamiModel.findOne({ _id: trade.flami_id });
 
       if (flami) {
-        flami.owner_name = (await userModel.findById(flami.owner_id))?.name;
-        flami.last_trade = trade.created_at;
         flami_collection.push({
-          name: `Flami de ${flami.owner_name}`,
+          name: `Flami de ${(await userModel.findById(flami.owner_id))?.name}`,
           cosmetics: flami.cosmetics.map((item) => json[item.id]),
           _id: flami.id,
-          last_trade: flami.last_trade,
-          owner: flami.owner_id,
+          last_trade: trade.created_at,
           self: false,
         });
       }
@@ -132,6 +124,7 @@ const userController = {
       )
     )
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));
+      
     if (name) patch.name = name;
     if (email) patch.email = email;
 
