@@ -40,7 +40,7 @@ const FlamiDisplay = ({
           <img
             loading="lazy"
             key={cosmetic.name}
-            className={`absolute top-0 h-full ${cosmetic.category === "back" ? "z-0" : (cosmetic.category === "head" ? "z-20" : "z-10")}`}
+            className={`absolute top-0 h-full ${cosmetic.category === "back" ? "z-0" : (cosmetic.category === "hands" ? "z-30" : (cosmetic.category === "head" ? "z-20" : "z-10"))}`}
             src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}${animation}.gif`}
             alt={cosmetic.name}
           />
