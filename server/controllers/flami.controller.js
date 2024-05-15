@@ -53,7 +53,7 @@ const flamiController = {
     let d = await flamitradeModel.getAllFlamiTrade(flami._id);
     d.map((e) => {
       let position = e.flamis_positions.get(flami._id);
-      if(position.latitude !== null && position.longitude !== null) trailing.push(position);
+      if(position.latitude !== null && position.longitude !== null && position.latitude !== undefined && position.longitude !== undefined) trailing.push(position);
     });
 
     return res.status(200).json({
