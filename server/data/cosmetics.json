@@ -62,6 +62,13 @@
         "category": "head",
         "id": "BaseballHat"
     },
+    "Clown": {
+        "name": "Maquillage et perruque de clown",
+        "description": "Maquillage et perruque de clown",
+        "url": "/assets/img/cosmetics/Clown.png",
+        "category": "head",
+        "id": "Clown"
+    },
     "Ceinture": {
         "name": "Ceinture de Dan",
         "description": "",
@@ -89,6 +96,34 @@
         "url": "/assets/img/cosmetics/Escrime.png",
         "category": "head",
         "id": "Escrime"
+    },
+    "GantFootball": {
+        "name": "Gants de Football",
+        "description": "Des gants de football, prêt à arrêter tout les tirs !",
+        "url": "/assets/img/cosmetics/GantFootball.png",
+        "category": "hands",
+        "id": "GantFootball"
+    },
+    "Football": {
+        "name": "Ballon de Football",
+        "description": "Un ballon de Football",
+        "url": "/assets/img/cosmetics/Football.png",
+        "category": "feet",
+        "id": "Football"
+    },
+    "Coupe": {
+        "name": "Trophé",
+        "description": "Une coupe de vinqueur",
+        "url": "/assets/img/cosmetics/Coupe.png",
+        "category": "hands",
+        "id": "Coupe"
+    },
+    "Skateboard": {
+        "name": "Skateboard trop classe",
+        "description": "Un Skateboard qui roule ma poule !",
+        "url": "/assets/img/cosmetics/Skateboard.png",
+        "category": "hands",
+        "id": "Skateboard"
     },
     "Fleuret": {
         "name": "Fleuret",
