@@ -126,7 +126,7 @@ const StepOne = ({
                   >
                     <img
                       src={`/assets/img/static/${imgPaths[index]}`}
-                      className="w-full max-h-24 object-contain"
+                      className="w-full max-h-24 object-contain aspect-square"
                       alt="Flami qui te dit bonjour avec sa main."
                     />
                     {choice}

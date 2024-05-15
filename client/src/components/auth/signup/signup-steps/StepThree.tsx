@@ -89,7 +89,7 @@ const StepThree = ({
         <Reveal className="flex flex-col gap-8">
           <img
             src="/assets/img/animations/ThinkAnim.gif"
-            className="w-full max-h-60 object-contain"
+            className="w-full max-h-60 object-contain aspect-square"
             alt="Flami qui te dit bonjour avec sa main."
           />
           <h1 className="text-2xl font-bold text-center">

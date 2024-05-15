@@ -1,6 +1,7 @@
 import { usePwa } from "@dotmind/react-use-pwa";
 import { useCallback } from "react";
 import { Link } from "react-router-dom";
+import Modal from "../../components/modal/Modal";
 import { Button, LinkComponent } from "../../components/ui";
 
 const WelcomePage = () => {
@@ -14,10 +15,11 @@ const WelcomePage = () => {
 
   return (
     <section className="flex flex-col justify-center gap-8 h-full">
+      <Modal />
       <div className="flex flex-col gap-4">
         <img
           src="/assets/img/animations/CoucouAnim.gif"
-          className="w-full max-h-60 object-contain"
+          className="w-full max-h-60 object-contain aspect-square"
           alt="Flami qui te dit bonjour avec sa main."
         />
         <h1 className="text-2xl font-bold text-center">

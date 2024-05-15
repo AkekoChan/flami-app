@@ -116,7 +116,11 @@ const StepTwo = ({
                         : "shadow-secondary"
                     }`}
                   >
-                    <img src={originIcons[index]} alt="" className="w-8 h-8" />
+                    <img
+                      src={originIcons[index]}
+                      alt=""
+                      className="w-8 h-8 object-contain aspect-square"
+                    />
                     {choice}
                   </div>
                 </li>

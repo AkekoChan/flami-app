@@ -4,8 +4,8 @@ import { ErrorResponse } from "../../interfaces/api-response/error-response";
 
 type HTTPMethod = "GET" | "POST" | "PATCH";
 
-// const apiURLFlami = "https://backend.monflami.fr/api";
-const apiURLFlami = "http://localhost:3001/api";
+const apiURLFlami = "https://backend.monflami.fr/api";
+// const apiURLFlami = "http://localhost:3001/api";
 const apiURLMap = "https://maksance.alwaysdata.net/api-jo";
 
 export const APIHandler = <T>(

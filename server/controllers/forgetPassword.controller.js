@@ -1,9 +1,9 @@
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import { readFile } from "fs/promises";
+import jwt from "jsonwebtoken";
 import { mailSender } from "../mail/mailSender.js";
 import userModel from "../models/user.model.js";
-import { readFile } from "fs/promises";
 
 dotenv.config();
 
@@ -22,12 +22,21 @@ const forgetPasswordController = {
         expiresIn: "10m",
       });
 
-      let content = await readFile('./mail/forget-base.html', { encoding: "utf8" });
+      let content = await readFile("./mail/forget-base.html", {
+        encoding: "utf8",
+      });
 
       const info = await mailSender(
         user.email,
         "Mot de passe oublié ? - Flami vient à votre aide !",
-        content.replace("${link}", `${process.env.ENVIRONMENT === "dev" ? process.env.URL_APP_DEV : process.env.URL_APP_PROD}/reset-password/${token}`)
+        content.replace(
+          "${link}",
+          `${
+            process.env.ENVIRONMENT === "dev"
+              ? process.env.URL_APP_DEV
+              : process.env.URL_APP_PROD
+          }/reset-password/${token}`
+        )
       );
 
       if (!info) {

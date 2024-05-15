@@ -21,7 +21,7 @@ const ResetPasswordForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [showConfirmPassword, setShowConfirmPassword] =
     useState<boolean>(false);
-  const token = useParams();
+  const params = useParams();
 
   const handleSubmit = (
     values: FormValues,
@@ -32,7 +32,7 @@ const ResetPasswordForm = () => {
     };
 
     APIHandler<ResetPasswordResponse>(
-      `/auth/reset-password/${token}`,
+      `/auth/reset-password/${params.token}`,
       false,
       "POST",
       resetPasswordBody

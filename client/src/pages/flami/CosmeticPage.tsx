@@ -1,13 +1,13 @@
+import { motion } from "framer-motion";
 import { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
 import TopBar from "../../components/topbar/TopBar";
 import { useAuth } from "../../hooks/useAuth";
-import { APIHandler } from "../../utils/api/api-handler";
-import { Flami } from "../../interfaces/flami.interface";
-import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import { Cosmetic } from "../../interfaces/cosmetic.interface";
-import { motion } from "framer-motion";
-import { ArrowLeftIcon, ArrowRightIcon } from "react-line-awesome";
-import toast from "react-hot-toast";
+import { CosmeticList } from "../../interfaces/cosmeticList.interface";
+import { Flami } from "../../interfaces/flami.interface";
+import { APIHandler } from "../../utils/api/api-handler";
 
 const CosmeticPage = () => {
   const { token } = useAuth();
@@ -16,7 +16,7 @@ const CosmeticPage = () => {
   const [cosmetics, setCosmetics] = useState<CosmeticList>();
 
   const [cosmeticList, setCosmeticList] = useState<{
-    type: String;
+    type: string;
     list: Cosmetic[];
   }>({ type: "head", list: [] });
 
@@ -90,7 +90,7 @@ const CosmeticPage = () => {
 
   function showCosmeticList(i: number) {
     if (!cosmetics) return;
-    let lists = {
+    const lists = {
       head: cosmetics.head,
       hands: cosmetics.hands,
       feet: cosmetics.feet,
@@ -134,23 +134,29 @@ const CosmeticPage = () => {
               src={`/assets/img/animations/${animation}Anim.gif`}
               onLoad={() => setLoading(false)}
               onLoadStart={() => setLoading(true)}
-              className="relative z-10 w-full h-full max-h-60"
+              className="relative z-10 w-full h-full max-h-60 object-contain aspect-square"
               alt="Flami"
             />
             {flami?.cosmetics.map((cosmetic: Cosmetic) => (
               <img
                 loading="lazy"
                 key={cosmetic.name}
-                className={`absolute top-0 h-full ${cosmetic.category === "back" ? "z-0" : (cosmetic.category === "head" ? "z-20" : "z-10")}`}
+                className={`absolute top-0 h-full object-contain aspect-square ${
+                  cosmetic.category === "back"
+                    ? "z-0"
+                    : cosmetic.category === "head"
+                    ? "z-20"
+                    : "z-10"
+                }`}
                 src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}${animation}.gif`}
                 alt={cosmetic.name}
               />
             ))}
-              {
-                flami.last_trade && !flami.self ?
-                <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">{new Date(flami.last_trade).toLocaleDateString()}</span>
-                : null
-              }
+            {flami.last_trade && !flami.self ? (
+              <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">
+                {new Date(flami.last_trade).toLocaleDateString()}
+              </span>
+            ) : null}
           </div>
         </div>
       ) : null}
