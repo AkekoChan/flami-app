@@ -160,6 +160,20 @@
         "category": "head",
         "id": "LunettesSoleil"
     },
+    "Ailes": {
+        "name": "Ailes volantes",
+        "description": "",
+        "url": "/assets/img/cosmetics/Ailes.png",
+        "category": "back",
+        "id": "Ailes"
+    },
+    "Couronne": {
+        "name": "Couronne en papier",
+        "description": "",
+        "url": "/assets/img/cosmetics/Couronne.png",
+        "category": "head",
+        "id": "Couronne"
+    },
     "LunettesTir": {
         "name": "Lunette de tir",
         "description": "",
