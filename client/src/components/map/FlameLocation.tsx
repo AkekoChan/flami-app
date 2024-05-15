@@ -4,8 +4,8 @@ const FlameLocation = ({
   currentFlameLocation,
   nextFlameLocation,
 }: {
-  currentFlameLocation: Step | undefined;
-  nextFlameLocation: Step | undefined;
+  currentFlameLocation: Step | null;
+  nextFlameLocation: Step | null;
 }) => {
   return (
     <>

@@ -141,7 +141,7 @@ const CosmeticPage = () => {
               <img
                 loading="lazy"
                 key={cosmetic.name}
-                className={`absolute top-0 h-full object-contain aspect-square ${
+                className={`absolute top-0 h-full ${
                   cosmetic.category === "back"
                     ? "z-0"
                     : cosmetic.category === "head"

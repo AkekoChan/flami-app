@@ -28,7 +28,7 @@ const FlamiDisplay = ({
         id={isSelf ? "your-flami" : "shared-flami"}
       >
         {!isSelf ? (
-          <span className="text-alabaster-50 left-1/2 -translate-x-1/2 w-max absolute top-0 text-center">
+          <span className="text-alabaster-50 left-1/2 -translate-x-1/2 translate-y-3 w-max absolute top-0 text-center">
             {flami.name}
           </span>
         ) : null}
@@ -44,7 +44,7 @@ const FlamiDisplay = ({
           <img
             loading="lazy"
             key={cosmetic.name}
-            className={`absolute top-0 h-full object-contain aspect-square ${
+            className={`absolute top-0 h-full ${
               cosmetic.category === "back"
                 ? "z-0"
                 : cosmetic.category === "head"
@@ -57,6 +57,11 @@ const FlamiDisplay = ({
         ))}
         {flami.last_trade && !flami.self ? (
           <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">
+            {new Date(flami.last_trade).toLocaleDateString()}
+          </span>
+        ) : null}
+        {flami.last_trade && !flami.self ? (
+          <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 w-max px-6 py-2">
             {new Date(flami.last_trade).toLocaleDateString()}
           </span>
         ) : null}
