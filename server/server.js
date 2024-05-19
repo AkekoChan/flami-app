@@ -17,7 +17,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-
 app.use("/api/auth", authRoutes);
 app.use("/api/my/flami", auth.require, flamiRoutes);
 app.use("/api/my", auth.require, userRoutes);

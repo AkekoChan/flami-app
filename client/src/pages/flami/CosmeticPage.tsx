@@ -8,10 +8,11 @@ import { Cosmetic } from "../../interfaces/cosmetic.interface";
 import { CosmeticList } from "../../interfaces/cosmeticList.interface";
 import { Flami } from "../../interfaces/flami.interface";
 import { APIHandler } from "../../utils/api/api-handler";
+import FlamiDisplay from "../../components/flami/FlamiDisplay";
 
 const CosmeticPage = () => {
   const { token } = useAuth();
-  const [flami, setFlami] = useState<Flami>();
+  const [flami, setFlami] = useState<Flami|null>();
 
   const [cosmetics, setCosmetics] = useState<CosmeticList>();
 
@@ -61,7 +62,7 @@ const CosmeticPage = () => {
       ) !== -1
     )
       return toast.error(
-        "Impossible d'équiper plusieures cosmétiques du même type.",
+        "Impossible d'équiper plusieurs cosmétiques du même type.",
         {
           style: {
             background: "#3D3D3D",
@@ -74,18 +75,15 @@ const CosmeticPage = () => {
       "/my/flami/equip",
       false,
       "PATCH",
-      { cosmetic_id: cosmetic.id },
+      { cosmetic_id: cosmetic.id, cosmetic_category: cosmetic.category },
       token
     ).then((res) => {
-      setFlami(res.data);
+      setTimeout(() => setFlami(res.data), 1);
+      setFlami(null);
       setWornCosmetics(res.data.cosmetics);
-      setAnimation("Win");
-      setTimeout(() => setAnimation("Idle"), 10);
     });
   }
 
-  const [loading, setLoading] = useState(false);
-  const [animation, setAnimation] = useState("Idle");
   const [currentList, setCurrentList] = useState<number>(0);
 
   function showCosmeticList(i: number) {
@@ -123,43 +121,9 @@ const CosmeticPage = () => {
   return (
     <section className="flex flex-col gap-6 mb-24">
       <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
-      {flami ? (
-        <div
-          className="z-20 w-full h-full data-[loading=true]:bg-alabaster-800 data-[loading=true]:animate-pulse rounded-lg min-w-1/2 flex grow justify-around relative"
-          data-loading={loading}
-        >
-          <div className="relative h-full" key={flami?._id} id="your-flami">
-            <img
-              loading="lazy"
-              src={`/assets/img/animations/${animation}Anim.gif`}
-              onLoad={() => setLoading(false)}
-              onLoadStart={() => setLoading(true)}
-              className="relative z-10 w-full h-full max-h-60 object-contain aspect-square"
-              alt="Flami"
-            />
-            {flami?.cosmetics.map((cosmetic: Cosmetic) => (
-              <img
-                loading="lazy"
-                key={cosmetic.name}
-                className={`absolute top-0 h-full ${
-                  cosmetic.category === "back"
-                    ? "z-0"
-                    : cosmetic.category === "head"
-                    ? "z-20"
-                    : "z-10"
-                }`}
-                src={`/assets/img/cosmetics/anim/${cosmetic.id}/${cosmetic.id}${animation}.gif`}
-                alt={cosmetic.name}
-              />
-            ))}
-            {flami.last_trade && !flami.self ? (
-              <span className="text-alabaster-50 absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 w-max px-6 py-2">
-                {new Date(flami.last_trade).toLocaleDateString()}
-              </span>
-            ) : null}
-          </div>
-        </div>
-      ) : null}
+      <div className="min-h-60">
+        {flami ? (<FlamiDisplay flami={flami} isSelf={true}/>) : null} 
+      </div>
       <div className="grid grid-cols-1/2/1 gap-4 w-full mb-12">
         <button
           onClick={() => showCosmeticList(-1)}

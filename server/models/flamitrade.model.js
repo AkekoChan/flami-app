@@ -2,10 +2,12 @@ import mongoose, { Schema } from "mongoose";
 
 const flamiTradeShema = new mongoose.Schema({
     user_id: {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref: 'users'
     },
     flami_id: {
-        type: mongoose.Types.ObjectId
+        type: mongoose.Types.ObjectId,
+        ref: 'flamis'
     },
     flamis_positions: {
         type: Map,

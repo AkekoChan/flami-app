@@ -11,6 +11,7 @@ import { useTheme } from "../../hooks/useTheme";
 import { Flami } from "../../interfaces/flami.interface";
 import { APIHandler } from "../../utils/api/api-handler";
 import FlamiDisplay from "../../components/flami/FlamiDisplay";
+import { CircleNotchIcon } from "react-line-awesome";
 
 const SharePage = () => {
   const { token } = useAuth();
@@ -20,6 +21,8 @@ const SharePage = () => {
   const navigate = useNavigate();
 
   setShowNav(true);
+
+  const [showQRCode, setShowQRCode] = useState(false);
 
   const getFlami = useCallback(() => {
     APIHandler<Flami[]>("/my/flami", false, "GET", undefined, token).then(
@@ -67,18 +70,26 @@ const SharePage = () => {
 
   const [coords, setCoords] = useState<GeolocationCoordinates>();
 
+  const [zoomOn, setZoomOn] = useState(false);
+
   useGeolocated({
     positionOptions: {
       enableHighAccuracy: false,
     },
     userDecisionTimeout: 15000,
-    onSuccess: (position) => setCoords(position.coords),
+    onSuccess: (position) => {
+      setCoords(position.coords);
+      setShowQRCode(true);
+    },
+    onError: () => {
+      setShowQRCode(true);
+    }
   });
 
   return (
     <div className="flex flex-col gap-8 mb-24">
       <TopBar title="Partage Flami" hasReturn={true} prevPage="/" />
-      <div className="flex flex-col gap-8">
+      <div className="flex flex-col gap-4">
         <div className="flex flex-col">
           <button
             onClick={() => {
@@ -95,8 +106,8 @@ const SharePage = () => {
             />
           ) : null}
         </div>
-        <div className="w-100 flex gap-8 items-center">
-          <div className="flex flex-col gap-1 w-2/3 text-alabaster-50">
+        <div className="w-100 flex flex-col gap-4">
+          <div className="flex flex-col gap-1 text-alabaster-50">
               <div>
                 {
                   flami?.self ? (
@@ -109,25 +120,31 @@ const SharePage = () => {
             <span>En faisant scanner ce QR code à un ami.</span>
           </div>
           <div
-            className="w-1/3 bg-alabaster-50 rounded-xl share-qrcode"
+            className="flex justify-center w-full bg-alabaster-50 rounded-xl share-qrcode text-alabaster-900"
             style={{ height: "auto", margin: "0 auto", padding: "10px" }}
           >
-            <QRCode
-              size={400}
-              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-              value={JSON.stringify({
-                expires: new Date().getTime() + 60 * 1000 * 10,
-                id: userId,
-                location: {
-                  latitude: coords?.latitude || null,
-                  longitude: coords?.longitude || null,
-                },
-              })}
-              viewBox={`0 0 400 400`}
-              fgColor={"#292929"}
-              bgColor={"#fafafa"}
-            />
+            {
+              showQRCode ? <QRCode
+                style={{ margin: "0 auto", height: "auto", width: zoomOn ? "100%" : "40%" }}
+                onClick={() => setZoomOn(!zoomOn)}
+                value={JSON.stringify({
+                  expires: new Date().getTime() + 60 * 1000 * 10,
+                  id: userId,
+                  location: {
+                    latitude: coords?.latitude || null,
+                    longitude: coords?.longitude || null,
+                  },
+                })}
+                viewBox={`0 0 400 400`}
+                fgColor={"#292929"}
+                bgColor={"#fafafa"}
+              /> : <div className="flex items-center gap-2">
+                  <CircleNotchIcon className="animate-spin text-3xl mx-auto"/>
+                  <span>En attente de la Géolocalisation</span>
+                </div>
+            }
           </div>
+          <span className="text-sm opacity-40 w-full text-center">Cliquer pour agrandir</span>
         </div>
         <div className="flex">
           <Button

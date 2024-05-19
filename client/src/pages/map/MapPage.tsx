@@ -8,6 +8,7 @@ import FlamiLocation from "../../components/map/FlamiLocation";
 import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
 import { Flami } from "../../interfaces/flami.interface";
+import { AllFlamisButton } from "../../components/ui/allFlamisButton";
 
 const MapPage = () => {
   const { token } = useAuth();
@@ -138,6 +139,7 @@ const MapPage = () => {
             )}
           </div>
         </div>
+        <AllFlamisButton/>
       </div>
     </div>
   );

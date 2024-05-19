@@ -26,6 +26,7 @@ import LegalNoticesPage from "./pages/legal/LegalNoticesPage";
 import ThanksPage from "./pages/legal/ThanksPage";
 import CollectionPage from "./pages/flami/CollectionPage";
 import BadgePage from "./pages/profile/BadgePage";
+import FlamisMap from "./pages/map/FlamisMap";
 
 // import click1 from "../public/assets/sound/click-1.mp3";
 // import click2 from "../public/assets/sound/click-2.mp3";
@@ -75,6 +76,7 @@ const App = () => {
           <Route path="/forget-password" element={<ForgetPasswordPage />} />
           <Route path="/otp" element={<OtpPage />} />
         </Route>
+        <Route path="/flamis-map" element={<FlamisMap />}></Route>
         <Route path="*" element={<ErrorPage />}></Route>
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />

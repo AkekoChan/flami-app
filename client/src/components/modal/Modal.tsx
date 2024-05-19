@@ -26,7 +26,7 @@ const Modal = () => {
 
             <div className="flex items-center p-4 md:p-5 border-t rounded-b border-alabaster-600">
               <Button variant={"primary"} onClick={handleCloseModal}>
-                J'accepte
+                C'est d'accord
               </Button>
             </div>
           </div>

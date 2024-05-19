@@ -223,6 +223,13 @@
         "category": "feet",
         "id": "Tongue"
     },
+    "Chamallow": {
+        "name": "Chamallow moelleux",
+        "description": "",
+        "url": "/assets/img/cosmetics/Chamallow.png",
+        "category": "hands",
+        "id": "Chamallow"
+    },
     "Velo": {
         "name": "Casque de vélo",
         "description": "",

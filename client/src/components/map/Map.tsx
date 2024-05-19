@@ -73,13 +73,13 @@ const Map = ({
   return (
     <div className="h-96 rounded-2xl overflow-hidden relative">
 
-      { currentStep !== null ? (<Button className="absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
+      { currentStep !== null ? (<Button className="text-sm absolute bottom-0 left-0 z-500 w-fit text-alabaster-900 pl-5" onClick={() => { 
         setGeolocation(new LatLng(currentStep.geolocalisation.latitude, currentStep.geolocalisation.longitude)) 
       }}>
         <SearchIcon className="mr-1" role="decoration"/> Etape actuelle
       </Button>) : null }
       
-      { flamiPosition ? (<Button className="absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
+      { (flamiPosition && flamiPosition.latitude && flamiPosition.longitude) ? (<Button className="text-sm absolute bottom-0 right-0 z-500 w-fit text-alabaster-900 pr-5" onClick={() => { 
         setGeolocation(new LatLng(flamiPosition.latitude, flamiPosition.longitude)) 
       }}>
         <SearchIcon className="mr-1" role="decoration"/> Ton Flami

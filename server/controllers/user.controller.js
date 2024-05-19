@@ -120,7 +120,7 @@ const userController = {
     if (
       password &&
       String(password).match(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
+        /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(.*).{8,}$/
       )
     )
       patch.password = bcrypt.hashSync(password, bcrypt.genSaltSync(11));

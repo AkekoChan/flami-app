@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const flamiShema = new mongoose.Schema({
   owner_id: {
-    type: mongoose.Types.ObjectId
+    type: mongoose.Types.ObjectId,
+    ref: 'users'
   },
   date: {
     type: Date,

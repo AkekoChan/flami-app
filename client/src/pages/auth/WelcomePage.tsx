@@ -3,6 +3,7 @@ import { useCallback } from "react";
 import { Link } from "react-router-dom";
 import Modal from "../../components/modal/Modal";
 import { Button, LinkComponent } from "../../components/ui";
+import { AllFlamisButton } from "../../components/ui/allFlamisButton";
 
 const WelcomePage = () => {
   const { installPrompt, isInstalled, canInstall } = usePwa();
@@ -42,7 +43,7 @@ const WelcomePage = () => {
         )}
 
         <p className="text-center">
-          Tu as deja un compte ?{" "}
+          Tu as déjà un compte ?{" "}
           <Link
             to="/sign-in"
             className="text-tree-poppy-500 underline underline-offset-4"
@@ -50,6 +51,8 @@ const WelcomePage = () => {
             Connecte-toi ici !
           </Link>
         </p>
+
+        <AllFlamisButton/>
       </div>
     </section>
   );

@@ -12,7 +12,8 @@ const userSchema = new mongoose.Schema({
     default: 0
   },
   flami_id: {
-    type: mongoose.Types.ObjectId
+    type: mongoose.Types.ObjectId,
+    ref: 'flamis'
   },
   badges: [
     { id: { type: String }, created_at: { type: Date, default: Date.now() } }

@@ -7,6 +7,7 @@ const flamiController = {
   equipCosmetic: async (req, res) => {
     let userdata = res.locals.user;
     let cosmetic_id = req.body.cosmetic_id;
+    let cosmetic_category = req.body.cosmetic_category;
     let flami = await flamiModel.findOne({ _id: userdata.flami_id });
 
     let content = await readFile("./data/cosmetics.json", { encoding: "utf8" });
@@ -16,6 +17,12 @@ const flamiController = {
       return res.status(404).json({
         error: 404,
         message: "Tu ne possède pas ce cosmétique.",
+      });
+
+    if (flami.cosmetics.findIndex((e) => e.category === cosmetic_category) !== -1)
+      return res.status(404).json({
+        error: 409,
+        message: "Impossible d'équiper deux cosmétiques de la même catégorie en même temps.",
       });
 
     if (flami.cosmetics.findIndex((cosm) => cosm.id === cosmetic_id) !== -1) {
@@ -212,12 +219,12 @@ const flamiController = {
       flami_id: shared_flami._id,
       flamis_positions: {
         [flami._id]: {
-          latitude: location.latitude,
-          longitude: location.longitude,
+          latitude: location.latitude ?? null,
+          longitude: location.longitude ?? null,
         },
         [shared_flami._id]: {
-          latitude: shared_location.latitude,
-          longitude: shared_location.longitude,
+          latitude: shared_location.latitude ?? null,
+          longitude: shared_location.longitude ?? null,
         },
       },
     });
@@ -227,12 +234,12 @@ const flamiController = {
       flami_id: flami._id,
       flamis_positions: {
         [flami._id]: {
-          latitude: location.latitude,
-          longitude: location.longitude,
+          latitude: location.latitude ?? null,
+          longitude: location.longitude ?? null,
         },
         [shared_flami._id]: {
-          latitude: shared_location.latitude,
-          longitude: shared_location.longitude,
+          latitude: shared_location.latitude ?? null,
+          longitude: shared_location.longitude ?? null,
         },
       },
     });

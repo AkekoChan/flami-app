@@ -16,8 +16,8 @@ const lastStepValidationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Le mot de passe est obligatoire.")
     .matches(
-      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,}$/,
-      "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre et un caractère special."
+      /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(.*).{8,}$/,
+      "Le mot de passe doit contenir au moins huit caractères, une lettre majuscule, une lettre minuscule, un chiffre."
     )
     .trim(),
   confirmPassword: Yup.string()

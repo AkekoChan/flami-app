@@ -90,7 +90,7 @@ const ScanPage = () => {
         }}
         onError={(error) => console.error(error)}
       />
-      <span className="text-alabaster-50">
+      <span className="text-alabaster-50 text-center">
         Centre le QR code de ton ami dans le carré et attends qu'il soit
         détecté.
       </span>

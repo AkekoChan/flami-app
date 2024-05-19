@@ -1,8 +1,9 @@
 import Router from "express";
 import auth from "../helpers/authMiddleware.js";
+import flamitradeModel from "../models/flamitrade.model.js";
+import flamiModel from "../models/flami.model.js";
 
 const router = Router();
-
 
 router.get("/g/badge/:id", auth.require, async (req, res) => {
     let userdata = res.locals.user;
@@ -41,6 +42,62 @@ router.get("/g/cosmetic/:id", auth.require, async (req, res) => {
 
     await userdata.save();
     return res.status(201).json({ data: { message: "Tu as reçu le cosmetique !" }});
+});
+
+router.get("/world/flamis", async (req, res) => {
+    let allFlamis = await flamitradeModel.aggregate([
+        {
+            $addFields: {
+                positionArray: {
+                    $objectToArray: "$flamis_positions" // Convertir la map en tableau de paires clé-valeur
+                }
+            }
+        },
+        {
+            $addFields: {
+                validPositions: {
+                    $filter: {
+                        input: "$positionArray",
+                        as: "item",
+                        cond: {
+                            $and: [
+                                { $eq: ["$$item.k", { $toString: "$flami_id" }] }, // Filtrer par flami_id
+                                { $ne: ["$$item.v.latitude", null] }, // Latitude ne doit pas être nulle
+                                { $ne: ["$$item.v.longitude", null] }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        {
+            $match: {
+                "validPositions": { $ne: [] } // Garder uniquement les documents ayant des positions valides
+            }
+        },
+        {
+            $group: {
+                _id: "$flami_id", // Grouper par flami_id
+                doc: { $first: "$$ROOT" }, // Obtenir le document le plus récent par flami_id
+                count: { $sum: 1 }
+            }
+        },
+        {
+            $project: {
+                _id: "$doc._id",
+                user_id: "$doc.user_id",
+                flami_id: "$doc.flami_id",
+                created_at: "$doc.created_at",
+                position: { $arrayElemAt: ["$doc.validPositions.v", 0] },
+                count: 1 // Sélectionner uniquement la valeur de la position
+            }
+        },
+        {
+            $sort: { created_at: -1 } // Trier par created_at décroissant
+        }
+    ]);
+
+    return res.status(200).json({ data: allFlamis });
 });
 
 export default router;
