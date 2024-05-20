@@ -120,7 +120,7 @@ const CosmeticPage = () => {
 
   return (
     <section className="flex flex-col gap-6 mb-24">
-      <TopBar title="Modifier mon flami" hasReturn={true} prevPage="/" />
+      <TopBar title="Modifier mon Flami" hasReturn={true} prevPage="/" />
       <div className="min-h-60">
         {flami ? (<FlamiDisplay flami={flami} isSelf={true}/>) : null} 
       </div>

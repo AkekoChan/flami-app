@@ -94,7 +94,7 @@ const FlamisMap = () => {
           style={{ borderRadius: "1rem", padding: "10px", border: "2px solid #e6e6e6", paddingBottom: "80%" }}
         >
 
-          <MarkerClusterGroup chunkedLoading zoomToBoundsOnClick={true} maxClusterRadius={0.5} spiderfyOnMaxZoom={false} showCoverageOnHover={false} iconCreateFunction={createCustomClusterIcon}>
+          <MarkerClusterGroup chunkedLoading zoomToBoundsOnClick={true} maxClusterRadius={5} spiderfyOnMaxZoom={false} showCoverageOnHover={false} iconCreateFunction={createCustomClusterIcon}>
             { flamis ? flamis.map(worldFlami => <Marker
               key={worldFlami.flami_id}
                 zIndexOffset={100}
